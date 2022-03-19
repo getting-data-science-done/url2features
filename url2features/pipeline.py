@@ -5,7 +5,7 @@ import re
 
 from .featurize import generate_feature_function
 
-class TextTransform(TransformerMixin, BaseEstimator):
+class URLTransform(TransformerMixin, BaseEstimator):
     """
         This class implements a SciKit Learn compatible Transformer for
          converting a column containing a URL into a series of numeric values.

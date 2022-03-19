@@ -53,6 +53,18 @@ def null_tolerant_depth(x):
     if x != x:
         return 0
     else:
-        return len( str(x).split("/") )-1
+        x = remove_protocol_and_trim(x)
+        return len( str(x).split("/") )
 
 ########################################################################################
+
+def remove_protocol_and_trim(url):
+    p = re.findall(r"^https?://", url)
+    if len(p) > 0:
+        url = url[len(p[0]):]
+    e = re.findall(r"/\s*$", url)
+    if len(e) > 0:
+        url = url[:0-len(e[0])]
+    return url
+
+

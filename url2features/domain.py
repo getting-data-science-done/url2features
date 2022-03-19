@@ -10,32 +10,32 @@ from .process import load_word_list
 from .process import load_word_pattern
 
 """
-    url2features.extension: Domain extension feature flags
+    url2features.domain: Domain domain feature flags
 
-    Generate features for common domain extensions
+    Generate features for domains
 
 """
 
 ########################################################################################
-extension_pat = load_word_pattern('extensions.dat')
-extension_re = re.compile(extension_pat)
+domain_pat = load_word_pattern('domain.dat')
+domain_re = re.compile(domain_pat)
  
 ########################################################################################
-def extension_features(df, columns):
+def domain_features(df, columns):
     """
         Given a pandas dataframe and a set of column names.
-        calculate the extension features and add them.
+        calculate the domain features and add them.
     """
     rez = df.copy()
     for col in columns:
-        rez = add_extension_features(rez, col)
+        rez = add_domain_features(rez, col)
     return rez
 
 ########################################################################################
-def add_extension_features(df, col):
+def add_domain_features(df, col):
     """
         Given a pandas dataframe and a column name.
-        add simple text match features for extension.
+        add simple text match features for domain.
     """
 
     def ext_features(x, col):
@@ -46,9 +46,9 @@ def add_extension_features(df, col):
             type = 0
         else:
             url = (x[col])
-            exts = extension_re.findall(url)
+            exts = domain_re.findall(url)
             if len(exts) > 0:
-                freq, type = extension_lookup(ext[0])
+                freq, type = domain_lookup(ext[0])
         return freq, type
 
     df[[ col+'_ext_freq', col+'_ext_type' ]] = df.apply(ext_features, col=col, axis=1, result_type="expand")
@@ -56,9 +56,9 @@ def add_extension_features(df, col):
     return df
  
 ########################################################################################
-def extension_lookup(ext):
+def domain_lookup(ext):
     """
-        Given an extension returns its frequency and type
+        Given an domain returns its frequency and type
     """
     return 0, 0
 
