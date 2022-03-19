@@ -17,8 +17,10 @@ from .process import load_word_pattern
 """
 
 ########################################################################################
-extension_pat = load_word_pattern('extensions.dat')
-extension_re = re.compile(extension_pat)
+tld_pat =  "\.[a-z]+(?:/|$)" 
+tld_re = re.compile(tld_pat)
+
+extensions_pat = load_word_pattern('extensions.dat')
  
 ########################################################################################
 def extension_features(df, columns):
@@ -46,19 +48,19 @@ def add_extension_features(df, col):
             type = 0
         else:
             url = (x[col])
-            exts = extension_re.findall(url)
+            exts = tld_re.findall(url)
             if len(exts) > 0:
-                freq, type = extension_lookup(ext[0])
+                freq, type = top_level_domain_lookup(ext[0])
         return freq, type
 
-    df[[ col+'_ext_freq', col+'_ext_type' ]] = df.apply(ext_features, col=col, axis=1, result_type="expand")
+    df[[ col+'_tld_freq', col+'_tld_type' ]] = df.apply(ext_features, col=col, axis=1, result_type="expand")
 
     return df
  
 ########################################################################################
-def extension_lookup(ext):
+def top_level_domain_lookup(ext):
     """
-        Given an extension returns its frequency and type
+        Given a top level domain returns its frequency and type
     """
     return 0, 0
 
