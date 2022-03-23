@@ -55,7 +55,7 @@ def add_extension_features(df, col):
             url = (x[col])
             exts = tld_re.findall(url)
             if len(exts) > 0:
-                temp = ext[0].replace('.', '').replace('/','')
+                temp = exts[0].replace('.', '').replace('/','')
                 freq, type = top_level_domain_lookup(temp)
         return freq, type
 
@@ -71,7 +71,7 @@ def top_level_domain_lookup(ext):
     if ext in tld:
        freq = tld[ext]
     else:
-       freq = min(lookup.values())
+       freq = min(tld.values())
 
     if ext in domains:
        typer = domains[ext]

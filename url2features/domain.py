@@ -48,7 +48,7 @@ def add_domain_features(df, col):
             url = (x[col])
             exts = domain_re.findall(url)
             if len(exts) > 0:
-                freq, type = domain_lookup(ext[0])
+                freq, type = domain_lookup(exts[0])
         return freq, type
 
     df[[ col+'_ext_freq', col+'_ext_type' ]] = df.apply(ext_features, col=col, axis=1, result_type="expand")
