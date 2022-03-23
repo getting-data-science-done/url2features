@@ -8,6 +8,8 @@ from url2features.process import isNaN
 
 from url2features.simple import simple_features
 
+from url2features.extension import top_level_domain_lookup
+
 def test_padded():
     strrez = padded("sdf", 20)
     assert len(strrez) == 20
@@ -30,5 +32,9 @@ def test_simple():
     assert rez["url_depth"][1] == 1
     assert rez["url_depth"][2] == 1
 
-
+def test_domain_features():
+    freq, type = top_level_domain_lookup("com")
+    assert type == 4
+    freq, type = top_level_domain_lookup("au")
+    assert type == 3
 

@@ -6,6 +6,11 @@ import math
 import os
 import re
 
+from .process import load_dictionary
+
+tld = load_dictionary('tld.dat')
+domains = load_dictionary('domains.dat')
+
 from .process import load_word_list
 from .process import load_word_pattern
 
@@ -17,7 +22,7 @@ from .process import load_word_pattern
 """
 
 ########################################################################################
-tld_pat =  "\.[a-z]+(?:/|$)" 
+tld_pat = r"\.[a-z]+(?:/|$)" 
 tld_re = re.compile(tld_pat)
 
 extensions_pat = load_word_pattern('extensions.dat')
@@ -50,7 +55,8 @@ def add_extension_features(df, col):
             url = (x[col])
             exts = tld_re.findall(url)
             if len(exts) > 0:
-                freq, type = top_level_domain_lookup(ext[0])
+                temp = ext[0].replace('.', '').replace('/','')
+                freq, type = top_level_domain_lookup(temp)
         return freq, type
 
     df[[ col+'_tld_freq', col+'_tld_type' ]] = df.apply(ext_features, col=col, axis=1, result_type="expand")
@@ -62,5 +68,21 @@ def top_level_domain_lookup(ext):
     """
         Given a top level domain returns its frequency and type
     """
-    return 0, 0
+    if ext in tld:
+       freq = tld[ext]
+    else:
+       freq = min(lookup.values())
+
+    if ext in domains:
+       typer = domains[ext]
+       if typer == "generic":
+           type=4
+       elif typer == "country-code":
+           type=3
+       else:
+           type=2
+    else:
+       type = 1
+    
+    return freq, type
 
