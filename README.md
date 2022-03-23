@@ -112,4 +112,8 @@ Python package built using the
 [bootstrap cmdline template](https://github.com/jgehrcke/python-cmdline-bootstrap)
  by [jgehrcke](https://github.com/jgehrcke)
 
-
+Datasets for calculating features taken from the following sources 
+https://github.com/tb0hdan/domains
+and 
+https://datahub.io/core/top-level-domain-names#resource-top-level-domain-names_zip
+https://datahub.io/core/top-level-domain-names/r/top-level-domain-names.csv.csv
