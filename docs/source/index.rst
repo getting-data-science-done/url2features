@@ -1,8 +1,9 @@
-projit: Data Science Project Intergration
+url2features: URL Feature Engineering 
 =========================================
 
-Command Line utility for managing your data science project properties,
-data sets, experiments and documentation.
+Command Line utility and python library for
+processing columns of URLs into a series of
+numeric features.
 
 
 .. toctree::
