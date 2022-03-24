@@ -24,7 +24,7 @@ Installation depends on the following packages:
 
 .. code-block:: bash
 
-    pyyaml
+    numpy
     pandas
     sklearn
 
