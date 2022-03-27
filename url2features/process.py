@@ -21,6 +21,15 @@ from .config import max_filesize
 ########################################################################################
 resource_package = __name__
 
+def load_file(filename):
+    """
+    Utility function to load a raw data file
+    """
+    _path = '/'.join(('data', filename))
+    rawd = pkg_resources.resource_string(resource_package, _path).decode("utf-8")
+    return rawd
+
+########################################################################################
 def load_dictionary(filename, escape=False):
     """
     Utility function to load a json serialised dictionary
