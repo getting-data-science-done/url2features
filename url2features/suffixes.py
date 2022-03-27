@@ -11,7 +11,7 @@ lines = load_file('public_suffix_list.dat').split("\n")
 
 # Build a list of domain suffixes using the public suffix list from publicsuffix.org
 # Note that the file is read backwards to prevent, .uk superceding .co.uk, for example
-public_suffixes = [('.' + line.replace('*.', '')) for line in reversed(lines) if line[0:2] != '//' and line[0] != '!' and line != '\n']
+public_suffixes = [('.' + line.replace('*.', '')) for line in reversed(lines) if line != '\n' and line != '' and line[0:2] != '//' and line[0] != '!']
 
 # Domains with > 400k records in the 2016-02-13 Project Sonar Forward DNS data set and which
 # don't supercede sub-TLD parts (e.g. .jp is excluded because of .ne.jp, .co.jp, etc)
