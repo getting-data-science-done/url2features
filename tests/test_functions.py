@@ -10,12 +10,15 @@ from url2features.simple import simple_features
 
 from url2features.extension import top_level_domain_lookup
 
+from url2features.domain import extract_full_domain
+from url2features.domain import get_subdomain_type
+from url2features.domain import get_subdomain_freq
+
 def test_padded():
     strrez = padded("sdf", 20)
     assert len(strrez) == 20
     strrez = padded("sdf", 30)
     assert len(strrez) == 30
-
 
 def test_isNaN():
     assert isNaN(20) == False
@@ -37,4 +40,16 @@ def test_domain_features():
     assert type == 4
     freq, type = top_level_domain_lookup("au")
     assert type == 3
+
+def test_domain_extract():
+    dom = extract_full_domain("https://www.smh.com.au/sydney-news")
+    assert dom == "www.smh.com.au"
+
+def test_subdomain_type():
+    f = get_subdomain_type("www")
+    assert f == 6
+
+def test_subdomain_freq():
+    f = get_subdomain_freq("www")
+    assert f > 0
 
