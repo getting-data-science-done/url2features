@@ -23,16 +23,12 @@ def get_domain_registration_date(domain):
       return dom_reg[domain]
     else:
       try:
-        w2 = whois.whois(dom)
+        w2 = whois.whois(domain)
         if isinstance(w2.creation_date, list):
             created = w2.creation_date[0]
         else:
             created = w2.creation_date
-
-        if isinstance(created, datetime):
-            return created
-        else:
-            return np.nan
+        return created
       except:
             return np.nan
 
