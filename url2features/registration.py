@@ -15,7 +15,7 @@ dom_reg = load_dictionary('dom_reg.dat')
 #########################################################################
 def get_registration_year(domain):
     reg = get_domain_registration_date(domain)
-    return reg.year
+    return int(reg[0:4])
 
 #########################################################################
 def get_domain_registration_date(domain):

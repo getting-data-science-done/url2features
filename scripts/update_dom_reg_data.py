@@ -48,8 +48,8 @@ for dom in newdf['domain2']:
             else:
                 created = w2.creation_date
             lookup[dom] = created
-     except:
-        lookup[dom] = "" 
+        except:
+            lookup[dom] = "" 
 
 with open(dict_file, 'w') as file:
      file.write(json.dumps(lookup))
