@@ -14,6 +14,8 @@ from url2features.domain import extract_full_domain
 from url2features.domain import get_subdomain_type
 from url2features.domain import get_subdomain_freq
 
+from url2features.registration import get_registration_year
+
 def test_padded():
     strrez = padded("sdf", 20)
     assert len(strrez) == 20
@@ -52,4 +54,9 @@ def test_subdomain_type():
 def test_subdomain_freq():
     f = get_subdomain_freq("www")
     assert f > 0
+
+def test_get_registration_year():
+    f = get_registration_year("google.com")
+    assert f == 1997
+
 

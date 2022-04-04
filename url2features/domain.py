@@ -13,6 +13,7 @@ import re
 
 from .suffixes import split_domain_and_suffix
 from .process import load_dictionary
+from .registration import get_registration_year
 
 subdomain_types = load_dictionary('subdomain_types.dat')
 subdomain_freqs = load_dictionary('subdomain_freqs.dat')
@@ -78,13 +79,16 @@ def add_domain_features(df, col):
             if len(parts) > 1:
                 sub_type = get_subdomain_type(parts[0])
                 sub_freq = get_subdomain_freq(parts[0])
+                reg_dom = prime[len(parts[0])+1:] + "." + suffix
             else:
                 sub_type = -1
                 sub_freq = -1
+                reg_dom = domain
+            reg_year = get_registration_year(reg_dom)
 
-        return secs, sub_type, sub_freq
+        return secs, sub_type, sub_freq, reg_year
 
-    df[[ col+'_domain_sections', col+'_subdomain_type', col+'_subdomain_freq'  ]] = df.apply(dom_features, col=col, axis=1, result_type="expand")
+    df[[ col+'_domain_sections', col+'_subdomain_type', col+'_subdomain_freq', col+'_dom_reg_year'  ]] = df.apply(dom_features, col=col, axis=1, result_type="expand")
 
     return df
  

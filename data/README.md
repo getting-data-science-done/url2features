@@ -14,6 +14,11 @@ https://github.com/bitquark/dnspop/blob/master/results/bitquark_20160227_subdoma
 ```
 
 
+### Top 50 Domains
 
+To pre-populate the domain registration databases we grabbed the top 50
+domains from the page : https://www.visualcapitalist.com/the-50-most-visited-websites-in-the-world/
+
+Edited and saved them in the file [top_50_domains.csv](top_50_domains.csv)
 
 
