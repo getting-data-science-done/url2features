@@ -11,13 +11,11 @@ import whois
 from .process import load_dictionary
 
 dom_reg = load_dictionary('dom_reg.dat')
-
  
 #########################################################################
-def get_registration_year(domain)
+def get_registration_year(domain):
     reg = get_domain_registration_date(domain)
     return reg.year
-
 
 #########################################################################
 def get_domain_registration_date(domain):
