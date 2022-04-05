@@ -29,7 +29,26 @@ Released and distributed via setuptools/PyPI/pip for Python 3.
 
 ### Resources & Dependencies
 
-For Domain Age data we use the python package : 
+For Domain Registration data we use the python package : whois.
+However, rather than constantly hit that API endpoint we create a local dataset
+of domain registration dates. This data is installed with the package.
+
+The data was initialised with the following script:
+```
+python scripts/init_dom_reg_data.py
+```
+
+We then updated the data file using multiple datasets of common
+domains and some specific to the requirements of our project.
+These update script runs were executed as follows:
+```
+python scripts/update_dom_reg_data.py data/top_50_domains.csv Domain
+```
+
+```
+python scripts/update_dom_reg_data.py data/top_50_domains_v2.csv site
+```
+
 
 This is used to build a local cached library of domain registration dates. 
 
@@ -38,6 +57,7 @@ This is used to build a local cached library of domain registration dates.
 Each type of feature can be unlocked through the use of a specific command line switch:
 
 ```
+  -simple	     Default: False. Basic string derived features
   -domain            Default: False. Information about the domain and its registration.
   -extension         Default: False. Information about the domain extension
 ```

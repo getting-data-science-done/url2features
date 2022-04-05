@@ -14,8 +14,12 @@ dom_reg = load_dictionary('dom_reg.dat')
  
 #########################################################################
 def get_registration_year(domain):
+    #print("FUNCTION CALL: get_registration_year(", domain, ")")
     reg = get_domain_registration_date(domain)
-    return int(reg[0:4])
+    if reg:
+        return int(reg[0:4])
+    else:
+        return np.nan
 
 #########################################################################
 def get_domain_registration_date(domain):
@@ -28,8 +32,8 @@ def get_domain_registration_date(domain):
             created = w2.creation_date[0]
         else:
             created = w2.creation_date
-        return created
+        return str(created)
       except:
-            return np.nan
+            return ""
 
 

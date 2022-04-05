@@ -21,4 +21,7 @@ domains from the page : https://www.visualcapitalist.com/the-50-most-visited-web
 
 Edited and saved them in the file [top_50_domains.csv](top_50_domains.csv)
 
+Grabbed another table of data from: https://www.similarweb.com/top-websites/
+
+Edited and saved as [top_50_domains_v2.csv](top_50_domains_v2.csv)
 

@@ -49,7 +49,7 @@ def test_domain_extract():
 
 def test_subdomain_type():
     f = get_subdomain_type("www")
-    assert f == 6
+    assert f == 5
 
 def test_subdomain_freq():
     f = get_subdomain_freq("www")

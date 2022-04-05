@@ -1,0 +1,51 @@
+rank,site,category,Change,AvgVisitDuration,PagesVisit,BounceRate
+1,google.com,Computers Electronics and Technology > Search Engines,=,00:11:25,8.7,28.17%
+2,youtube.com,Arts & Entertainment > TV Movies and Streaming,=,00:21:18,12.15,19.86%
+3,facebook.com,Computers Electronics and Technology > Social Networks and Online Communities,=,00:10:07,8.41,32.71%
+4,twitter.com,Computers Electronics and Technology > Social Networks and Online Communities,=,00:10:41,9.95,31.81%
+5,instagram.com,Computers Electronics and Technology > Social Networks and Online Communities,=,00:07:51,11.09,34.80%
+6,baidu.com,Computers Electronics and Technology > Search Engines,=,00:06:00,8.24,20.80%
+7,wikipedia.org,Reference Materials > Dictionaries and Encyclopedias,+1,00:03:55,3.09,57.27%
+8,yandex.ru,Computers Electronics and Technology > Search Engines,-1,00:11:51,9.56,21.66%
+9,yahoo.com,News and Media,-1,00:07:43,5.75,34.85%
+10,xvideos.com,Adult,=,00:09:53,9.19,20.91%
+11,whatsapp.com,Computers Electronics and Technology > Social Networks and Online Communities,=,00:03:11,1.52,74.53%
+12,xnxx.com,Adult,=,00:08:42,11.36,13.35%
+13,amazon.com,E commerce and Shopping > Marketplace,+1,00:06:48,8.53,36.11%
+14,netflix.com,Arts & Entertainment > TV Movies and Streaming,+1,00:09:08,4.28,40.88%
+15,yahoo.co.jp,News and Media,=,00:08:52,6.77,33.85%
+16,live.com,Computers Electronics and Technology > Email,=,00:07:26,8.44,18.85%
+17,pornhub.com,Adult,=,00:08:05,6.98,27.02%
+18,zoom.us,Computers Electronics and Technology > Other Computers Electronics and Technology,=,00:03:24,2.95,40.36%
+19,office.com,Computers Electronics and Technology > Programming and Developer Software,-2,00:09:36,7.67,28.47%
+20,reddit.com,Computers Electronics and Technology > Social Networks and Online Communities,+1,00:09:49,6.61,36.64%
+21,tiktok.com,Computers Electronics and Technology > Social Networks and Online Communities,=,00:03:53,10.38,45.52%
+22,linkedin.com,Computers Electronics and Technology > Social Networks and Online Communities,-1,00:07:31,6.88,28.95%
+23,vk.com,Computers Electronics and Technology > Social Networks and Online Communities,=,00:14:13,16.61,24.55%
+24,xhamster.com,Adult,-1,00:08:54,7.12,25.14%
+25,discord.com,Computers Electronics and Technology > Social Networks and Online Communities,+2,00:06:55,8.51,48.22%
+26,twitch.tv,Games > Video Games Consoles and Accessories,-1,00:08:23,4.21,28.64%
+27,naver.com,News and Media,=,00:20:29,12.81,22.75%
+28,bing.com,Computers Electronics and Technology > Search Engines,=,00:07:15,5.29,38.65%
+29,bilibili.com,Arts & Entertainment > Animation and Comics Test,-2,00:18:49,8.41,20.48%
+30,mail.ru,Computers Electronics and Technology > Email,-2,00:08:11,6.45,29.50%
+31,duckduckgo.com,Computers Electronics and Technology > Search Engines,=,00:09:24,7.34,12.56%
+32,roblox.com,Games > Video Games Consoles and Accessories,+1,00:16:06,9.01,18.54%
+33,microsoftonline.com,Computers Electronics and Technology > Programming and Developer Software,-5,00:01:58,2.46,43.10%
+34,microsoft.com,Computers Electronics and Technology > Programming and Developer Software,-1,00:04:30,3.85,44.36%
+35,pinterest.com,Computers Electronics and Technology > Social Networks and Online Communities,+2,00:05:17,5.27,45.01%
+36,samsung.com,Computers Electronics and Technology > Consumer Electronics,-8,00:02:47,2.46,50.73%
+37,qq.com,News and Media,-1,00:04:01,3.6,45.53%
+38,msn.com,News and Media,-1,00:05:41,4.3,54.63%
+39,globo.com,News and Media,-3,00:04:29,2.4,48.35%
+40,news.yahoo.co.jp,News and Media,+1,00:06:39,4.68,28.13%
+41,google.com.br,Computers Electronics and Technology > Search Engines,=,00:04:56,13.72,19.17%
+42,ebay.com,E commerce and Shopping > Marketplace,+1,00:06:47,6.8,36.61%
+43,fandom.com,Arts & Entertainment > Other Arts and Entertainment,+4,00:04:57,4.12,49.97%
+44,bbc.co.uk,News and Media,-9,00:05:02,3.19,46.47%
+45,miguvideo.com,Arts & Entertainment > TV Movies and Streaming,=,00:04:07,2.12,54.55%
+46,accuweather.com,Science and Education > Weather,+7,00:00:56,2.25,34.56%
+47,docomo.ne.jp,Computers Electronics and Technology > Telecommunications,=,00:03:41,4.54,29.51%
+48,realsrv.com,Adult,-1,00:01:21,1.97,27.10%
+49,powerlanguage.co.uk,Hobbies and Leisure,-17,00:03:37,2.22,59.42%
+50,weather.com,Science and Education > Weather,+11,00:00:55,1.79,38.46%

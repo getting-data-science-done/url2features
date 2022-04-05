@@ -8,23 +8,25 @@
 # ###################################
 import numpy as np
 import pandas as pd
+import argparse
 import json
 import whois
+import os
+import sys
+
+oldfile = "../attention-and-context/ranking_analysis/data/URLs.csv"
 
 dict_file = 'url2features/data/dom_reg.dat' 
 
-with open(dict_file, 'r') as file:
-    lookup =  json.loads(file)
-
-df = pd.read_csv("../attention-and-context/ranking_analysis/data/URLs.csv")
-
+####################################################################
+"""
+Utility functions used by main()
+"""
 def extract_domain(url):
     parts = url.split("/")
     if len(parts)>1:
         return parts[0]
     return url
-
-df['domain'] = df['referrer'].apply(extract_domain)
 
 def remove_subdomain(url):
     if url[0:3]=='www':
@@ -35,23 +37,63 @@ def remove_subdomain(url):
         splitd = url.split(".")
     return url
 
-df['domain2'] = df['domain'].apply(remove_subdomain)
+####################################################################
+def main(datafile, urlcol, sep=","):
+    """
+    Main function for processing the datafile to add all the domains
+    to the lookup dictionary
+    """ 
+    df = pd.read_csv(datafile, sep=sep)
 
-newdf = df.groupby('domain2').agg({'referrer':'count'}).reset_index()
+    with open(dict_file, 'r') as file:
+        lookup =  json.loads(file.read())
 
-for dom in newdf['domain2']:    
-    if dom not in lookup:
-        try:
-            w2 = whois.whois(dom)
-            if isinstance(w2.creation_date, list):
-                created = w2.creation_date[0]
-            else:
-                created = w2.creation_date
-            lookup[dom] = created
-        except:
-            lookup[dom] = "" 
+    df['domain'] = df[urlcol].apply(extract_domain)
+ 
+    df['domain2'] = df['domain'].apply(remove_subdomain)
 
-with open(dict_file, 'w') as file:
-     file.write(json.dumps(lookup))
+    newdf = df.groupby('domain2').agg({urlcol:'count'}).reset_index()
+
+    for dom in newdf['domain2']:
+        dom = dom.lower()   
+        if dom not in lookup:
+            try:
+                w2 = whois.whois(dom)
+                if isinstance(w2.creation_date, list):
+                    created = w2.creation_date[0]
+                else:
+                    created = w2.creation_date
+                lookup[dom] = str(created)
+            except:
+                lookup[dom] = "" 
+
+    with open(dict_file, 'w') as file:
+         file.write(json.dumps(lookup))
+
+#########################################################################
+if __name__ == '__main__':
+    my_parser = argparse.ArgumentParser(description='Update the library domain reg data')
+    my_parser.add_argument('data',
+                       metavar='data',
+                       type=str,
+                       help='Path to CSV file containing URLs')
+    my_parser.add_argument('col',
+                       metavar='col',
+                       type=str,
+                       help='Name of the column that contains URLs')
+ 
+    my_parser.add_argument('--sep', nargs='?', const=1, type=str, default=",")
+
+    args = my_parser.parse_args()
+    data = args.data
+    col = args.col
+    sep = args.sep
+
+    if not os.path.isfile(data):
+        print(" ERROR")
+        print(" The input file '%s' does not exist" % data)
+        sys.exit()
+
+    main(data, col, sep)
 
 
