@@ -41,8 +41,8 @@ def extract_full_domain(url):
     if len(prot)>0:
         url = url[len(prot[0]):]
     parts = url.split("/")
-    url = parts[0]
-    return url
+    domain = parts[0]
+    return domain
 
 ########################################################################################
 def get_subdomain_type(sub):

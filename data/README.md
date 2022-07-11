@@ -25,3 +25,17 @@ Grabbed another table of data from: https://www.similarweb.com/top-websites/
 
 Edited and saved as [top_50_domains_v2.csv](top_50_domains_v2.csv)
 
+
+
+# ML Tasks
+
+We are collecting some datasets for testing features on ML tasks.
+
+### Malicious URL Detection
+
+https://github.com/lucasayres/url-feature-extractor
+
+
+
+
+

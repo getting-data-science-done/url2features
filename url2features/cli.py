@@ -57,6 +57,8 @@ def get_cmd_line_params(argv):
               "simple":False, 
               "domain":False, 
               "extension":False, 
+              "ip":False, 
+              "file":False, 
     }
     for o in options:
         parts = o.split("=")
@@ -64,6 +66,10 @@ def get_cmd_line_params(argv):
             result["simple"]=True
         if parts[0] == "-domain":
             result["domain"]=True
+        if parts[0] == "-file":
+            result["file"]=True
+        if parts[0] == "-ip":
+            result["ip"]=True
         if parts[0] == "-extension":
             result["extension"]=True
         if parts[0] == "-columns":
@@ -81,7 +87,9 @@ def print_usage(args):
     print(" [ARGS] In most cases these are switches that turn on the feature type")
     print("  -columns=<COMMA SEPARATED LIST>. REQUIRED")
     print("  -simple            Default: False. Features derived from the URL string: length, depth")
-    print("  -domain            Default: False. Features derived from the domain registration.")
+    print("  -domain            Default: False. Features from the domain registration (requires internet).")
+    print("  -file              Default: False. Features derived from the final file.")
+    print("  -ip                Default: False. Features derived from the IP address (requires internet).")
     print("  -extension         Default: False. Features about the domain extension and structure.")
     print("")
 
