@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
-import pandas as pd 
+from urllib import parse
+import pkg_resources
+import pandas as pd
 import numpy as np
 import math
 import os
 import re
 
+
 """
     url2features.file: Features based on the file type.
 """
-ext_types = load_dictionary('file_extensions.dat')
+from .process import load_dictionary
+
+extension_types = load_dictionary('file_extensions.dat')
 
 ########################################################################################
 def file_features(df, columns):
@@ -49,6 +54,16 @@ def add_file_features(df, col):
 
 ########################################################################################
 def file_extension_lookup(ext):
+    """
+        Given a file extension returns the type
+    """
+    if ext in extension_types:
+        return extension_types[ext]
+    else:
+        return "Unknown"
+
+########################################################################################
+def file_extension_lookup_old(ext):
     """
         Given a file extension returns its frequency and type
     """

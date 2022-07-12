@@ -14,6 +14,8 @@ from url2features.domain import extract_full_domain
 from url2features.domain import get_subdomain_type
 from url2features.domain import get_subdomain_freq
 
+from url2features.file import file_extension_lookup
+
 from url2features.registration import get_registration_year
 
 def test_padded():
@@ -58,5 +60,13 @@ def test_subdomain_freq():
 def test_get_registration_year():
     f = get_registration_year("google.com")
     assert f == 1997
+
+def test_file_extension_lookup():
+    ext = "html"
+    type = file_extension_lookup(ext)
+    assert type == "static"
+    ext = "js"
+    type = file_extension_lookup(ext)
+    assert type == "script"
 
 
