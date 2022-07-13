@@ -8,6 +8,7 @@ from .process import end_profile
 from .simple import simple_features
 from .domain import domain_features
 from .extension import extension_features
+from .file import file_features
 
 """
     url2features.featurize: Core functions to apply a set of features to a data frame.
@@ -23,6 +24,10 @@ def process_df(df, params):
         start_profile("simple")
         df = simple_features( df, params["columns"] )
         end_profile("simple")
+    if params["file"] :
+        start_profile("file")
+        df = file_features( df, params["columns"] )
+        end_profile("file")
     if params["domain"] :
         start_profile("domain")
         df = domain_features( df, params["columns"] )

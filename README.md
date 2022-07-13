@@ -60,6 +60,8 @@ Each type of feature can be unlocked through the use of a specific command line 
   -simple	     Default: False. Basic string derived features
   -domain            Default: False. Information about the domain and its registration.
   -extension         Default: False. Information about the domain extension
+  -file              Default: False. The file extension and type referenced by the URL
+  -ip                Default: False. DNS related information.
 ```
 
 ## Usage
@@ -72,17 +74,18 @@ Use the runner without installing the application.
 The following example will generate all features on the test data.
 
 ```
-./url2features-runner.py -columns=referrer -domain -extension data/test.csv > data/output.csv
+./url2features-runner.py -columns=url -simple -file -domain -extension data/test.csv > data/output.csv
 ```
 
 This will send the time performance profile to STDERR as shown below:
 ```
 Computation Time Profile for each Feature Set
 ---------------------------------------------
-simple               0:00:00.498634
-domain               0:00:00.536637
-extension            0:00:00.496018
-```  
+simple               0:00:00.007806
+file                 0:00:00.010610
+domain               0:00:00.005990
+extension            0:00:00.004449
+```
 
 ### Directory as package 
 

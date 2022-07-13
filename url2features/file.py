@@ -32,23 +32,19 @@ def add_file_features(df, col):
         Given a pandas dataframe and a column name.
         calculate the file features 
     """
-    def file_features(x, col):
-        freq = 0
-        type = 0
+    def get_file_features(x, col):
         ext = ""
-        if x[col]!=x[col]:
-            freq = 0
-            type = 0
-        else:
+        type = ""
+        if x[col]==x[col]:
             url = (x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
             sections = path.split(".")
             if len(sections) > 1:
                 ext = sections[1]
                 type = file_extension_lookup(ext)
-        return ext, freq, type
+        return ext, type
 
-    df[[ col+'_file_extension', col+'_file_ext_type' ]] = df.apply(file_features, col=col, axis=1, result_type="expand")
+    df[[ col+'_file_extension', col+'_file_ext_type' ]] = df.apply(get_file_features, col=col, axis=1, result_type="expand")
 
     return df
 
@@ -60,7 +56,7 @@ def file_extension_lookup(ext):
     if ext in extension_types:
         return extension_types[ext]
     else:
-        return "Unknown"
+        return ""
 
 ########################################################################################
 def file_extension_lookup_old(ext):
