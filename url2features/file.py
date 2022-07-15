@@ -64,7 +64,7 @@ def file_extension_lookup_old(ext):
         Given a file extension returns its frequency and type
     """
     if ext in extension_types:
-       typer = ext_types[ext]
+       typer = extension_types[ext]
        if typer == "static":
            type=1
        elif typer == "dynamic":
