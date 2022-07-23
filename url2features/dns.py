@@ -38,6 +38,7 @@ def add_dns_features(df, col):
             country = ""
         else:
             url = (x[col])
+            _dns_response = dns.resolver.query(url, 'TXT')
             val = 0
             ptr = 0
             spf = 0
@@ -65,4 +66,20 @@ def get_country(url):
     except Exception:
         return '?'
 
+
+def split_url(url):
+    """Split URL into: protocol, host, path, params, query and fragment."""
+    if not parse.urlparse(url.strip()).scheme:
+        url = 'http://' + url
+    protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
+    result = {
+        'url': host + path + params + query + fragment,
+        'protocol': protocol,
+        'host': host,
+        'path': path,
+        'params': params,
+        'query': query,
+        'fragment': fragment
+    }
+    return result
 

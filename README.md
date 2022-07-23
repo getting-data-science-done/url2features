@@ -7,7 +7,7 @@ url2features
 [![Documentation Status](https://readthedocs.org/projects/url2features/badge/?version=latest)](https://url2features.readthedocs.io/en/latest/?badge=latest)
 
 ```
-Status - Non-Functional In development
+Status - Semi-Functional - In development
 ```
 
 This is an application to add features to a dataset that are derived from processing
@@ -136,7 +136,13 @@ Python package built using the
  by [jgehrcke](https://github.com/jgehrcke)
 
 Datasets for calculating features taken from the following sources 
-https://github.com/tb0hdan/domains
-and 
-https://datahub.io/core/top-level-domain-names#resource-top-level-domain-names_zip
-https://datahub.io/core/top-level-domain-names/r/top-level-domain-names.csv.csv
+* https://github.com/tb0hdan/domains
+* https://datahub.io/core/top-level-domain-names#resource-top-level-domain-names_zip
+* https://datahub.io/core/top-level-domain-names/r/top-level-domain-names.csv.csv
+ 
+Some features ideas taken and adapted from the following:
+
+* [URL Feature Extractor](https://github.com/lucasayres/url-feature-extractor)
+
+
+
