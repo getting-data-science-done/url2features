@@ -54,7 +54,7 @@ def add_dns_features(df, col):
 def get_country(url):
     """Return the country associated with IP."""
     try:
-        ip = resolver.query(url, 'A')
+        ip = dns.resolver.query(url, 'A')
         ip = ip[0].to_text()
 
         if ip:
