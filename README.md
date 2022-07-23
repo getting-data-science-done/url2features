@@ -61,7 +61,7 @@ Each type of feature can be unlocked through the use of a specific command line 
   -domain            Default: False. Information about the domain and its registration.
   -extension         Default: False. Information about the domain extension
   -file              Default: False. The file extension and type referenced by the URL
-  -ip                Default: False. DNS related information.
+  -dns               Default: False. DNS related information.
 ```
 
 ## Usage
