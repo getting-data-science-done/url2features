@@ -57,7 +57,7 @@ def get_cmd_line_params(argv):
               "simple":False, 
               "domain":False, 
               "extension":False, 
-              "ip":False, 
+              "dns":False, 
               "file":False, 
     }
     for o in options:
@@ -68,8 +68,8 @@ def get_cmd_line_params(argv):
             result["domain"]=True
         if parts[0] == "-file":
             result["file"]=True
-        if parts[0] == "-ip":
-            result["ip"]=True
+        if parts[0] == "-dns":
+            result["dns"]=True
         if parts[0] == "-extension":
             result["extension"]=True
         if parts[0] == "-columns":
@@ -89,7 +89,7 @@ def print_usage(args):
     print("  -simple            Default: False. Features derived from the URL string: length, depth")
     print("  -domain            Default: False. Features from the domain registration (requires internet).")
     print("  -file              Default: False. Features derived from the final file.")
-    print("  -ip                Default: False. Features derived from the IP address (requires internet).")
+    print("  -dns               Default: False. Features derived from the DNS records (requires internet).")
     print("  -extension         Default: False. Features about the domain extension and structure.")
     print("")
 

@@ -6,6 +6,7 @@ from url2features.process import padded
 from url2features.process import extract_file_extension
 from url2features.process import isNaN
 
+from url2features.dns import get_country
 from url2features.simple import simple_features
 
 from url2features.extension import top_level_domain_lookup
@@ -69,4 +70,9 @@ def test_file_extension_lookup():
     type = file_extension_lookup(ext)
     assert type == "script"
 
+
+def test_country_lookup_from_url():
+    url = "www.australia.gov.au"
+    country = get_country(url)
+    assert country == "AU"
 

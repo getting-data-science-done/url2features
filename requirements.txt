@@ -1,6 +1,6 @@
+geocoder==1.38.1
 numpy>=1.16.4
 pandas>=0.25.3
 pytest>=6.0.1
 sklearn
 whois
-
