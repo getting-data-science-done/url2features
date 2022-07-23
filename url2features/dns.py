@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import pandas as pd 
-from dns import resolver, reversename
 from urllib import parse
 import numpy as np
 import geocoder
 import math
+import dns 
 import os
 import re
 
