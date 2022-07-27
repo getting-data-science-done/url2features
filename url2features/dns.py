@@ -131,7 +131,7 @@ def get_ptr(url_parts):
         if valid_ip(url_parts['host']):
             ip = url_parts['host']
         else:
-            ip = resolver.query(url['host'], 'A')
+            ip = resolver.query(url_parts['host'], 'A')
             ip = ip[0].to_text()
 
         if ip:
