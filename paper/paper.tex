@@ -102,7 +102,7 @@
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{Evaluating Ad Creative and Web Context Alignment with Attention Measurement}
+\title{What's in a Domain?}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -111,43 +111,19 @@
 %% "authornote" and "authornotemark" commands
 %% used to denote shared contribution to the research.
 \author{John Hawkins}
-\email{john.hawkins@playgroundxyz.com}
+\email{john.hawkins@Getting-Data-Science-Done.com}
 \orcid{1234-5678-9012}
-\author{Graham Burton}
-\email{graham.burton@playgroundxyz.com}
 \affiliation{%
-  \institution{Playground XYZ}
-  \streetaddress{Level 11/61 York St}
+  \institution{Getting-Data-Science-Done.com}
   \city{Sydney}
   \state{NSW}
-  \country{Australian}
+  \country{Australia}
   \postcode{2000}
 }
 
-\renewcommand{\shortauthors}{Hawkins \& Burton}
+\renewcommand{\shortauthors}{Hawkins}
 
 \begin{abstract}
-Contextual targeting is a common strategy that places marketing messages
-in media locations that are aligned with a target audience.
-The challenge of contextual targeting is knowing the ideal schema and
-the set of categories that provide the right audience.
-Refinement of the contextual targeting process has been
-limited by the use of metrics that are either rapid but
-unreliable (click through rates), or reliable
-but slow, expensive and inaccessible in real-time (conversions or brand awareness).
-
-In this study we evaluate the use of attention measurement as a technique for
-understanding the alignment between advertising creatives and media contexts.
-We perform the analysis using
-a large scale dataset of impressions categorised using the iAB V2.0 taxonomy. We
-evaluate the alignment by looking for consistency across time in the attention
-a given creative attracts over the levels of the categorisation hierarchy.
-
-Our research is the largest known study of the relationship between advertising creative,
-media context and consumer attention. We provide strong empirical evidence that consumer
-attention is related to an alignment between the creative execution and topics of media
-context. Furthermore, we show that this relationship transcends any specific publication
-by providing reliable indications of attention on new website domains.
 
 \end{abstract}
 
@@ -185,121 +161,14 @@ by providing reliable indications of attention on new website domains.
 \ccsdesc{Computer systems organization~Robotics}
 \ccsdesc[100]{Networks~Network reliability}
 
-\keywords{Contextual Targeting, Attention Measurement, Digital Advertising, Digital Media}
+\keywords{URL Features, Document Classification, Machine Learning, Semantic Web}
 
 \maketitle
 
 \section{Introduction}
-Contextual targeting allows advertisers to reach people with known interests,
-rendered explicit
-by the choice to consume media with content about a specific topic.
-These contexts are thereby used to infer potential purchase intentions,
-due to the association
-between interests and products. Context is increasingly seen as a critical
-factor in creating and defining brand engagement \cite{Wang2006}.
-
-Context is also often used as an indirect method of reaching people that belong to certain
-audiences or groups on the basis that people's interests and demographics are aligned \cite{str2016}.
-A strategy that may be more effective given that targeting on the basis of gender alone
-may not drive better results for many campaigns \cite{Jansen2013}.
-The underlying assumptions about the relationships between demographics,
-content and intentions
-are supported by investigations into the social media behaviour of different demographic
-groups \cite{Wang2016}.
-Multiple studies have looked at the effect of media context on advertising outcomes.
-A recent meta-analysis found significant effects for multiple dimensions of
-media context on advertising recall \cite{Kwon2019}.
-However, studies that look at the congruence
-between the topic context of a page and the content of an ad have found some
-counterintuitive results. For
-example, brand recall can be associated with ads appearing within irrelevant contexts,
-potentially due to an ability to stand out from a suite of relevant ads \cite{Kononova2020}.
-
-The difficulty of implementing effective contextual targeting comes down three key issues.
-You will need to determine an ideal contextual hierarcy or categorisation scheme that can be
-applied uniformly across all media. You need to identify which components of that categorisation
-scheme are appropriate for your brand or specific campaign. Finally, you need to balance the
-contextual targeting against other goals like reach and frequency.
-Advertisers generally must expand targeting to across high-level categories in order to
-fulfill requirements as highly specific contexts are both expensive and rare.
-
-In this work we experiment with the use of gaze duration as a measurement of
-visual attention to determine the relative performance of categories within
-the iAB V2.0 Contextual Hierarchy \cite{iabv2}.
-We undertake this to understand the uniformity of the right context for a given brand, and
-the reliability of performance across the hierarchy and across time. The goal is to determine
-strategies by which contextual targeting can be refined for advertising outcomes.
-
-Eye tracking studies are widely used as a method of measuring overt attention
-to visual stimuli and have been applied to study the extent to which people
-look at, and remember, advertising \cite{Hervet2011}. The technology has also
-allowed the study of many factors that contribute to effective marketing,
-including the impact of images of faces \cite{Djamasbi2010},
-the use of animation \cite{Hamborg2012,Lee2012}, the relationship with
-social media posts \cite{Barreto2013}, and emotional responses to visual stimuli
-in different physical spaces \cite{Kim2021}.
-
-Multiple investigations have identifed that attention time on advertising
-provides a real-time metric that is correlated with important downstream
-impacts like brand recall \cite{Lee2012}, consideration and purchase intent (\citeauthor{dentsu,PlaygroundXYZ}). Importantly, even though low attention can drive brand outcomes,
-multiple studies have demonstrated that greater attention through direct
-fixation has a greater impact on marketing outcomes, including
-consideration, choice \cite{Santoso2021} and short term advertising
-strength \cite{NelsonField}. The pervasive evidence of the role of visual attention
-in the success of advertising has led to increasing focus on Attention Based Marketing
-research \cite{Orquin2020}.
-
-Contextual relevance is a method of aligning the message in advertising with the editorial
-content that it is presented with \cite{Wang2011}. This is not simply a matter of
-being \emph{about} the same topic, as consumers's have been shown to
-to pay more attention to advertising that is relevant to their current task
-(i.e. what they are looking for, or why they are reading) than simply advertising that
-is contextually aligned \cite{Resnick2016}. This is coherent with observations
-in the psychological literature that overt visual attention is influenced by motivations
-and personality traits of individuals \cite{Kaspar2011}. Thus, the role of contextual
-targeting may be to bring \emph{top-down} attention selection to advertising that would
-otherwise garner attention in a \emph{bottom-up} manner \cite{Greenberg2013}.
-
-We draw on two observations to motivate the current work. Firstly, advertisers are aware
-that alignment between a campaign creative and media context can drive outcomes.
-Secondly, they require methods for detecting when that alignment is functioning and
-when it is not. The thesis of this research is that large scale real-time
-measurement of ad attention can determine if an ad is aligned with a specific context,
-and thereby provide a tool for fine tuning contextual targeting
-strategies for advertiser outcomes. Conversely, it opens the door to using contextual
-targeting as a method for advertisers to combat diminishing attention on
-advertising \cite{Teixeira2014,Orquin2020}.
 
 \section{Methodology}
 
-In this research we investigate the efficacy of contextual targeting strategies
-for obtaining improvements in the mean attention time paid to digital advertising.
-The essential research question is whether the attention as ad attracts
-within a given media context provides information about its future performance.
-The null model assumes that context is not relevant and any contextual
-variation should be subject to a regression to the mean.
-In other words, the control hypothesis is that the mean attention paid to
-a specific creative should be a better predictor of
-future attention, than the attention that was paid within a specific context.
-
-For the purposes of obtaining large scale measurements of attention time on
-display advertising we utilise a machine learning system trained on data
-collected from eye-tracking studies.
-The attention model provides an impression level estimate of attention time,
-that aggregates up into low error measurements of mean attention
-time over groups of inventory.
-
-\subsection{Attention Measurement}
-
-We developed an attention measurement system that predicts attention time from user
-behavioural signals. The training data is collected from eye tracking panels in
-which subjects read media in self-directed sessions while eye tracking data is collected
-using a gaze fixation model trained on facial images \cite{Krafka2016}.
-
-As the eye tracking data is collected, we track a large number of other signals
-about the user experience including environmental signals like the page structure,
-and behavioural data like scroll events and the position of the advertising
-in the viewport.
 
 \begin{table}
   \caption{Attention Measurement Model - Aggregate Error}
