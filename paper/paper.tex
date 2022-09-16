@@ -1,0 +1,698 @@
+%%
+%% This is file `sample-sigconf.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `sigconf')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-sigconf.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%%
+%% Commands for TeXCount
+%TC:macro \cite [option:text,text]
+%TC:macro \citep [option:text,text]
+%TC:macro \citet [option:text,text]
+%TC:envir table 0 1
+%TC:envir table* 0 1
+%TC:envir tabular [ignore] word
+%TC:envir displaymath 0 word
+%TC:envir math 0 word
+%TC:envir comment 0 0
+%%
+%%
+%% The first command in your LaTeX source must be the \documentclass command.
+\documentclass[sigconf]{acmart}
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+\setcopyright{acmcopyright}
+\copyrightyear{2018}
+\acmYear{2018}
+\acmDOI{XXXXXXX.XXXXXXX}
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[Conference acronym 'XX]{Make sure to enter the correct
+  conference title from your rights confirmation emai}{June 03--05,
+  2018}{Woodstock, NY}
+\acmPrice{15.00}
+\acmISBN{978-1-4503-XXXX-X/18/06}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+%% You can then either use BibTeX with the ACM-Reference-Format style,
+%% or BibLaTeX with the acmnumeric or acmauthoryear sytles, that include
+%% support for advanced citation of software artefact from the
+%% biblatex-software package, also separately available on CTAN.
+%%
+%% Look at the sample-*-biblatex.tex files for templates showcasing
+%% the biblatex styles.
+%%
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{Evaluating Ad Creative and Web Context Alignment with Attention Measurement}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+\author{John Hawkins}
+\email{john.hawkins@playgroundxyz.com}
+\orcid{1234-5678-9012}
+\author{Graham Burton}
+\email{graham.burton@playgroundxyz.com}
+\affiliation{%
+  \institution{Playground XYZ}
+  \streetaddress{Level 11/61 York St}
+  \city{Sydney}
+  \state{NSW}
+  \country{Australian}
+  \postcode{2000}
+}
+
+\renewcommand{\shortauthors}{Hawkins \& Burton}
+
+\begin{abstract}
+Contextual targeting is a common strategy that places marketing messages
+in media locations that are aligned with a target audience.
+The challenge of contextual targeting is knowing the ideal schema and
+the set of categories that provide the right audience.
+Refinement of the contextual targeting process has been
+limited by the use of metrics that are either rapid but
+unreliable (click through rates), or reliable
+but slow, expensive and inaccessible in real-time (conversions or brand awareness).
+
+In this study we evaluate the use of attention measurement as a technique for
+understanding the alignment between advertising creatives and media contexts.
+We perform the analysis using
+a large scale dataset of impressions categorised using the iAB V2.0 taxonomy. We
+evaluate the alignment by looking for consistency across time in the attention
+a given creative attracts over the levels of the categorisation hierarchy.
+
+Our research is the largest known study of the relationship between advertising creative,
+media context and consumer attention. We provide strong empirical evidence that consumer
+attention is related to an alignment between the creative execution and topics of media
+context. Furthermore, we show that this relationship transcends any specific publication
+by providing reliable indications of attention on new website domains.
+
+\end{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+\begin{CCSXML}
+<ccs2012>
+ <concept>
+  <concept_id>10010520.10010553.10010562</concept_id>
+  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010575.10010755</concept_id>
+  <concept_desc>Computer systems organization~Redundancy</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010553.10010554</concept_id>
+  <concept_desc>Computer systems organization~Robotics</concept_desc>
+  <concept_significance>100</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10003033.10003083.10003095</concept_id>
+  <concept_desc>Networks~Network reliability</concept_desc>
+  <concept_significance>100</concept_significance>
+ </concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computer systems organization~Embedded systems}
+\ccsdesc[300]{Computer systems organization~Redundancy}
+\ccsdesc{Computer systems organization~Robotics}
+\ccsdesc[100]{Networks~Network reliability}
+
+\keywords{Contextual Targeting, Attention Measurement, Digital Advertising, Digital Media}
+
+\maketitle
+
+\section{Introduction}
+Contextual targeting allows advertisers to reach people with known interests,
+rendered explicit
+by the choice to consume media with content about a specific topic.
+These contexts are thereby used to infer potential purchase intentions,
+due to the association
+between interests and products. Context is increasingly seen as a critical
+factor in creating and defining brand engagement \cite{Wang2006}.
+
+Context is also often used as an indirect method of reaching people that belong to certain
+audiences or groups on the basis that people's interests and demographics are aligned \cite{str2016}.
+A strategy that may be more effective given that targeting on the basis of gender alone
+may not drive better results for many campaigns \cite{Jansen2013}.
+The underlying assumptions about the relationships between demographics,
+content and intentions
+are supported by investigations into the social media behaviour of different demographic
+groups \cite{Wang2016}.
+Multiple studies have looked at the effect of media context on advertising outcomes.
+A recent meta-analysis found significant effects for multiple dimensions of
+media context on advertising recall \cite{Kwon2019}.
+However, studies that look at the congruence
+between the topic context of a page and the content of an ad have found some
+counterintuitive results. For
+example, brand recall can be associated with ads appearing within irrelevant contexts,
+potentially due to an ability to stand out from a suite of relevant ads \cite{Kononova2020}.
+
+The difficulty of implementing effective contextual targeting comes down three key issues.
+You will need to determine an ideal contextual hierarcy or categorisation scheme that can be
+applied uniformly across all media. You need to identify which components of that categorisation
+scheme are appropriate for your brand or specific campaign. Finally, you need to balance the
+contextual targeting against other goals like reach and frequency.
+Advertisers generally must expand targeting to across high-level categories in order to
+fulfill requirements as highly specific contexts are both expensive and rare.
+
+In this work we experiment with the use of gaze duration as a measurement of
+visual attention to determine the relative performance of categories within
+the iAB V2.0 Contextual Hierarchy \cite{iabv2}.
+We undertake this to understand the uniformity of the right context for a given brand, and
+the reliability of performance across the hierarchy and across time. The goal is to determine
+strategies by which contextual targeting can be refined for advertising outcomes.
+
+Eye tracking studies are widely used as a method of measuring overt attention
+to visual stimuli and have been applied to study the extent to which people
+look at, and remember, advertising \cite{Hervet2011}. The technology has also
+allowed the study of many factors that contribute to effective marketing,
+including the impact of images of faces \cite{Djamasbi2010},
+the use of animation \cite{Hamborg2012,Lee2012}, the relationship with
+social media posts \cite{Barreto2013}, and emotional responses to visual stimuli
+in different physical spaces \cite{Kim2021}.
+
+Multiple investigations have identifed that attention time on advertising
+provides a real-time metric that is correlated with important downstream
+impacts like brand recall \cite{Lee2012}, consideration and purchase intent (\citeauthor{dentsu,PlaygroundXYZ}). Importantly, even though low attention can drive brand outcomes,
+multiple studies have demonstrated that greater attention through direct
+fixation has a greater impact on marketing outcomes, including
+consideration, choice \cite{Santoso2021} and short term advertising
+strength \cite{NelsonField}. The pervasive evidence of the role of visual attention
+in the success of advertising has led to increasing focus on Attention Based Marketing
+research \cite{Orquin2020}.
+
+Contextual relevance is a method of aligning the message in advertising with the editorial
+content that it is presented with \cite{Wang2011}. This is not simply a matter of
+being \emph{about} the same topic, as consumers's have been shown to
+to pay more attention to advertising that is relevant to their current task
+(i.e. what they are looking for, or why they are reading) than simply advertising that
+is contextually aligned \cite{Resnick2016}. This is coherent with observations
+in the psychological literature that overt visual attention is influenced by motivations
+and personality traits of individuals \cite{Kaspar2011}. Thus, the role of contextual
+targeting may be to bring \emph{top-down} attention selection to advertising that would
+otherwise garner attention in a \emph{bottom-up} manner \cite{Greenberg2013}.
+
+We draw on two observations to motivate the current work. Firstly, advertisers are aware
+that alignment between a campaign creative and media context can drive outcomes.
+Secondly, they require methods for detecting when that alignment is functioning and
+when it is not. The thesis of this research is that large scale real-time
+measurement of ad attention can determine if an ad is aligned with a specific context,
+and thereby provide a tool for fine tuning contextual targeting
+strategies for advertiser outcomes. Conversely, it opens the door to using contextual
+targeting as a method for advertisers to combat diminishing attention on
+advertising \cite{Teixeira2014,Orquin2020}.
+
+\section{Methodology}
+
+In this research we investigate the efficacy of contextual targeting strategies
+for obtaining improvements in the mean attention time paid to digital advertising.
+The essential research question is whether the attention as ad attracts
+within a given media context provides information about its future performance.
+The null model assumes that context is not relevant and any contextual
+variation should be subject to a regression to the mean.
+In other words, the control hypothesis is that the mean attention paid to
+a specific creative should be a better predictor of
+future attention, than the attention that was paid within a specific context.
+
+For the purposes of obtaining large scale measurements of attention time on
+display advertising we utilise a machine learning system trained on data
+collected from eye-tracking studies.
+The attention model provides an impression level estimate of attention time,
+that aggregates up into low error measurements of mean attention
+time over groups of inventory.
+
+\subsection{Attention Measurement}
+
+We developed an attention measurement system that predicts attention time from user
+behavioural signals. The training data is collected from eye tracking panels in
+which subjects read media in self-directed sessions while eye tracking data is collected
+using a gaze fixation model trained on facial images \cite{Krafka2016}.
+
+As the eye tracking data is collected, we track a large number of other signals
+about the user experience including environmental signals like the page structure,
+and behavioural data like scroll events and the position of the advertising
+in the viewport.
+
+\begin{table}
+  \caption{Attention Measurement Model - Aggregate Error}
+  \label{tab:atm}
+\begin{tabular}{|l|r|r|}
+\toprule
+Metric                  &Banner       &MREC       \\
+\midrule
+Aggregate MAE           &10.5 ms      &12.5 ms    \\
+95\% Upper Bound        &19.0 ms      &20.6 ms    \\
+95\% Lower Bound        &-22.8 ms     &-31.1 ms   \\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+The signals collected along with the eye tracking data allow us to build and deploy an
+attention measurment model that can predict the attention time paid to
+specific ad units within a page. The attention model can
+be applied to all digital inventory that accepts the javascript tag.
+
+Our model evaluation process focuses on the accuracy of measuring mean
+attention time for a specific ad format, over varying samples of inventory.
+To generate the performance statistics we run bootstrap sampling of the test data
+to look at the expected error when predicting the mean attention time over
+impressions for a specific ad format. Each metric is calculated by taking 50 impression
+samples 2000 times, and using the resulting distribution of mean error.
+The mean attention time measurement performance is summarised in Table
+\ref{tab:atm}.
+We see that the aggregate mean absolute error (MAE) for both formats is very low
+at $10.5 ms$ and $12.5 ms$ for banners and MRECs respectively. Furthermore, the
+$95\%$ confidence intervals for these values is tightly constrained to be well under
+$50 ms$ either side of the true value.
+We apply this attention measurement model across large scale digitial inventory to
+collect a data set of attention time paid to a range of advertisments over time.
+We use these attention measured impressions to investigate the
+impact of contextual categories of media on the attention paid to advertising.
+
+\subsection{Data}
+The data used in this study was collected from a wide range of advertisers running
+broadly targeted campaigns between February and March 2022. It includes brands in
+the automotive, retail, travel and health services verticals.
+The data is broken into two one week time periods, the raw data was filtered
+such that we had impressions for every creative in both
+periods of time. This was a requirement of our approach so that we can
+study the continuity of the relationships between creative, context and attention
+across time.
+
+In the analysis that follows we apply different levels of aggregation to the
+log level impression data, so that we calculate the mean attention time for
+a given creative in the specific context. Within each experiment we will
+filter the aggregated data to ensure that every sample point is derived from
+a least 50 impressions. This is done to ensure robust estimates of mean attention within
+a given category.
+Summary statistics for the dataset are shown in Table \ref{tab:dataset}. Note, that
+due to the restriction outlined above, not every sample point will be in all experiemnts.
+
+\begin{table}
+\caption{Dataset of Attention Measured Impressions}
+\label{tab:dataset}
+\begin{tabular}{|l|r|r|}
+\toprule
+Metric          &Feb 18 - 24    &Feb 25 - March 03          \\
+\midrule
+Impressions     &16,895,661     &10,488,816     \\
+URLS            &26,006         &27,855         \\
+Domains         &2,263          &2,585          \\
+Creatives       &683            &683            \\
+Advertisers     &59             &59             \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Contextual Categorisation}
+
+In order to derive contextual categories for each record in our dataset,
+we applied the Verity API (\citeauthor{verity}) to the URLs. We converted the results of
+the API response into a variety of features that describe the contextual
+categories derived from the iAB V2.0 hierarchy \cite{iabv2}.
+
+We identified the iAB category for which Verity had returned the
+highest score and converted that category into a set of labels for
+classification across the four Tiers of iAB V2.0. In instances where the
+classified category is from a higher position in the hierarchy, then the
+lower level tiers are given the deepest category. For example, if we have
+a URL that is classified as iABv2 category "Business and Finance"
+(a Tier 1 category) then Tiers 2, 3 and 4 will also contain the same value.
+
+Alternatively, if we have another URL that is classified as "Marketing and Advertising"
+(a Tier3 category below "Business and Finance"), then the hierarchical labels
+would be assigned as follows:
+
+\begin{itemize}
+    \item {\texttt{Tier 1}}: ["Business and Finance"]
+    \item {\texttt{Tier 2}}: ["Business"]
+    \item {\texttt{Tier 3}}: ["Marketing and Advertising"]
+    \item {\texttt{Tier 4}}: ["Marketing and Advertising"]
+\end{itemize}
+
+
+The idea of this scheme is that every page will be assigned a categorisation across
+all four levels in the hierarchy, but sometimes the category at a given Tier
+will not be any more specific than the parent category. This approach ensures
+that comparisons can always be made, and when we look at a deeper level in the hierarchy
+we will have at least as many distinct categories as the parent.
+
+\subsection{Metrics}
+
+The focus of our analysis is to determine whether the performance of each creative,
+in a set of contexts, remains consistent across the two time periods.
+Within each time period we aggregate
+the measured attention time over the impression level data to obtain multiple metrics
+for the reliability of attention time within a given context.
+
+
+The attention metrics are calculated for a set of impressions $I_p$ in a time period $p$.
+We first define a baseline for a creative $c$ in period $p$ as:
+${}^c\mathcal{A}_p$. This is defined in equation \ref{campaign_baseline}.
+
+\begin{equation}
+\label{campaign_baseline}
+{}^c\mathcal{A}_p =  \frac{ \sum_{i \in I_p} \mathbf{1}^c(i) A_i }{ \sum_{i \in I_p} \mathbf{1}^c(i) }
+\end{equation}
+
+Where the function $A(i)$ returns the attention measured on impression $i$ and
+$\mathbf{1}^c(i)$ is an indicator function that
+tests whether impression $i$ belongs to creative $c$, as shown in equation \ref{indicator}.
+
+\begin{equation}
+\label{indicator}
+  \mathbf{1}^{c}(i):=
+  \begin{cases}1~&{\text{ if }}~i\in c~,\\0~&{\text{ if }}~i\notin c~.\end{cases}
+\end{equation}
+
+Similarly, we denote the baseline attention achieved by ads on pages classified
+as belonging to category $t$ in period $p$ as: ${}_t\mathcal{A}_p$. Defined in
+equation \ref{topic_baseline}. Note, we use the notation $t$ for categories as they
+are equivalent to topics, and this distinguishes them from the creatives.
+
+
+\begin{equation}
+\label{topic_baseline}
+{}_t\mathcal{A}_p =  \frac{ \sum_{i \in I_p} \mathbf{1}_t(i) A(i) }{ \sum_{i \in I_p} \mathbf{1}_t(i) }
+\end{equation}
+
+Where $\mathbf{1}_t(i)$ is an indicator function that
+tests whether impression $i$ was shown on a page classified as category $t$,
+as show in in equation \ref{indicator2}.
+
+\begin{equation}
+\label{indicator2}
+  \mathbf{1}_{t}(i):=
+  \begin{cases}1~&{ i\text{ categorised as }}~t~,\\0~&{\text{ otherwise }}.\end{cases}
+\end{equation}
+
+We denote the mean attention performance for a creative $c$, on media of category $t$
+within period $p$ as ${}^c_t\mathcal{A}_p$.
+This is defined as shown in Equation \ref{mean_attention}.
+
+\begin{equation}
+\label{mean_attention}
+{}^c_t\mathcal{A}_p =  \frac{ \sum_{i \in I_p} \mathbf{1}^c_t(i) A(i) }{ \sum_{i \in I_p} \mathbf{1}^c_t(i) }
+\end{equation}
+
+Where we simply apply a indicator function $\mathbf{1}^c_t(i)$ that is a composite
+of Equations \ref{indicator} and \ref{indicator2} to filter for inventory that
+belongs both to creative $c$ and category $t$. These equations should illustrate that we
+make our evaluations by looking at the expected attention time across difference slices
+of the inventory.
+
+\subsection{Analysis}
+
+Our analysis proceeds by ranking all topics that each creative $c$ was exposed
+to according to the value of ${}^c_t\mathcal{A}_1$.
+We then look at the same creatives in period 2 and
+evaluate ${}^c_t\mathcal{A}_2$ for the top three ranking categories from the first period,
+as well as the bottom ranking category.
+This approach necessitates that each creative be exposed to a minimum
+of these same 4 categories in both periods.
+In the results that will follow we report the number
+of records in each trial, reflecting the number of aggregated records
+that fulfills these requirements.
+
+Once we have the datasets in each period that meet these requirements we use multiple metrics
+to evaluate the impact of the contextual categories. Our primary metric is the percentage
+of instances in which the category specific performance ${}^c_t\mathcal{A}_2$ is above the
+creative's baseline expected performance ${}^c\mathcal{A}_1$.
+This is shown as \textbf{\% Over} (the baseline) in the tables of results.
+
+In addition we look at the mean difference between ${}^c_t\mathcal{A}_2$ and ${}^c\mathcal{A}_1$
+over all creatives in the experiment. This is denoted \boldmath$\mu\delta$ (or mean delta) in
+the tables and defined in Equation \ref{delta}
+
+\begin{equation}
+\label{delta}
+\mu\delta = \frac{ \sum_{c \in \mathcal{C}} {}^c_t\mathcal{A}_2 - {}^c\mathcal{A}_1 }{ \mathcal{C} }
+\end{equation}
+
+The mean delta illustrates an expectation of the difference between attention time performance
+and the creative baseline, using a specific contextual targeting strategy. In addition, we show
+that difference expressed as a mean percentage (against the baseline) in the column
+$\mathbf{\mu\%\delta}$. This can be interpreted as the expected percentage increase/decrease
+relative to the creative's baseline attention, when using that contextual targeting strategy.
+
+
+\section{Results}
+
+We conduct two variations of the experiment, each one looking at different
+criteria for evaluating performance on new inventory.
+These are referred to as the
+\emph{No URL Repeats} and the \emph{No Domain Repeats} experiments.
+
+\subsection{No URL Repeats}
+
+In Table \ref{tab:nourlrepeats} we see the results of looking at performance on novel
+URLs for a creative, where the iAB V2.0 contextual categories of those URLs were present
+in either the top three or last ranking position in the initial period.
+
+\begin{table}
+\caption{Attention Performance by Category Rank on Novel URLs}
+\label{tab:nourlrepeats}
+\begin{tabular}{|l|r|l|r|r|r|}
+\toprule
+Level   &Count    &Rank &\% Over  &$\mu\delta$  &$\mu\%\delta$        \\
+\midrule
+Tier1   &206      &1st  &100.0\%    &4.5         &93.2\%     \\
+        &         &2nd  &96.6\%     &2.6         &49.8\%     \\
+        &         &3rd  &80.6\%     &1.4         &28.7\%     \\
+        &         &Last &0.0\%      &-3.7        &-53.3\%     \\
+Tier2   &210      &1st  &99.5\%     &6.3         &132.0\%     \\
+        &         &2nd  &95.7\%     &3.7         &68.6\%     \\
+        &         &3rd  &80.0\%     &2.4         &41.2\%     \\
+        &         &Last &0.0\%      &-4.1        &-59.2\%     \\
+Tier3   &210      &1st  &99.5\%     &6.4         &135.7\%     \\
+        &         &2nd  &95.7\%     &3.8         &69.5\%     \\
+        &         &3rd  &79.5\%     &2.4         &41.8\%     \\
+        &         &Last &0.0\%      &-4.1        &-59.2\%     \\
+Tier4   &210      &1st  &99.5\%     &6.4         &135.7\%     \\
+        &         &2nd  &95.7\%     &3.8         &69.5\%     \\
+        &         &3rd  &79.5\%     &2.4         &41.8\%     \\
+        &         &Last &0.0\%      &-4.1        &-59.2\%     \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We see that, in general, targeting pages using categories deeper into the hierarchy
+improves the expected increase in attention through contextual targeting.
+However, the effect appears to plateau at Tier3, likely due to the small proportion of inventory
+that is uniquely classified at a Tier 4 level.
+
+\begin{figure*}
+\includegraphics[scale=0.6]{../ranking_analysis/results/iABv2/no_url_repeat.png}
+\caption{Expected Lift in Attention Time on Inventory without Repeated URLs.}
+\label{fig:no_url}
+\end{figure*}
+
+We show the change in attention lift across the dimensions of iAB Tiers and category ranking
+in Figure \ref{fig:no_url}. This figure demonstrates the increased performance with the specificity
+of the iAB Tiers and the reduction in performance with the movement down category ranks.
+
+\subsection{No Domain Repeats}
+We repeat the analysis restricting ourselves to impressions in the second period
+that involve URLS for which the domain was not present in the URLs for the first period.
+The results are shown in Table \ref{tab:nodomainrepeats}.
+We note that the number of records has dropped by
+more than half in this experiment, due to the difficulty of finding domains that were
+not present in the first period.
+
+\begin{table}
+\caption{Attention Performance by Category Rank on Novel Domains}
+\label{tab:nodomainrepeats}
+\begin{tabular}{|l|r|l|r|r|r|}
+\toprule
+Level   &Count  &Rank &\% Over  &$\mu\delta$  &$\mu\%\delta$        \\
+\midrule
+Tier1   &86       &1st  &98.8\%     &5.2         &144.3\%     \\
+        &         &2nd  &83.7\%     &2.3         &58.8\%     \\
+        &         &3rd  &60.5\%     &0.4         &26.9\%     \\
+        &         &Last &0.0\%      &-4.1        &-64.5\%     \\
+Tier2   &83       &1st  &96.4\%     &6.4         &159.1\%     \\
+        &         &2nd  &84.3\%     &2.6         &71.0\%     \\
+        &         &3rd  &59.0\%     &0.7         &35.8\%     \\
+        &         &Last &0.0\%      &-4.5        &-70.0\%     \\
+Tier3   &82       &1st  &96.3\%     &6.5         &161.3\%     \\
+        &         &2nd  &84.2\%     &2.7         &71.2\%     \\
+        &         &3rd  &56.1\%     &0.6         &34.7\%     \\
+        &         &Last &0.0\%      &-4.6        &-69.9\%     \\
+Tier4   &82       &1st  &96.3\%     &6.5         &161.3\%     \\
+        &         &2nd  &84.2\%     &2.7         &71.6\%     \\
+        &         &3rd  &56.1\%     &0.6         &34.7\%     \\
+        &         &Last &0.0\%      &-4.6        &-69.9\%     \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+We show the change in attention lift across the dimensions of iAB Tiers and category ranking
+in Figure \ref{fig:no_dom}. This figure demonstrates that in the no domain repeat experiment
+we get a very similar overall pattern to the previous experiment. The primary difference
+being a higher expected lift at the rank one position, and a faster drop off in expected
+lift as we move down the ranks.
+
+\begin{figure*}
+\includegraphics[scale=0.6]{../ranking_analysis/results/iABv2/no_dom_repeat.png}
+\caption{Expected Lift in Attention Time on Inventory without Repeated Domains.}
+\label{fig:no_dom}
+\end{figure*}
+
+The restriction to unique domains in the second period has lifted the expected improvement
+of targeting the top performing category (Tier 3) from 135% to 161%. However, this improvement
+only occurs with the category in ranking position one. For the other ranking positions
+the results are mixed, even though the percentage amount is sometimes higher, the
+absolute amount can be lower, due to the fact that the baseline is calculated on
+the impressions that qualify for inclusion.
+
+These result seems counterintuitive at first glance. Our current hypothesis about why
+this is the case is that it relates to the specificity of the content on a given domain.
+The \emph{no domain repeats} study is biased towards data on less common domains.
+These may have a tendency to be more subject specific.
+These ideas need to be tested in follow up research.
+
+Additionally, we note that the percentage of instances where the category targeting
+delivers an improvement over the baseline drops when we look at unique domains.
+This drop is approximately 3% for rank 1 categories, but by the time we arrive at
+the 3rd ranked category it has dropped from 80% to 56% at Tier 4, meaning that
+targeting new domains with the 3rd ranked category offers a marginally better than
+random chance of delivering improved attention.
+
+\subsection{Significance Tests}
+
+We estimated p-values for the significance of the proportion of URLs within a given category
+that outperform the baseline. We did this using a binomial distribution, under the null model
+assumption that the relationship between the attention on a URL and its contextual category
+is random. Hence, the p-value can be estimated as the probability of obtaining the observed
+number of successful improvements over the baseline as samples from a binomial with a probability
+of success equal to $0.5$.
+
+The computed p-values were extremely small, starting at $10^{-62}$ for first rank of Tier 1 in
+the \emph{No URL Repeats} experiment, $10^{-24}$ for the \emph{No Domain Repeats} experiment.
+The p-values increase gradually as we move down the ranking of the categories or at deeper
+levels in the iAB hierarchy, but they always remain below a significance level
+of 0.05.
+
+A more stringent analysis would apply a Bonferroni correction to account for the multiple
+hypothesis tests in these tables of data. Even with this correction, the vast majority
+of results
+are many orders of magnitude below the significance threshold. However, under this criteria
+we would reject the third ranking category within the \emph{No Domain Repeats} experiments.
+However, as the observed data is overwhelmingly statistically significant, and these values
+are consistent with the hypothesis being true, but suffering from a diminishing effect size,
+and reduced sample sizes, we included the values for the third ranking categories in the
+table.
+
+\section{Conclusion}
+The pattern we observe is consistent between the two experiments. Regardless of
+how novel the inventory is, there is a tendency for media sharing the top contextual
+categories from the
+initial period to consistently outperform the baseline attention.
+This pattern is strongest with the number one category, and then recedes
+as we progress down the ranking of categories from the first period.
+
+Similarly, the bottom performing category from the first period consistently under performs
+the baseline in the subsequent period, regardless of whether you are looking at new URLs
+on existing domains, or entirely new domains.
+These results strongly suggest that the topics discussed on pages in which an ad appears
+interact with ad creatives in a way that enables prediction of ad attention.
+
+As we move deeper into the hierarchy from Tier 1 down to Tier 4 we see that the average size
+of the improvement increases, but this effect appears to plateau at Tier 3. We note that this
+improvement would often be countered by reduced inventory volumes, suggesting that application
+of these results will require weighting the gains against potential reach.
+
+When we look at inventory on novel domains we see that there is a further small drop in the
+proportion of instances where the category continues to deliver improved results. This is
+countered by an improvement in the gain for the top performing category, suggesting that a
+reasonable and risk efficient strategy for finding new inventory is to target multiple top
+ranking categories on known websites, but just the top ranking category on novel websites.
+
+Overall, these results provide strong evidence that attention measurement provides a signal
+as to whether a given contextual targeting strategy is aligned with an advertising creative.
+Performance, in terms of attention garnered, in an initial period is predictive of
+attention in a future period even when the specific media changes.
+The reliability of attention on new URLs or domains within the same contextual category
+suggests that the iAB hierarchy provides insight into factors that align advertising
+creatives with consumer psychology beyond the specifics of a particular media platform.
+
+\section{Acknowledgments}
+This research was financially supported by Playground XYZ and Gumgum.
+The content benefited from commentary and observations made by Rob Hall.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{../bibliography/refs}
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-sigconf.tex'.
