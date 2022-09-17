@@ -36,6 +36,10 @@ We are collecting some datasets for testing features on ML tasks.
 https://github.com/lucasayres/url-feature-extractor
 
 
+# Data Sets
+
+https://www.unb.ca/cic/datasets/url-2016.html
+
 
 
 

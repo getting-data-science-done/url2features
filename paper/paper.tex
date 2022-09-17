@@ -162,12 +162,32 @@ internet traffic machine learning problems.
 \ccsdesc[500]{Information systems~Web log analysis}
 \ccsdesc[500]{Computing methodologies~Machine learning}
 
-
 \keywords{URL Features, Document Classification, Machine Learning, Semantic Web}
 
 \maketitle
 
 \section{Introduction}
+
+Litrature review
+
+Write a literature review \cite{Vazhayil2018}
+\cite{Canali2011}
+\cite{Ayes2019}
+\cite{Mamun2016}
+\cite{Li2020}
+\cite{Basnet2012}
+\cite{Basnet2014}
+\cite{Tupsamudre2019}
+\cite{Le2018}
+\cite{Baykan2009}
+\cite{Kan2005}
+\cite{Hernandez2012}
+\cite{Chung2022}
+\cite{Qiu2020}
+\cite{Vaishnavi2021}
+\cite{Xu2021}
+\cite{Rhea2022}
+
 
 \section{Methodology}
 
@@ -209,26 +229,13 @@ We use these attention measured impressions to investigate the
 impact of contextual categories of media on the attention paid to advertising.
 
 \subsection{Data}
-The data used in this study was collected from a wide range of advertisers running
-broadly targeted campaigns between February and March 2022. It includes brands in
-the automotive, retail, travel and health services verticals.
-The data is broken into two one week time periods, the raw data was filtered
-such that we had impressions for every creative in both
-periods of time. This was a requirement of our approach so that we can
-study the continuity of the relationships between creative, context and attention
-across time.
 
-In the analysis that follows we apply different levels of aggregation to the
-log level impression data, so that we calculate the mean attention time for
-a given creative in the specific context. Within each experiment we will
-filter the aggregated data to ensure that every sample point is derived from
-a least 50 impressions. This is done to ensure robust estimates of mean attention within
-a given category.
-Summary statistics for the dataset are shown in Table \ref{tab:dataset}. Note, that
-due to the restriction outlined above, not every sample point will be in all experiemnts.
+The data used in this study was collected from a collction of publications that 
+present internet classification problems containing URLs as a key, or sole feature.
+Malcious URL classification \cite{Mamun2016}.
 
 \begin{table}
-\caption{Dataset of Attention Measured Impressions}
+\caption{Datasets}
 \label{tab:dataset}
 \begin{tabular}{|l|r|r|}
 \toprule
@@ -245,12 +252,7 @@ Advertisers     &59             &59             \\
 
 \subsection{Contextual Categorisation}
 
-In order to derive contextual categories for each record in our dataset,
-we applied the Verity API (\citeauthor{verity}) to the URLs. We converted the results of
-the API response into a variety of features that describe the contextual
-categories derived from the iAB V2.0 hierarchy \cite{iabv2}.
-
-We identified the iAB category for which Verity had returned the
+Verity had returned the
 highest score and converted that category into a set of labels for
 classification across the four Tiers of iAB V2.0. In instances where the
 classified category is from a higher position in the hierarchy, then the
@@ -420,16 +422,6 @@ improves the expected increase in attention through contextual targeting.
 However, the effect appears to plateau at Tier3, likely due to the small proportion of inventory
 that is uniquely classified at a Tier 4 level.
 
-\begin{figure*}
-\includegraphics[scale=0.6]{../ranking_analysis/results/iABv2/no_url_repeat.png}
-\caption{Expected Lift in Attention Time on Inventory without Repeated URLs.}
-\label{fig:no_url}
-\end{figure*}
-
-We show the change in attention lift across the dimensions of iAB Tiers and category ranking
-in Figure \ref{fig:no_url}. This figure demonstrates the increased performance with the specificity
-of the iAB Tiers and the reduction in performance with the movement down category ranks.
-
 \subsection{No Domain Repeats}
 We repeat the analysis restricting ourselves to impressions in the second period
 that involve URLS for which the domain was not present in the URLs for the first period.
@@ -466,18 +458,6 @@ Tier4   &82       &1st  &96.3\%     &6.5         &161.3\%     \\
 \end{table}
 
 
-We show the change in attention lift across the dimensions of iAB Tiers and category ranking
-in Figure \ref{fig:no_dom}. This figure demonstrates that in the no domain repeat experiment
-we get a very similar overall pattern to the previous experiment. The primary difference
-being a higher expected lift at the rank one position, and a faster drop off in expected
-lift as we move down the ranks.
-
-\begin{figure*}
-\includegraphics[scale=0.6]{../ranking_analysis/results/iABv2/no_dom_repeat.png}
-\caption{Expected Lift in Attention Time on Inventory without Repeated Domains.}
-\label{fig:no_dom}
-\end{figure*}
-
 The restriction to unique domains in the second period has lifted the expected improvement
 of targeting the top performing category (Tier 3) from 135% to 161%. However, this improvement
 only occurs with the category in ranking position one. For the other ranking positions
@@ -498,70 +478,13 @@ the 3rd ranked category it has dropped from 80% to 56% at Tier 4, meaning that
 targeting new domains with the 3rd ranked category offers a marginally better than
 random chance of delivering improved attention.
 
-\subsection{Significance Tests}
-
-We estimated p-values for the significance of the proportion of URLs within a given category
-that outperform the baseline. We did this using a binomial distribution, under the null model
-assumption that the relationship between the attention on a URL and its contextual category
-is random. Hence, the p-value can be estimated as the probability of obtaining the observed
-number of successful improvements over the baseline as samples from a binomial with a probability
-of success equal to $0.5$.
-
-The computed p-values were extremely small, starting at $10^{-62}$ for first rank of Tier 1 in
-the \emph{No URL Repeats} experiment, $10^{-24}$ for the \emph{No Domain Repeats} experiment.
-The p-values increase gradually as we move down the ranking of the categories or at deeper
-levels in the iAB hierarchy, but they always remain below a significance level
-of 0.05.
-
-A more stringent analysis would apply a Bonferroni correction to account for the multiple
-hypothesis tests in these tables of data. Even with this correction, the vast majority
-of results
-are many orders of magnitude below the significance threshold. However, under this criteria
-we would reject the third ranking category within the \emph{No Domain Repeats} experiments.
-However, as the observed data is overwhelmingly statistically significant, and these values
-are consistent with the hypothesis being true, but suffering from a diminishing effect size,
-and reduced sample sizes, we included the values for the third ranking categories in the
-table.
 
 \section{Conclusion}
-The pattern we observe is consistent between the two experiments. Regardless of
-how novel the inventory is, there is a tendency for media sharing the top contextual
-categories from the
-initial period to consistently outperform the baseline attention.
-This pattern is strongest with the number one category, and then recedes
-as we progress down the ranking of categories from the first period.
-
-Similarly, the bottom performing category from the first period consistently under performs
-the baseline in the subsequent period, regardless of whether you are looking at new URLs
-on existing domains, or entirely new domains.
-These results strongly suggest that the topics discussed on pages in which an ad appears
-interact with ad creatives in a way that enables prediction of ad attention.
-
-As we move deeper into the hierarchy from Tier 1 down to Tier 4 we see that the average size
-of the improvement increases, but this effect appears to plateau at Tier 3. We note that this
-improvement would often be countered by reduced inventory volumes, suggesting that application
-of these results will require weighting the gains against potential reach.
-
-When we look at inventory on novel domains we see that there is a further small drop in the
-proportion of instances where the category continues to deliver improved results. This is
-countered by an improvement in the gain for the top performing category, suggesting that a
-reasonable and risk efficient strategy for finding new inventory is to target multiple top
-ranking categories on known websites, but just the top ranking category on novel websites.
-
-Overall, these results provide strong evidence that attention measurement provides a signal
-as to whether a given contextual targeting strategy is aligned with an advertising creative.
-Performance, in terms of attention garnered, in an initial period is predictive of
-attention in a future period even when the specific media changes.
-The reliability of attention on new URLs or domains within the same contextual category
-suggests that the iAB hierarchy provides insight into factors that align advertising
-creatives with consumer psychology beyond the specifics of a particular media platform.
 
 \section{Acknowledgments}
-This research was financially supported by Playground XYZ and Gumgum.
-The content benefited from commentary and observations made by Rob Hall.
 
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{../bibliography/refs}
+\bibliography{refs}
 
 \end{document}
 \endinput
