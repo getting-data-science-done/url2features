@@ -168,8 +168,33 @@ internet traffic machine learning problems.
 
 \section{Introduction}
 
-Litrature review
+The Uniform Resource Locator (URL) is now a ubiquitous element of modern life. 
+We use them to advertise and locate businesses, to retrieve news and media and 
+to interact with other people across a broad of social applications. It should
+be no surprise that processing URLs is key component of many tasks that involve
+analysing internet data. In many applications the URL is the central piece of 
+information available because the demands of the task require immediate analysis.
+Prominent examples include security analysis of potenital phishing attacks\cite{Basnet2014}, 
+detection of potential spam emails \cite{}, and applications to online advertsing
+including anticipation of conversions \cite{Qiu2020} or contextual analysis of
+the content of webpages\cite{Kan2005,Baykan2009}. 
 
+The URL is made up of multiple elements, but at its core is the domain. The domain
+contains internal information about both its intended purpose, legitimacy and likely
+origin. It is also a source of additional information through requests to Domain Name
+Servers (DNS) to understand both its history and place within the network topology.
+
+Common feature engineering strategies exploit these potential sources of information
+in ways that are appropriate for a given task. However, while there are wide variety
+of approaches that inconsistently applied, there has not yet been a study that evaluates
+the overall effectiveness of different strategies across a range of applications.
+
+In this work we describe an ontology of URL fetaures that relates to underlying origin
+and purpose. We then present an open source package for generating features within these
+ontologocal classes and apply them to a variety of tasks. We present our results as a
+cross-task evaluation of URL features.  
+
+Multiple data science and machine learning applications on internet data 
 Write a literature review \cite{Vazhayil2018}
 \cite{Canali2011}
 \cite{Ayes2019}
@@ -187,6 +212,11 @@ Write a literature review \cite{Vazhayil2018}
 \cite{Vaishnavi2021}
 \cite{Xu2021}
 \cite{Rhea2022}
+
+
+Common approaches to feature engineering on URLs include string matching and regular expressions to
+identify key sequences \cite{}, generation of task specific embedding vectors\cite{Qiu2020} and the
+usage of domain name servers or registrars for ancillary information \cite{}
 
 
 \section{Methodology}
