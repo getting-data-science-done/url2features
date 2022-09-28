@@ -42,17 +42,19 @@ def add_simple_features(df, col, add_prefix=True):
             punct = -1
             numeric = -1
             capital = -1
+            depth = -1
         else:
             length = len(x[col])
             punct = count(x[col], string.punctuation)/length
             numeric = count(x[col], string.digits)/length
             capital = sum(1 for c in x[col] if c.isupper())/length
-        return length, punct, numeric, capital
+            depth = null_tolerant_depth(x[col])
+        return length, punct, numeric, capital, depth
 
     if add_prefix:
-        col_names = [col+"_length", col+"_punct", col+"_numeric", col+"_capital"]
+        col_names = [col+"_length", col+"_punct", col+"_numeric", col+"_capital", col+"_path_depth"]
     else:
-        col_names = ["url_length","url_punct", "url_numeric", "url_capital"]
+        col_names = ["url_length","url_punct", "url_numeric", "url_capital", "path_depth"]
 
     df[ col_names ] = df.apply(simp_feats, col=col, axis=1, result_type="expand")
 

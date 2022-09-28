@@ -36,9 +36,9 @@ def test_simple():
     assert rez["url_length"][0] == 18
     assert rez["url_length"][1] == 19
     assert rez["url_length"][2] == 11
-    assert rez["url_depth"][0] == 1
-    assert rez["url_depth"][1] == 1
-    assert rez["url_depth"][2] == 1
+    assert rez["url_path_depth"][0] == 1
+    assert rez["url_path_depth"][1] == 1
+    assert rez["url_path_depth"][2] == 1
 
 def test_domain_features():
     freq, type = top_level_domain_lookup("com")
@@ -72,7 +72,7 @@ def test_file_extension_lookup():
 
 
 def test_country_lookup_from_url():
-    # THIS TEST ONLY WORKS WITH INTERNET (NOT IN GITHUB)
+    # THIS TEST ONLY WORKS WITH INTERNET (NOT INSIDE THE GITHUB ACTION)
     #url = "www.australia.gov.au"
     #country = get_country(url)
     #assert country == "AU"
