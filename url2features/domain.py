@@ -24,14 +24,14 @@ language_codes = ['ab', 'aa', 'af', 'ak', 'sq', 'am', 'ar', 'an', 'hy', 'as', 'a
 
 
 ########################################################################################
-def domain_features(df, columns):
+def domain_features(df, columns, add_prefix=True):
     """
         Given a pandas dataframe and a set of column names.
         calculate the domain features and add them.
     """
     rez = df.copy()
     for col in columns:
-        rez = add_domain_features(rez, col)
+        rez = add_domain_features(rez, col, add_prefix)
     return rez
 
 ########################################################################################
@@ -65,7 +65,7 @@ def get_subdomain_freq(sub):
         return 0.0
     
 ########################################################################################
-def add_domain_features(df, col):
+def add_domain_features(df, col, add_prefix=True):
     """
         Given a pandas dataframe and a column name.
         add features for the domain:
@@ -100,7 +100,12 @@ def add_domain_features(df, col):
 
         return secs, sub_type, sub_freq, reg_year
 
-    df[[ col+'_domain_sections', col+'_subdomain_type', col+'_subdomain_freq', col+'_dom_reg_year'  ]] = df.apply(dom_features, col=col, axis=1, result_type="expand")
+    if add_prefix:
+        col_names = [ col+'_domain_sections', col+'_subdomain_type', col+'_subdomain_freq', col+'_domain_reg_year'  ]
+    else:
+        col_names = [ 'domain_sections', 'subdomain_type', 'subdomain_freq', 'domain_reg_year'  ]
+
+    df[ col_names ] = df.apply(dom_features, col=col, axis=1, result_type="expand")
 
     return df
  

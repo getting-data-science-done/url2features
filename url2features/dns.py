@@ -19,19 +19,19 @@ import re
 """
 
 ########################################################################################
-def dns_features(df, columns):
+def dns_features(df, columns, add_prefix=True):
     """
         Given a pandas dataframe and a set of column names.
         calculate the DNS summary features and add them.
     """
     rez = df.copy()
     for col in columns:
-        rez = add_dns_features(rez, col)
+        rez = add_dns_features(rez, col, add_prefix)
     return rez
 
 
 ########################################################################################
-def add_dns_features(df, col):
+def add_dns_features(df, col, add_prefix=True):
     """
         Given a pandas dataframe and a column name containing a URL
         calculate the DNS features 
@@ -53,7 +53,12 @@ def add_dns_features(df, col):
             country = get_country(url_parts)
         return ns, mx, ptr, country
 
-    df[[ col+'_dns_ns', col+'_dns_mx', col+'_dns_ptr', col+'_dns_country' ]] = df.apply(dns_feature_gen, col=col, axis=1, result_type="expand")
+    if add_prefix:
+        col_names = [ col+'_dns_ns', col+'_dns_mx', col+'_dns_ptr', col+'_dns_country' ]
+    else:
+        col_names = [ 'dns_ns', 'dns_mx', 'dns_ptr', 'dns_country' ]
+
+    df[ col_names ] = df.apply(dns_feature_gen, col=col, axis=1, result_type="expand")
 
     return df
 

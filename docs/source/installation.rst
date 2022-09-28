@@ -15,7 +15,7 @@ by installing it locally:
 
 .. code-block:: bash
 
-    git clone https://github.com/john-hawkins/url2features.git
+    git clone https://github.com/getting-data-science-done/url2features.git
     cd url2features
     python setup.py install
 

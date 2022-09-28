@@ -16,18 +16,18 @@ from .process import load_dictionary
 extension_types = load_dictionary('file_extensions.dat')
 
 ########################################################################################
-def file_features(df, columns):
+def file_features(df, columns, add_prefix=True):
     """
         Given a pandas dataframe and a set of column names.
         calculate the file type summary features and add them.
     """
     rez = df.copy()
     for col in columns:
-        rez = add_file_features(rez, col)
+        rez = add_file_features(rez, col, add_prefix)
     return rez
 
 ########################################################################################
-def add_file_features(df, col):
+def add_file_features(df, col, add_prefix):
     """
         Given a pandas dataframe and a column name.
         calculate the file features 
@@ -42,9 +42,15 @@ def add_file_features(df, col):
             if len(sections) > 1:
                 ext = sections[1]
                 type = file_extension_lookup(ext)
+            
         return ext, type
 
-    df[[ col+'_file_extension', col+'_file_ext_type' ]] = df.apply(get_file_features, col=col, axis=1, result_type="expand")
+    if add_prefix:
+        col_names = [ col+'_file_extn', col+'_file_extn_type' ] 
+    else:
+        col_names = [ 'file_extn', 'file_extn_type' ]
+
+    df[ col_names ] = df.apply(get_file_features, col=col, axis=1, result_type="expand")
 
     return df
 

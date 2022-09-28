@@ -16,18 +16,18 @@ from .process import load_word_list
 """
 
 ########################################################################################
-def simple_features(df, columns):
+def simple_features(df, columns, add_prefix=True):
     """
         Given a pandas dataframe and a set of column names.
         calculate the simple text summary features and add them.
     """
     rez = df.copy()
     for col in columns:
-        rez = add_simple_features(rez, col)
+        rez = add_simple_features(rez, col, add_prefix)
     return rez
 
 ########################################################################################
-def add_simple_features(df, col):
+def add_simple_features(df, col, add_prefix=True):
     """
         Given a pandas dataframe and a column name.
         calculate the simple features 

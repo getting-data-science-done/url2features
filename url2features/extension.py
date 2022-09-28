@@ -23,18 +23,18 @@ tld_pat = r"\.[a-z]+(?:/|$)"
 tld_re = re.compile(tld_pat)
  
 ########################################################################################
-def extension_features(df, columns):
+def extension_features(df, columns, add_prefix=True):
     """
         Given a pandas dataframe and a set of column names.
         calculate the extension features and add them.
     """
     rez = df.copy()
     for col in columns:
-        rez = add_extension_features(rez, col)
+        rez = add_extension_features(rez, col, add_prefix)
     return rez
 
 ########################################################################################
-def add_extension_features(df, col):
+def add_extension_features(df, col, add_prefix=True):
     """
         Given a pandas dataframe and a column name.
         add simple text match features for extension.
@@ -54,7 +54,13 @@ def add_extension_features(df, col):
                 freq, type = top_level_domain_lookup(temp)
         return freq, type
 
-    df[[ col+'_tld_freq', col+'_tld_type' ]] = df.apply(ext_features, col=col, axis=1, result_type="expand")
+
+    if add_prefix:
+        col_names = [ col+'_tld_freq', col+'_tld_type' ]
+    else:
+        col_names = [ 'tld_freq', 'tld_type' ]
+
+    df[ col_names ] = df.apply(ext_features, col=col, axis=1, result_type="expand")
 
     return df
  

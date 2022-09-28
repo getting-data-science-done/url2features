@@ -6,6 +6,7 @@ import numpy as np
 from .process import start_profile
 from .process import end_profile
 from .simple import simple_features
+from .protocol import protocol_features
 from .domain import domain_features
 from .extension import extension_features
 from .file import file_features
@@ -20,21 +21,26 @@ def process_df(df, params):
     process_df: Function that co-ordinates the process of generating the features
     
     """ 
+    add_prefix = params["prefix"]
     if params["simple"] :
         start_profile("simple")
-        df = simple_features( df, params["columns"] )
+        df = simple_features( df, params["columns"], add_prefix )
         end_profile("simple")
+    if params["protocol"] :
+        start_profile("protocol")
+        df = protocol_features( df, params["columns"], add_prefix )
+        end_profile("protocol")
     if params["file"] :
         start_profile("file")
-        df = file_features( df, params["columns"] )
+        df = file_features( df, params["columns"], add_prefix )
         end_profile("file")
     if params["domain"] :
         start_profile("domain")
-        df = domain_features( df, params["columns"] )
+        df = domain_features( df, params["columns"], add_prefix )
         end_profile("domain")
     if params["extension"] :
         start_profile("extension")
-        df = extension_features( df, params["columns"] )
+        df = extension_features( df, params["columns"], add_prefix )
         end_profile("extension")
     return df
 

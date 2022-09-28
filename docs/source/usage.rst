@@ -22,10 +22,13 @@ Without parameters it will print out an error and the following usage :
      <PATH TO DATASET> - Supported file types: csv, tsv, xls, xlsx, odf
      [ARGS] In most cases these are switches that turn on the feature type
      -columns=<COMMA SEPARATED LIST>. REQUIRED
-     -simple            Default: False. Features derived from the URL string: length, depth
-     -domain            Default: False. Features derived from the domain registration.
+     -simple            Default: False. Features derived from the URL string: length, depth, components
+     -domain            Default: False. Features from the domain registration (requires internet).
      -extension         Default: False. Features about the domain extension and structure.
-
+     -protocol          Default: False. Features from the URL protocol.
+     -file              Default: False. Features derived from the final file type
+     -dns               Default: False. Features derived from the DNS records (requires internet).
+     -np                Deactivate use of column name prefix. Only works for a single column.
 
 
 The list of columns to process and the path to the dataset are both mandatory.

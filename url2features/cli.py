@@ -54,27 +54,36 @@ def get_cmd_line_params(argv):
     options = argv[1:-1]
     result = {"dataset":data,
               "columns":[], 
+              "prefix":True, 
               "simple":False, 
+              "protocol":False, 
               "domain":False, 
               "extension":False, 
-              "dns":False, 
               "file":False, 
+              "dns":False, 
     }
     for o in options:
         parts = o.split("=")
+        if parts[0] == "-np":
+            result["prefix"]=False
         if parts[0] == "-simple":
             result["simple"]=True
+        if parts[0] == "-protocol":
+            result["protocol"]=True
         if parts[0] == "-domain":
             result["domain"]=True
+        if parts[0] == "-extension":
+            result["extension"]=True
         if parts[0] == "-file":
             result["file"]=True
         if parts[0] == "-dns":
             result["dns"]=True
-        if parts[0] == "-extension":
-            result["extension"]=True
         if parts[0] == "-columns":
             cols = parts[1].split(",")
             result["columns"]=cols
+
+    if len(result["columns"])>1:
+        result["prefix"] = True # Force prefix for multiple columns
 
     return result
 
@@ -86,11 +95,13 @@ def print_usage(args):
     print("  <PATH TO DATASET> - Supported file types: csv, tsv, xls, xlsx, odf")
     print(" [ARGS] In most cases these are switches that turn on the feature type")
     print("  -columns=<COMMA SEPARATED LIST>. REQUIRED")
-    print("  -simple            Default: False. Features derived from the URL string: length, depth")
+    print("  -simple            Default: False. Features derived from the URL string: length, depth, components")
     print("  -domain            Default: False. Features from the domain registration (requires internet).")
-    print("  -file              Default: False. Features derived from the final file.")
-    print("  -dns               Default: False. Features derived from the DNS records (requires internet).")
     print("  -extension         Default: False. Features about the domain extension and structure.")
+    print("  -protocol          Default: False. Features from the URL protocol.")
+    print("  -file              Default: False. Features derived from the final file type")
+    print("  -dns               Default: False. Features derived from the DNS records (requires internet).")
+    print("  -np                Deactivate use of column name prefix. Only works for a single column.")
     print("")
 
 
