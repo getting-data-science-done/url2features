@@ -42,6 +42,12 @@ def add_protocol_features(df, col, add_prefix):
         col_name = "protocol"
     df[col_name] = prots
 
+    if add_prefix:
+        col_name = col + "_protocol_exists"
+    else:
+        col_name = "protocol_exists"
+    existance = [int(p!="None") for p in prots]
+    df[col_name] = existance
 
     def get_protocol_type(prot):
        if prot in ['http','https','shttp']:

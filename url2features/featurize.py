@@ -10,6 +10,7 @@ from .protocol import protocol_features
 from .domain import domain_features
 from .extension import extension_features
 from .file import file_features
+from .dns import dns_features
 
 """
     url2features.featurize: Core functions to apply a set of features to a data frame.
@@ -42,6 +43,10 @@ def process_df(df, params):
         start_profile("extension")
         df = extension_features( df, params["columns"], add_prefix )
         end_profile("extension")
+    if params["dns"] :
+        start_profile("dns")
+        df = dns_features( df, params["columns"], add_prefix )
+        end_profile("dns")
     return df
 
 ########################################################################################

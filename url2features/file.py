@@ -35,6 +35,7 @@ def add_file_features(df, col, add_prefix):
     def get_file_features(x, col):
         ext = ""
         type = ""
+        existance = 0
         if x[col]==x[col]:
             url = (x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
@@ -42,13 +43,13 @@ def add_file_features(df, col, add_prefix):
             if len(sections) > 1:
                 ext = sections[1]
                 type = file_extension_lookup(ext)
-            
-        return ext, type
+                existance = 1
+        return ext, type, existance
 
     if add_prefix:
-        col_names = [ col+'_file_extn', col+'_file_extn_type' ] 
+        col_names = [ col+'_file_extn', col+'_file_extn_type', col+'_file_extn_exists', ] 
     else:
-        col_names = [ 'file_extn', 'file_extn_type' ]
+        col_names = [ 'file_extn', 'file_extn_type', 'file_extn_exists' ]
 
     df[ col_names ] = df.apply(get_file_features, col=col, axis=1, result_type="expand")
 

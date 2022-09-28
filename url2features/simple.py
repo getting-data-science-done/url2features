@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pandas as pd 
 import numpy as np
+import string
 import math
 import os
 import re
@@ -32,10 +33,28 @@ def add_simple_features(df, col, add_prefix=True):
         Given a pandas dataframe and a column name.
         calculate the simple features 
     """
-    col_name = col + "_length"
-    df[col_name] = df[col].apply(null_tolerant_len)
-    col_name = col + "_depth"
-    df[col_name] = df[col].apply(null_tolerant_depth)
+
+    count = lambda l1,l2: sum([1 for x in l1 if x in l2])
+
+    def simp_feats(x, col):
+        if x[col]!=x[col]:
+            length = -1
+            punct = -1
+            numeric = -1
+            capital = -1
+        else:
+            length = len(x[col])
+            punct = count(x[col], string.punctuation)/length
+            numeric = count(x[col], string.digits)/length
+            capital = sum(1 for c in x[col] if c.isupper())/length
+        return length, punct, numeric, capital
+
+    if add_prefix:
+        col_names = [col+"_length", col+"_punct", col+"_numeric", col+"_capital"]
+    else:
+        col_names = ["url_length","url_punct", "url_numeric", "url_capital"]
+
+    df[ col_names ] = df.apply(simp_feats, col=col, axis=1, result_type="expand")
 
     return df
 
