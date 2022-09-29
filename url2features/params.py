@@ -48,6 +48,20 @@ def detect_embedded_url(x):
        return 0
 
 ########################################################################################
+def detect_encoded_link(x):
+    return x.count("%3A%2F%2F")
+
+########################################################################################
+enc_chars_in_string = re.compile(r'(%[0-9A-F][0-9A-F])')
+def detect_encoded_chars(x):
+    url = enc_chars_in_string.search(x)
+    if url is not None and url.group(0) is not None:
+       return 1
+    else:
+       return 0
+
+
+########################################################################################
 def add_params_features(df, col, add_prefix):
     """
         Given a pandas dataframe and a column name.
@@ -58,6 +72,8 @@ def add_params_features(df, col, add_prefix):
         p_length = 0
         p_count = 0
         p_has_url = 0
+        p_enc_url = 0
+        p_enc_char = 0
         if x[col]==x[col]:
             url = (x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
@@ -67,12 +83,15 @@ def add_params_features(df, col, add_prefix):
                param_set = query.split("&")
                p_count = len(param_set)
                p_has_url = detect_embedded_url(query)
-        return f_length, p_length, p_count, p_has_url
+               p_enc_url = detect_encoded_link(query)
+               p_enc_char = detect_encoded_chars(query)
+        return f_length, p_length, p_count, p_has_url, p_enc_url, p_enc_char 
 
     if add_prefix:
-        col_names = [ col+"_frag_len", col+"_params_len", col+"_params_count", col+"_params_has_url" ] 
+        col_names = [ col+"_frag_len", col+"_params_len", col+"_params_count", 
+                      col+"_params_has_url", col+"params_enc_url", col+"params_enc_char" ] 
     else:
-        col_names = [ "frag_len", "params_len", "params_count", "params_has_url" ]
+        col_names = [ "frag_len", "params_len", "params_count", "params_has_url", "params_enc_url", "params_enc_char" ]
 
     df[ col_names ] = df.apply(get_params_features, col=col, axis=1, result_type="expand")
 
