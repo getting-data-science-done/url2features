@@ -19,7 +19,7 @@ setup(
       name = "url2features",
       packages = ["url2features"],
       install_requires=[
-        'pandas','numpy','sklearn','whois'
+        'pandas','numpy','sklearn','whois','dnspython','geocoder'
       ],
       include_package_data=True,
       entry_points = {
@@ -31,7 +31,7 @@ setup(
       long_description_content_type='text/markdown',
       author = "John Hawkins",
       author_email = "johnc@getting-data-science-done.com",
-      url = "http://john-hawkins.github.io",
+      url = "http://getting-data-science-done.com",
       project_urls = {
           'Documentation': "http://url2features.readthedocs.io",
           'Source': 'https://github.com/getting-data-science-done/url2features',
