@@ -54,15 +54,27 @@ class URLTransform(TransformerMixin, BaseEstimator):
         result = {
               "columns":columns,
               "simple":False,
+              "protocol":False,
               "domain":False,
               "extension":False,
+              "file":False,
+              "params":False,
+              "dns":False,
         }
         if "simple" in params:
            result["simple"]=True
+        if "protocol":
+           result["protocol"]=True
         if "domain" in params:
            result["domain"]=True
         if "extension" in params:
            result["extension"]=True
+        if "file" in params:
+           result["file"]=True
+        if "params" in params:
+           result["params"]=True
+        if "dns" in params:
+           result["dns"]=True
 
         return result
 
