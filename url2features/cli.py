@@ -60,6 +60,7 @@ def get_cmd_line_params(argv):
               "domain":False, 
               "extension":False, 
               "file":False, 
+              "params":False, 
               "dns":False, 
     }
     for o in options:
@@ -76,6 +77,8 @@ def get_cmd_line_params(argv):
             result["extension"]=True
         if parts[0] == "-file":
             result["file"]=True
+        if parts[0] == "-params":
+            result["params"]=True
         if parts[0] == "-dns":
             result["dns"]=True
         if parts[0] == "-columns":
@@ -97,9 +100,10 @@ def print_usage(args):
     print("  -columns=<COMMA SEPARATED LIST>. REQUIRED")
     print("  -simple            Default: False. Features derived from the URL string: length, depth, components")
     print("  -domain            Default: False. Features from the domain registration (requires internet).")
-    print("  -extension         Default: False. Features about the domain extension and structure.")
+    print("  -extension         Default: False. Features about the domain extension, top level domain (TLD)")
     print("  -protocol          Default: False. Features from the URL protocol.")
     print("  -file              Default: False. Features derived from the final file type")
+    print("  -params            Default: False. Features derived from any query string parameters in the URL")
     print("  -dns               Default: False. Features derived from the DNS records (requires internet).")
     print("  -np                Deactivate use of column name prefix. Only works for a single column.")
     print("")

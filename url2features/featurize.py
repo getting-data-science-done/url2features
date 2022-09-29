@@ -10,6 +10,7 @@ from .protocol import protocol_features
 from .domain import domain_features
 from .extension import extension_features
 from .file import file_features
+from .params import params_features
 from .dns import dns_features
 
 """
@@ -31,10 +32,6 @@ def process_df(df, params):
         start_profile("protocol")
         df = protocol_features( df, params["columns"], add_prefix )
         end_profile("protocol")
-    if params["file"] :
-        start_profile("file")
-        df = file_features( df, params["columns"], add_prefix )
-        end_profile("file")
     if params["domain"] :
         start_profile("domain")
         df = domain_features( df, params["columns"], add_prefix )
@@ -43,6 +40,14 @@ def process_df(df, params):
         start_profile("extension")
         df = extension_features( df, params["columns"], add_prefix )
         end_profile("extension")
+    if params["file"] :
+        start_profile("file")
+        df = file_features( df, params["columns"], add_prefix )
+        end_profile("file")
+    if params["params"] :
+        start_profile("params")
+        df = params_features( df, params["columns"], add_prefix )
+        end_profile("params")
     if params["dns"] :
         start_profile("dns")
         df = dns_features( df, params["columns"], add_prefix )

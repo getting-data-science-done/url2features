@@ -62,6 +62,7 @@ Each type of feature can be unlocked through the use of a specific command line 
   -extension         Default: False. Information about the domain extension
   -protocol          Default: False. Features derives from the URL protocol.
   -file              Default: False. The file extension and type referenced by the URL
+  -params            Default: False. The query parameters at the end of the URL
   -dns               Default: False. DNS related information.
 ```
 
@@ -75,17 +76,19 @@ Use the runner without installing the application.
 The following example will generate all features on the test data.
 
 ```
-./url2features-runner.py -columns=url -simple -file -domain -extension data/test.csv > data/output.csv
+./url2features-runner.py -columns=url -simple -domain -extension -protocol -file -params data/test.csv > data/output.csv
 ```
 
 This will send the time performance profile to STDERR as shown below:
 ```
 Computation Time Profile for each Feature Set
 ---------------------------------------------
-simple               0:00:00.007806
-file                 0:00:00.010610
-domain               0:00:00.005990
-extension            0:00:00.004449
+simple               0:00:00.002620
+protocol             0:00:00.001280
+domain               0:00:00.002900
+extension            0:00:00.001703
+file                 0:00:00.002157
+params               0:00:00.002215
 ```
 
 ### Directory as package 

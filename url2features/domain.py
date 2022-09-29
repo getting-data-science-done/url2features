@@ -37,7 +37,7 @@ def domain_features(df, columns, add_prefix=True):
 ########################################################################################
 def extract_full_domain(url):
     url = url.strip()
-    prot = re.findall("https?://", url)
+    prot = re.findall("^[a-zA-Z][a-zA-Z]*://", url)
     if len(prot)>0:
         url = url[len(prot[0]):]
     parts = url.split("/")
@@ -63,7 +63,34 @@ def get_subdomain_freq(sub):
         return subdomain_freqs[sub]
     else:
         return 0.0
-    
+
+########################################################################################
+def domain_is_ip(domain):
+    """
+    Function to detect if a string is an IP address rather than a domain name
+    Srtictly speaking this function should be more restrictive -- To test if the sequence
+     of numbers is a real IP. But for our purposes even a malformed IP should be flagged
+     as an IP address.
+    """
+    if domain.replace(".", "").isdecimal():
+        return 1
+    elif domain.count(':')>1:
+        return 1
+    else:
+        return 0
+
+########################################################################################
+def domain_has_port(domain):
+    """
+    Function to detect if a domain string contains a port number
+    """
+    if domain.count(':')==1:
+        return 1
+    elif domain.count(']:') == 1:
+        return 1
+    else:
+        return 0
+
 ########################################################################################
 def add_domain_features(df, col, add_prefix=True):
     """
@@ -78,11 +105,15 @@ def add_domain_features(df, col, add_prefix=True):
 
     def dom_features(x, col):
         if x[col]!=x[col]:
-            secs = 0
+            is_ip = -1
+            has_port = -1
+            secs = -1
             sub_type = -1
             sub_freq = -1
         else:
             domain = extract_full_domain(x[col])
+            is_ip = domain_is_ip(domain)
+            has_port = domain_has_port(domain)
             parts = domain.split(".")
             secs = len(parts)
             prime, suffix = split_domain_and_suffix(domain)
@@ -98,12 +129,13 @@ def add_domain_features(df, col, add_prefix=True):
                 reg_dom = domain
             reg_year = get_registration_year(reg_dom)
 
-        return secs, sub_type, sub_freq, reg_year
+        return secs, is_ip, has_port, sub_type, sub_freq, reg_year
 
     if add_prefix:
-        col_names = [ col+'_domain_sections', col+'_subdomain_type', col+'_subdomain_freq', col+'_domain_reg_year'  ]
+        col_names = [ col+'_domain_sections', col+'_host_is_ip', col+'_host_has_port', 
+                      col+'_subdomain_type', col+'_subdomain_freq', col+'_domain_reg_year'  ]
     else:
-        col_names = [ 'domain_sections', 'subdomain_type', 'subdomain_freq', 'domain_reg_year'  ]
+        col_names = [ 'domain_sections', 'host_is_ip', 'host_has_port', 'subdomain_type', 'subdomain_freq', 'domain_reg_year'  ]
 
     df[ col_names ] = df.apply(dom_features, col=col, axis=1, result_type="expand")
 
