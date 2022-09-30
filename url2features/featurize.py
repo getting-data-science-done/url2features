@@ -7,8 +7,8 @@ from .process import start_profile
 from .process import end_profile
 from .simple import simple_features
 from .protocol import protocol_features
-from .domain import domain_features
-from .extension import extension_features
+from .host import host_features
+from .tld import tld_features
 from .file import file_features
 from .path import path_features
 from .params import params_features
@@ -33,14 +33,14 @@ def process_df(df, params):
         start_profile("protocol")
         df = protocol_features( df, params["columns"], add_prefix )
         end_profile("protocol")
-    if params["domain"] :
-        start_profile("domain")
-        df = domain_features( df, params["columns"], add_prefix )
-        end_profile("domain")
-    if params["extension"] :
-        start_profile("extension")
-        df = extension_features( df, params["columns"], add_prefix )
-        end_profile("extension")
+    if params["host"] :
+        start_profile("host")
+        df = host_features( df, params["columns"], add_prefix )
+        end_profile("host")
+    if params["tld"] :
+        start_profile("tld")
+        df = tld_features( df, params["columns"], add_prefix )
+        end_profile("tld")
     if params["path"] :
         start_profile("path")
         df = path_features( df, params["columns"], add_prefix )

@@ -7,7 +7,7 @@ url2features
 [![Documentation Status](https://readthedocs.org/projects/url2features/badge/?version=latest)](https://url2features.readthedocs.io/en/latest/?badge=latest)
 
 ```
-Status - Semi-Functional - In development
+Status - Functional - Beta Release
 ```
 
 This is an application to add features to a dataset that are derived from processing
@@ -58,9 +58,10 @@ Each type of feature can be unlocked through the use of a specific command line 
 
 ```
   -simple	     Default: False. Basic string derived features
-  -domain            Default: False. Information about the domain and its registration.
-  -extension         Default: False. Information about the domain extension
   -protocol          Default: False. Features derives from the URL protocol.
+  -host              Default: False. Features describing the host, including domain structure and registration.
+  -tld               Default: False. Information about the Top Level Domain
+  -path              Default: False. Features extracted from the path between host and file
   -file              Default: False. The file extension and type referenced by the URL
   -params            Default: False. The query parameters at the end of the URL
   -dns               Default: False. DNS related information.
@@ -76,7 +77,7 @@ Use the runner without installing the application.
 The following example will generate all features on the test data.
 
 ```
-./url2features-runner.py -columns=url -simple -domain -extension -protocol -file -params data/test.csv > data/output.csv
+./url2features-runner.py -columns=url -simple -host -tld -protocol -file -params data/test.csv > data/output.csv
 ```
 
 This will send the time performance profile to STDERR as shown below:
@@ -85,8 +86,8 @@ Computation Time Profile for each Feature Set
 ---------------------------------------------
 simple               0:00:00.002620
 protocol             0:00:00.001280
-domain               0:00:00.002900
-extension            0:00:00.001703
+host                 0:00:00.002900
+tld                  0:00:00.001703
 file                 0:00:00.002157
 params               0:00:00.002215
 ```
@@ -96,7 +97,7 @@ params               0:00:00.002215
 Alternatively, you can invoke the directory as a package:
  
 ```
-python -m url2features -columns=referrer -domain -extension data/test.csv > data/output.csv
+python -m url2features -columns=url -host -tld data/test.csv > data/output.csv
 ```
 
 ### From Install
@@ -125,7 +126,7 @@ pip install url2features
 Now, the ``url2features`` command is available::
 
 ```
-url2features -columns=referrer data/test.csv > data/output.csv
+url2features -columns=url -simple data/test.csv > data/output.csv
 ```
 
 This will take the Input CSV, calculate some simple summary features and 

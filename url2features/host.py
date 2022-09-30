@@ -7,8 +7,8 @@ import os
 import re
 
 """
-    url2features.domain: Domain domain feature flags
-    Generate features for domains
+    url2features.host: Host feature flags
+    Generate features for host including domain, subdomain elements
 """
 
 from .suffixes import split_domain_and_suffix
@@ -24,18 +24,18 @@ language_codes = ['ab', 'aa', 'af', 'ak', 'sq', 'am', 'ar', 'an', 'hy', 'as', 'a
 
 
 ########################################################################################
-def domain_features(df, columns, add_prefix=True):
+def host_features(df, columns, add_prefix=True):
     """
         Given a pandas dataframe and a set of column names.
-        calculate the domain features and add them.
+        calculate the host features and add them.
     """
     rez = df.copy()
     for col in columns:
-        rez = add_domain_features(rez, col, add_prefix)
+        rez = add_host_features(rez, col, add_prefix)
     return rez
 
 ########################################################################################
-def extract_full_domain(url):
+def extract_full_host(url):
     url = url.strip()
     prot = re.findall("^[a-zA-Z][a-zA-Z]*://", url)
     if len(prot)>0:
@@ -46,7 +46,6 @@ def extract_full_domain(url):
 
 ########################################################################################
 def get_subdomain_type(sub):
-    #print("FUNCTION CALL: get_subdomain_type(", sub, ")")
     if sub in subdomain_types:
         return subdomain_types[sub]
     elif sub in country_codes:
@@ -58,14 +57,13 @@ def get_subdomain_type(sub):
 
 ########################################################################################
 def get_subdomain_freq(sub):
-    #print("FUNCTION CALL: get_subdomain_freq(", sub, ")")
     if sub in subdomain_freqs:
         return subdomain_freqs[sub]
     else:
         return 0.0
 
 ########################################################################################
-def domain_is_ip(domain):
+def host_is_ip(domain):
     """
     Function to detect if a string is an IP address rather than a domain name
     Srtictly speaking this function should be more restrictive -- To test if the sequence
@@ -80,7 +78,7 @@ def domain_is_ip(domain):
         return 0
 
 ########################################################################################
-def domain_has_port(domain):
+def host_has_port(domain):
     """
     Function to detect if a domain string contains a port number
     """
@@ -92,7 +90,7 @@ def domain_has_port(domain):
         return 0
 
 ########################################################################################
-def add_domain_features(df, col, add_prefix=True):
+def add_host_features(df, col, add_prefix=True):
     """
         Given a pandas dataframe and a column name.
         add features for the domain:
@@ -105,29 +103,37 @@ def add_domain_features(df, col, add_prefix=True):
 
     def dom_features(x, col):
         if x[col]!=x[col]:
-            is_ip = -1
-            has_port = -1
-            secs = -1
-            sub_type = -1
-            sub_freq = -1
+            is_ip = np.nan
+            has_port = np.nan
+            secs = np.nan
+            sub_type = np.nan
+            sub_freq = np.nan
         else:
-            domain = extract_full_domain(x[col])
-            is_ip = domain_is_ip(domain)
-            has_port = domain_has_port(domain)
-            parts = domain.split(".")
+            host = extract_full_host(x[col])
+            is_ip = host_is_ip(host)
+            has_port = host_has_port(host)
+            parts = host.split(".")
             secs = len(parts)
-            prime, suffix = split_domain_and_suffix(domain)
-            parts = prime.split(".")
-            if len(parts) > 1:
-                subbie = ".".join(parts[0:-1])
-                sub_type = get_subdomain_type(subbie)
-                sub_freq = get_subdomain_freq(subbie)
-                reg_dom = prime[len(subbie)+1:] + suffix
+            if is_ip:
+                sub_type = np.nan
+                sub_freq = np.nan
+                reg_dom = host
             else:
-                sub_type = -1
-                sub_freq = -1
-                reg_dom = domain
-            reg_year = get_registration_year(reg_dom)
+                prime, suffix = split_domain_and_suffix(host)
+                parts = prime.split(".")
+                if len(parts) > 1:
+                    subbie = ".".join(parts[0:-1])
+                    sub_type = get_subdomain_type(subbie)
+                    sub_freq = get_subdomain_freq(subbie)
+                    reg_dom = prime[len(subbie)+1:] + suffix
+                else:
+                    sub_type = -1
+                    sub_freq = -1
+                    reg_dom = host
+            if is_ip:
+                reg_year = np.nan
+            else:
+                reg_year = get_registration_year(reg_dom)
 
         return secs, is_ip, has_port, sub_type, sub_freq, reg_year
 

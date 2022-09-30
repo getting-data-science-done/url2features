@@ -57,8 +57,8 @@ def get_cmd_line_params(argv):
               "prefix":True, 
               "simple":False, 
               "protocol":False, 
-              "domain":False, 
-              "extension":False, 
+              "host":False, 
+              "tld":False, 
               "path":False, 
               "file":False, 
               "params":False, 
@@ -72,10 +72,10 @@ def get_cmd_line_params(argv):
             result["simple"]=True
         if parts[0] == "-protocol":
             result["protocol"]=True
-        if parts[0] == "-domain":
-            result["domain"]=True
-        if parts[0] == "-extension":
-            result["extension"]=True
+        if parts[0] == "-host":
+            result["host"]=True
+        if parts[0] == "-tld":
+            result["tld"]=True
         if parts[0] == "-path":
             result["path"]=True
         if parts[0] == "-file":
@@ -102,8 +102,8 @@ def print_usage(args):
     print(" [ARGS] In most cases these are switches that turn on the feature type")
     print("  -columns=<COMMA SEPARATED LIST>. REQUIRED")
     print("  -simple            Default: False. Features derived from the URL string: length, depth, components")
-    print("  -domain            Default: False. Features from the domain registration (requires internet).")
-    print("  -extension         Default: False. Features about the domain extension, top level domain (TLD)")
+    print("  -host              Default: False. Features about the host including subdoamin and registration (requires internet).")
+    print("  -tld               Default: False. Features about the top level domain (TLD)")
     print("  -protocol          Default: False. Features from the URL protocol.")
     print("  -path              Default: False. Features derived from the path between host and file")
     print("  -file              Default: False. Features derived from the final file type")

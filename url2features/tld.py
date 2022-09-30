@@ -12,9 +12,9 @@ tld_freqs = load_dictionary('tld_freqs.dat')
 tld_types = load_dictionary('tld_types.dat')
 
 """
-    url2features.extension: Domain extension feature flags
+    url2features.tld: Host Top Level Domain feature flags
 
-    Generate features for common domain extensions
+    Generate features for common domain tlds
 
 """
 
@@ -23,21 +23,21 @@ tld_pat = r"\.[a-z]+(?:/|$)"
 tld_re = re.compile(tld_pat)
  
 ########################################################################################
-def extension_features(df, columns, add_prefix=True):
+def tld_features(df, columns, add_prefix=True):
     """
         Given a pandas dataframe and a set of column names.
-        calculate the extension features and add them.
+        calculate the tld features and add them.
     """
     rez = df.copy()
     for col in columns:
-        rez = add_extension_features(rez, col, add_prefix)
+        rez = add_tld_features(rez, col, add_prefix)
     return rez
 
 ########################################################################################
-def add_extension_features(df, col, add_prefix=True):
+def add_tld_features(df, col, add_prefix=True):
     """
         Given a pandas dataframe and a column name.
-        add simple text match features for extension.
+        add simple text match features for tld.
     """
 
     def ext_features(x, col):

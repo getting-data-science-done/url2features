@@ -23,9 +23,10 @@ Without parameters it will print out an error and the following usage :
      [ARGS] In most cases these are switches that turn on the feature type
      -columns=<COMMA SEPARATED LIST>. REQUIRED
      -simple            Default: False. Features derived from the URL string: length, depth, components
-     -domain            Default: False. Features from the domain registration (requires internet).
-     -extension         Default: False. Features about the domain extension and structure.
+     -host              Default: False. Features from the subdomain and domain registration (requires internet).
+     -tld               Default: False. Features about the Top Level Domain.
      -protocol          Default: False. Features from the URL protocol.
+     -path              Default: False. Features derived from the path between host and file
      -file              Default: False. Features derived from the final file type
      -dns               Default: False. Features derived from the DNS records (requires internet).
      -np                Deactivate use of column name prefix. Only works for a single column.
@@ -35,14 +36,18 @@ The list of columns to process and the path to the dataset are both mandatory.
 
 The rest of the options turn on or off particular groups of features.
 
+
+
 Python Package Usage
 ^^^^^^^^^^^^^^^^^^^^
 
 You can import the url2features package within python and then make use of the
 SciKit Learn Compatible Transformer for your ML Pipeline.
+
+
 In the example below we initialise a URLTransform object that will generate
-the domain and extension features for any
-dataframe that has a column of data named 'URL_COL_NAME'
+the host and top level domain features for any dataframe that has a column of 
+data named 'URL_COL_NAME'
 
 
 .. code-block:: python
@@ -52,7 +57,7 @@ dataframe that has a column of data named 'URL_COL_NAME'
     from sklearn.pipeline import Pipeline
 
     pipeline = Pipeline([
-        ('urltransform', URLTransform(['URL_COL_NAME'],['domain','extension']) ),
+        ('urltransform', URLTransform(['URL_COL_NAME'],['host','tld']) ),
         ('clf', SGDClassifier(loss='log') ),
     ])
 

@@ -12,11 +12,11 @@ from url2features.path import path_features
 from url2features.file import file_features
 from url2features.params import params_features
 
-from url2features.extension import top_level_domain_lookup
+from url2features.tld import top_level_domain_lookup
 
-from url2features.domain import extract_full_domain
-from url2features.domain import get_subdomain_type
-from url2features.domain import get_subdomain_freq
+from url2features.host import extract_full_host
+from url2features.host import get_subdomain_type
+from url2features.host import get_subdomain_freq
 
 from url2features.file import file_extension_lookup
 
@@ -68,7 +68,7 @@ def test_domain_features():
     assert type == 3
 
 def test_domain_extract():
-    dom = extract_full_domain("https://www.smh.com.au/sydney-news")
+    dom = extract_full_host("https://www.smh.com.au/sydney-news")
     assert dom == "www.smh.com.au"
 
 def test_subdomain_type():
