@@ -59,6 +59,7 @@ def get_cmd_line_params(argv):
               "protocol":False, 
               "domain":False, 
               "extension":False, 
+              "path":False, 
               "file":False, 
               "params":False, 
               "dns":False, 
@@ -75,6 +76,8 @@ def get_cmd_line_params(argv):
             result["domain"]=True
         if parts[0] == "-extension":
             result["extension"]=True
+        if parts[0] == "-path":
+            result["path"]=True
         if parts[0] == "-file":
             result["file"]=True
         if parts[0] == "-params":
@@ -102,6 +105,7 @@ def print_usage(args):
     print("  -domain            Default: False. Features from the domain registration (requires internet).")
     print("  -extension         Default: False. Features about the domain extension, top level domain (TLD)")
     print("  -protocol          Default: False. Features from the URL protocol.")
+    print("  -path              Default: False. Features derived from the path between host and file")
     print("  -file              Default: False. Features derived from the final file type")
     print("  -params            Default: False. Features derived from any query string parameters in the URL")
     print("  -dns               Default: False. Features derived from the DNS records (requires internet).")

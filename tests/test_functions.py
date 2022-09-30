@@ -8,6 +8,9 @@ from url2features.process import isNaN
 
 from url2features.dns import get_country
 from url2features.simple import simple_features
+from url2features.path import path_features
+from url2features.file import file_features
+from url2features.params import params_features
 
 from url2features.extension import top_level_domain_lookup
 
@@ -36,9 +39,27 @@ def test_simple():
     assert rez["url_length"][0] == 18
     assert rez["url_length"][1] == 19
     assert rez["url_length"][2] == 11
-    assert rez["url_path_depth"][0] == 1
-    assert rez["url_path_depth"][1] == 1
-    assert rez["url_path_depth"][2] == 1
+
+def test_path():
+    df = pd.DataFrame({
+        "ID":[1,2,3,4,5], 
+        "url":["http://example.com", "http://example.com/","example.com","example.com/this.html","example.com/this/that.html"]
+    })
+    rez =  path_features(df, ["url"])
+    assert rez["url_path_depth"][0] == 0
+    assert rez["url_path_depth"][1] == 0
+    assert rez["url_path_depth"][2] == 0
+    assert rez["url_path_depth"][3] == 1
+    assert rez["url_path_depth"][4] == 2
+
+def test_file():
+    df = pd.DataFrame({
+        "ID":[1,2],
+        "url":["example.com/this.html","example.com/this/that.php"]
+    })
+    rez =  file_features(df, ["url"])
+    assert rez["url_file_extn"][0] == "html"
+    assert rez["url_file_extn"][1] == "php"
 
 def test_domain_features():
     freq, type = top_level_domain_lookup("com")

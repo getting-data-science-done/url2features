@@ -75,7 +75,7 @@ def add_params_features(df, col, add_prefix):
         p_enc_url = 0
         p_enc_char = 0
         if x[col]==x[col]:
-            url = (x[col])
+            url = add_protocol_if_missing(x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
             f_length = len(fragment)
             p_length = len(query)
@@ -85,15 +85,29 @@ def add_params_features(df, col, add_prefix):
                p_has_url = detect_embedded_url(query)
                p_enc_url = detect_encoded_link(query)
                p_enc_char = detect_encoded_chars(query)
-        return f_length, p_length, p_count, p_has_url, p_enc_url, p_enc_char 
+        return p_length, p_count, p_has_url, p_enc_url, p_enc_char, f_length
 
     if add_prefix:
-        col_names = [ col+"_frag_len", col+"_params_len", col+"_params_count", 
-                      col+"_params_has_url", col+"params_enc_url", col+"params_enc_char" ] 
+        col_names = [ col+"_params_len", col+"_params_count", col+"_params_has_url", 
+                      col+"params_enc_url", col+"params_enc_char", col+"params_frag_len" ] 
     else:
-        col_names = [ "frag_len", "params_len", "params_count", "params_has_url", "params_enc_url", "params_enc_char" ]
+        col_names = [ "params_len", "params_count", "params_has_url", 
+                      "params_enc_url", "params_enc_char", "params_frag_len" ]
 
     df[ col_names ] = df.apply(get_params_features, col=col, axis=1, result_type="expand")
 
     return df
+
+###################################################################
+def add_protocol_if_missing(x):
+    """
+    Determine if the URL begins with any form of protocol
+    and add a default protocol if it is absent.
+    """
+    p = re.findall(r"^[a-zA-Z]{2,8}://", x)
+    if len(p) > 0: 
+        return x
+    else:
+        return "http://"+x
+
 

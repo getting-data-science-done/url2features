@@ -12,6 +12,7 @@ import re
     url2features.file: Features based on the file type.
 """
 from .process import load_dictionary
+from .process import add_protocol_if_missing
 
 extension_types = load_dictionary('file_extensions.dat')
 
@@ -37,9 +38,10 @@ def add_file_features(df, col, add_prefix):
         type = ""
         existance = 0
         if x[col]==x[col]:
-            url = (x[col])
+            url = add_protocol_if_missing(x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
             sections = path.split(".")
+            print(sections)
             if len(sections) > 1:
                 ext = sections[1]
                 type = file_extension_lookup(ext)

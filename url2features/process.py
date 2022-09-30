@@ -230,3 +230,18 @@ def remove_escapes_and_non_printable(text):
     pattern = "\0|\n|\r|\b|\t|\f|\v"
     new_text1 = re.sub(pattern, " ", new_text0)
     return new_text1
+
+
+###################################################################
+def add_protocol_if_missing(x):
+    """
+    Determine if the URL begins with any form of protocol
+    and add a default protocol if it is absent.
+    """
+    p = re.findall(r"^[a-zA-Z]{2,8}://", x)
+    if len(p) > 0:
+        return x
+    else:
+        return "http://"+x
+
+
