@@ -168,16 +168,20 @@ internet traffic machine learning problems. Python package available at https://
 
 \section{Introduction}
 
-The Uniform Resource Locator (URL) is now a ubiquitous element of modern life. 
+The Uniform Resource Locator (URL) is a ubiquitous element the digital world. 
 We use them to advertise and locate businesses, to retrieve news and media and 
-to interact with other people across a broad of social applications. It should
-be no surprise that processing URLs is key component of many tasks that involve
+to interact with other people across a broad of social applications.
+Processing URLs is key component of many tasks that involve
 analysing internet data. In many applications the URL is the central piece of 
 information available because the demands of the task require immediate analysis.
-Prominent examples include security analysis of potenital phishing attacks\cite{Basnet2014}, 
-detection of potential spam emails \cite{}, and applications to online advertsing
-including anticipation of conversions \cite{Qiu2020} or contextual analysis of
-the content\cite{Kan2005,Baykan2009} or language\cite{Baykan2013} of webpages. 
+In applications like malicious wesite detection the URL needs to be processed with
+in a rapid and efficient manner to provide utility\cite{Ma2009b}.
+Common use cases for URL centered analysis include security analysis of potenital phishing 
+attacks\cite{Basnet2014,Mamun2016,Vazhayil2018}, and identification of pages 
+that host malware or viruses \cite{Canali2011,Mamun2016}.
+There are also applications to online advertising
+including anticipation of conversions \cite{Qiu2020}, contextual analysis of
+the content\cite{Kan2005,Baykan2009,Meshkizadeh2010} or language\cite{Baykan2013} of webpages. 
 
 The URL is made up of multiple elements, but at its core is the domain. The domain
 contains internal information about both its intended purpose, legitimacy and likely
@@ -193,39 +197,56 @@ In this work we describe an ontology of URL fetaures that relates to underlying 
 and purpose. We then present an open source package for generating features within these
 ontologocal classes and apply them to a variety of tasks. We present our results as a
 cross-task evaluation of URL features.  
+ 
+A large amount of recent work on machine learning based on URLs has focused on deep learning approaches that
+learn an embedding representation of the content of the URL. Once of the explicit reasons 
+for this approach is the potential for sensitivity to the sequential structure of the URL.
+\cite{Le2018}
 
-Multiple data science and machine learning applications on internet data 
-Write a literature review \cite{Vazhayil2018}
-\cite{Canali2011}
+Deep learning approaches include the use of convolutional layers to learn word and character 
+embedings \cite{Le2018},
+
 \cite{Ayes2019}
-\cite{Mamun2016}
 \cite{Li2020}
 \cite{Basnet2012}
 \cite{Basnet2014}
 \cite{Tupsamudre2019}
-URLnet learns word and charcater embedings \cite{Le2018}
 \cite{Baykan2009}
 \cite{Kan2005}
 \cite{Hernandez2012}
 \cite{Chung2010}
 \cite{Qiu2020}
-\cite{Vaishnavi2021}
 \cite{Xu2021}
 \cite{Rhea2022}
 \cite{Ma2009}
 \cite{Verma2017}
 \cite{Sountharrajan2020}
-
 \cite{Murthy2022}
+
 Classify Web pages based on URLs from the 4 Universities WebKB dataset. Comparing features derived from segmentation
 of the URL to features derived from either link anchor text or the web page document itself \cite{Kan2004}.
 
 Common approaches to feature engineering on URLs include string patterns and regular expressions to
-identify key sequences \cite{Kan2004}, n-gram or bag of words models \cite{Baykan2009}, 
+identify key sequences and lexical properties \cite{Kan2004,Mamun2016}, 
+creation of lookup tables or likelihood scores based on key sequences
+\cite{Meshkizadeh2010}, n-gram or bag of words models \cite{Baykan2009}, 
 the generation of task specific embedding vectors\cite{Le2018,Qiu2020} and the
-usage of domain name servers or registrars for ancillary information \cite{}. Some authors have 
-empahsized that URLs are sequences of characters and require features that respect this ordering\cite{Le2018}.
-However, the ordering of key features within URLs is predominantly fixed.
+usage of domain name servers or registrars for ancillary information about the domain registration \cite{Canali2011}. 
+Some authors have 
+emphasized that URLs are sequences of characters and require feature extraction methods that respect 
+this sequential nature\cite{Le2018,Vazhayil2018}. They have naturally turned to developing neural network approaches
+based on convolutional or recurrent layers for learning these sequential structures.
+However, the ordering of key features within URLs is predominantly fixed as shown in Figure \ref{fig:url_structure}.
+The core elements of URL structure occur at fixed positions within the sequence, in contrast to human language
+sequences which are built from flexible grammars that allow variable positioning of most key elements.
+
+\begin{figure*}
+\centering
+\includegraphics[scale=0.3]{images/URL_parts.png}
+\caption{Structural components of a URL requiring specific feature engineering treatment}
+\label{fig:url_structure}
+\end{figure*}
+
 
 
 \section{Methodology}
@@ -237,7 +258,7 @@ the impact of the URL features using the SHAP package for feature importance.
 
 \subsection{Features}
 
-The features generated by the url2feature package are summaize in Table \ref{tab:features}
+The features generated by the url2feature package are summairized in Table \ref{tab:features}
 
 \begin{table*}
 \caption{URL Features}
@@ -246,9 +267,9 @@ The features generated by the url2feature package are summaize in Table \ref{tab
 \toprule
 Group         &Feature              &Type        &Definition  \\
 \midrule
-Protocol      &protocol\_name         &Category    &The exact protocol name    \\
-              &protocol\_type         &Category    &Protocol categorised by purpose    \\
-              &protocol\_exists       &Boolean     &Flag indicating presence of protocol   \\
+Protocol      &protocol\_name         &Category    &The exact internet protocol name    \\
+              &protocol\_type         &Category    &Internet protocol categorised by its purpose    \\
+              &protocol\_exists       &Boolean     &Flag indicating presence or absence of internet protocol   \\
 \midrule
 Host          &host\_is\_ip           &Boolean     &Flag indicating if the host is an IP address    \\
               &host\_has\_port        &Boolean     &Flag indicating if a port number is explicitly specified    \\
@@ -256,19 +277,19 @@ Host          &host\_is\_ip           &Boolean     &Flag indicating if the host 
               &domain\_reg\_year      &Numeric     &Year in which the domain was initially registered    \\
               &subdomain\_type        &Category    &Categorisation of the purpose of the subdomain \\
               &subdomain\_freq        &Numeric     &Frequency of the subdomain in internet traffics    \\
-              &tld\_type              &Category    &TLD extension categorised by purpose    \\
-              &tld\_freq              &Boolean     &TLD extension frequency in internet traffic   \\
+              &tld\_type              &Category    &Top Level Domain extension categorised by purpose    \\
+              &tld\_freq              &Boolean     &Top Level Domain extension frequency in internet traffic   \\
 \midrule
-Path          &path\_depth            &Numeric     &The number of forward slashes    \\
-              &path\_words            &Numeric     &Count of distinct words    \\
-              &path\_has_date         &Boolean     &Flag indicating if a date is detected in the path  \\
-              &path\_is_home          &Boolean     &Flag indicating if the path starts with a home directorys    \\
+Path          &path\_depth            &Numeric     &The depth of the directory path between host and file   \\
+              &path\_words            &Numeric     &Count of distinct words in the path between host and file   \\
+              &path\_has\_date         &Boolean     &Flag indicating if a date is detected in the path  \\
+              &path\_is\_home          &Boolean     &Flag indicating if the path starts with a home directory    \\
 \midrule 
 File          &file\_ext              &Category    &The exact file extension e.g. "exe" or "php"    \\
               &file\_type             &Category    &File extension categorised by function \& purpose    \\
-              &file\_ext\_exists      &Boolean     &Flag indicating presence of protocol   \\
+              &file\_ext\_exists      &Boolean     &Flag indicating presence of a file extension for the URL target  \\
 \midrule
-Params        &params\_len            &Numeric     &The length of the parameter string    \\
+Params        &params\_len            &Numeric     &The character length of the parameter string    \\
               &params\_count          &Numeric     &The count of the key value pairs in the param string    \\
               &params\_has\_url       &Boolean     &Flag indicating presence of a raw URL within the parameter string   \\
               &params\_enc\_url       &Boolean     &Flag indicating presence of an encoded URL within the parameter string   \\
@@ -294,16 +315,21 @@ The world wide web knowledge base (WebKb) 4 Universities data set contains a wid
 range of university URLs categorised into multiple topic categories\cite{Craven1998}.
 These 3 URL classification problems are summarised in Table \ref{tab:data}
 
+The Syskill \& Webert webpage ratings dataset containing webepages across 4 categories
+with \cite{Pazzani1996}
+
 \begin{table}
 \caption{Datasets}
 \label{tab:data}
-\begin{tabular}{|l|r|r|}
+\begin{tabular}{|l|r|r|r|}
 \toprule
-Dataset        &Records        &Classes  \\
+Dataset              &Records        &Classes  &Majority    \\
 \midrule
-Malware        &46,944          &2        \\
-Phishing       &45,343          &2        \\
-WebKb 4Uni     &8,284           &7        \\
+Malware              &46,944          &2       &            \\
+Phishing             &45,343          &2       &            \\
+WebKb 4Uni           &8,284           &7       &            \\
+DMOZ                 &8,284           &7       &            \\
+Syskill \& Webert     &8,284           &7       &            \\
 \bottomrule
 \end{tabular}
 \end{table}

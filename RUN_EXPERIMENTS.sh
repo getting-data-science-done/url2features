@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+#
+#
 
 python experiments/malware/00_analysis.py
 python experiments/malware/01_baseline.py
