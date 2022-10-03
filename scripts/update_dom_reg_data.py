@@ -13,29 +13,55 @@ import json
 import whois
 import os
 import sys
-
-oldfile = "../attention-and-context/ranking_analysis/data/URLs.csv"
+import re
 
 dict_file = 'url2features/data/dom_reg.dat' 
+
+common_suffixes = [ '.com', '.net', '.ne.jp', '.de', '.org', '.edu', '.nl', '.info', '.biz', '.co.uk', '.cz', '.dk',
+                    '.com.cn', '.mil', '.ac.uk', '.ch', '.eu', '.com.br', '.co.za', '.ad.jp', '.ac.cn', '.com.au',
+                    '.or.jp', '.net.au', '.asia', '.ac.jp', '.mobi', '.co.jp', '.sk', '.edu.tw', 'edu.au', '.net.pl', '.gov' ]
 
 ####################################################################
 """
 Utility functions used by main()
 """
 def extract_domain(url):
+    url = str(url)
+    url = url.strip()
+    prot = re.findall("^[a-zA-Z][a-zA-Z]*://", url)
+    if len(prot)>0:
+        url = url[len(prot[0]):]
     parts = url.split("/")
-    if len(parts)>1:
-        return parts[0]
-    return url
+    domain = parts[0]
+    return domain
+
 
 def remove_subdomain(url):
-    if url[0:3]=='www':
+    url = str(url)
+    if url[0:4]=='www.':
         return url[4:]
+    if url[0:5]=='www1.':
+        return url[5:]
+    for sfx in common_suffixes:
+       sfl = len(sfx)
+       if url[-sfl:] == sfx:
+           base = url[0:len(url)-sfl]
+           dom = base.split(".")
+           if len(dom)>1:
+               return dom[-1] + sfx
+           else:
+              return url
+    # IF all that fails trim to a 2 part domain
     splitd = url.split(".")
-    while len(splitd)>3:
+    while len(splitd)>2:
         url = url[len(splitd[0])+1:]
         splitd = url.split(".")
     return url
+
+
+def remove_port(url):
+    url = str(url)
+    return re.sub(':[0-9]*', '', url)
 
 ####################################################################
 def main(datafile, urlcol, sep=","):
@@ -49,12 +75,13 @@ def main(datafile, urlcol, sep=","):
         lookup =  json.loads(file.read())
 
     df['domain'] = df[urlcol].apply(extract_domain)
- 
-    df['domain2'] = df['domain'].apply(remove_subdomain)
+    df['domain2'] = df['domain'].apply(remove_port)
+    df['domain3'] = df['domain2'].apply(remove_subdomain)
 
-    newdf = df.groupby('domain2').agg({urlcol:'count'}).reset_index()
+    newdf = df.groupby('domain3').agg({urlcol:'count'}).reset_index()
 
-    for dom in newdf['domain2']:
+    for dom in newdf['domain3']:
+        print("Processing", dom)
         dom = dom.lower()   
         if dom not in lookup:
             try:
