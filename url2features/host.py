@@ -74,10 +74,12 @@ def host_is_ip(domain):
     Srtictly speaking this function should be more restrictive -- To test if the sequence
      of numbers is a real IP. But for our purposes even a malformed IP should be flagged
      as an IP address.
+    TODO: Add IPV6 Support
     """
-    if domain.replace(".", "").isdecimal():
-        return 1
-    elif domain.count(':')>1:
+    domain = str(domain).strip()
+    temp1 = domain.replace(".", "")
+    temp2 = temp1.replace(":", "")
+    if temp2.isdecimal():
         return 1
     else:
         return 0

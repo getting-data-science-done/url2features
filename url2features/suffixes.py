@@ -29,5 +29,11 @@ def split_domain_and_suffix(domain):
     for suffix in suffixes:
         if domain.endswith(suffix):
             return domain[:-len(suffix)], domain[len(domain)-len(suffix):]
-
+    # Unrecognised suffix
+    parts = domain.split(".")
+    if len(parts)>1:
+        dom = domain[:-(len(parts[-1])+1)]
+        return dom, parts[-1]
+    else:
+        return domain, ""
 
