@@ -41,7 +41,6 @@ def add_file_features(df, col, add_prefix):
             url = add_protocol_if_missing(x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
             sections = path.split(".")
-            print(sections)
             if len(sections) > 1:
                 ext = sections[1]
                 type = file_extension_lookup(ext)

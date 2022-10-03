@@ -110,7 +110,6 @@ def add_host_features(df, col, add_prefix=True):
 
     def dom_features(x, col):
         url = str(x[col]).strip()
-        print("URL [%s]"%url)
         if (url == 'None') or (url == 'nan') or (url==""):
             is_ip = np.nan
             has_port = np.nan

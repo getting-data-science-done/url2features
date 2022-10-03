@@ -307,16 +307,15 @@ code.
 
 \subsection{Data}
 
-The data used in this study was collected from a collction of publications that 
+The data used in this study was colated from a range of publications that 
 present internet classification problems containing URLs as the primary feature.
 The ISCX Malcious URL classification dataset contains both malware and phishing URLS 
 that need to be discriminated against benign URLS\cite{Mamun2016}.
 The world wide web knowledge base (WebKb) 4 Universities data set contains a wide
 range of university URLs categorised into multiple topic categories\cite{Craven1998}.
-These 3 URL classification problems are summarised in Table \ref{tab:data}
-
 The Syskill \& Webert webpage ratings dataset containing webepages across 4 categories
-with \cite{Pazzani1996}
+with a human generated categorisation for determining personal preferences in webpage
+content\cite{Pazzani1996}. These 4 URL classification problems are summarised in Table \ref{tab:data}
 
 \begin{table}
 \caption{Datasets}
@@ -325,17 +324,16 @@ with \cite{Pazzani1996}
 \toprule
 Dataset              &Records        &Classes  &Majority    \\
 \midrule
-Malware              &46,944          &2       &            \\
-Phishing             &45,343          &2       &            \\
-WebKb 4Uni           &8,284           &7       &            \\
-DMOZ                 &8,284           &7       &            \\
+Malware              &46,944          &2       &75\%        \\
+Phishing             &45,343          &2       &78\%        \\
+WebKb 4Uni           &8,284           &7       &45\%        \\
 Syskill \& Webert    &330             &3       &68\%        \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 We generate all url features for each of these datasets and then apply a range of machine learning
-techniques to build an appropriate classifier. 
+techniques to build classifiers that can be analysed for key features for each task.
 
 \subsection{Feature Importance}
 
@@ -347,8 +345,30 @@ techniques to build an appropriate classifier.
 
 \section{Results}
 
+\begin{table}
+\caption{Machine Learning Results}
+\label{tab:results}
+\begin{tabular}{|l|r|r|r|r|}
+\toprule
+Dataset              &NB     &LR    &XT    &LGBM     \\
+\midrule
+Malware              &-      &-     &-     &-        \\
+Phishing             &-      &-     &-     &-        \\
+WebKb 4Uni           &-      &-     &-     &-        \\
+Syskill \& Webert    &-      &-     &-     &-        \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Conclusion}
+
+We have described the structural elements of a URL from which context specific features can be extracted.
+These feature ideas tend to be used indepednetly within different domains. In this paper we have have 
+collated them into an open source URL feature generation package and then compare their utility across a range
+of indepenent tasks. We have observed that the various structural regions play different roles across 
+these tasks, exhibiting varying levels of importance.  
+
+
 
 \section{Acknowledgments}
 
