@@ -45,6 +45,10 @@ def extract_full_host(url):
     domain = parts[0]
     return domain
 
+def remove_port(url):
+    url = str(url)
+    return re.sub(':[0-9]*', '', url)
+
 ########################################################################################
 def get_subdomain_type(sub):
     if sub in subdomain_types:
@@ -117,7 +121,7 @@ def add_host_features(df, col, add_prefix=True):
             is_ip = host_is_ip(host)
             has_port = host_has_port(host)
             if has_port:
-                host, port = extract_port(host)
+                host = remove_port(host)
             parts = host.split(".")
             secs = len(parts)
             if is_ip:
