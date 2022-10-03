@@ -1,8 +1,10 @@
 Data
 ====
 
-This directory contains raw data files that were downloaded and then processed into
+This directory contains some raw data files that were downloaded and then processed into
 resources used by the url2features library.
+
+It also contains data sets used for experimentation with the url2features library.
 
 File
 ```
@@ -35,9 +37,7 @@ We are collecting some datasets for testing features on ML tasks.
 
 https://github.com/lucasayres/url-feature-extractor
 
-
 # Data Sets
-
 https://www.unb.ca/cic/datasets/url-2016.html
 
 

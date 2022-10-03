@@ -3,6 +3,7 @@ import pkg_resources
 import pandas as pd 
 import numpy as np
 import math
+import sys
 import os
 import re
 
@@ -102,16 +103,21 @@ def add_host_features(df, col, add_prefix=True):
     """
 
     def dom_features(x, col):
-        if x[col]!=x[col]:
+        url = str(x[col]).strip()
+        print("URL [%s]"%url)
+        if (url == 'None') or (url == 'nan') or (url==""):
             is_ip = np.nan
             has_port = np.nan
             secs = np.nan
             sub_type = np.nan
             sub_freq = np.nan
+            reg_year = np.nan
         else:
             host = extract_full_host(x[col])
             is_ip = host_is_ip(host)
             has_port = host_has_port(host)
+            if has_port:
+                host, port = extract_port(host)
             parts = host.split(".")
             secs = len(parts)
             if is_ip:

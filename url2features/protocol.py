@@ -29,6 +29,7 @@ def add_protocol_features(df, col, add_prefix):
         calculate the protocol features 
     """
     def extract_protocol(x):
+       x = str(x)
        parts = x.split("://")
        if len(parts)>1:
           return parts[0]
