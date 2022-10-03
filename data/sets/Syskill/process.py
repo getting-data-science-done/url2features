@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-cols = ['id','label','url','date','title']
+cols = ['id','label','URL','date','title']
 
 bands = pd.read_csv("SW/Bands/index", header=None, names=cols, sep="|")
 biod = pd.read_csv("SW/BioMedical/index", header=None, names=cols, sep="|")
@@ -23,9 +23,9 @@ sheep['rating'] = sheep['label'].apply(convert_to_ord)
 total_df = bands.append(biod, ignore_index=True)
 total_df = total_df.append(goats, ignore_index=True)
 total_df = total_df.append(sheep, ignore_index=True)
-total_df.sort_values(by="url",inplace=True)
+total_df.sort_values(by="URL",inplace=True)
 
-store_df = total_df.loc[:,['url','label']]
-store_df.to_csv("dataset.csv",header=True,index=False)
+store_df = total_df.loc[:,['URL','label']]
+store_df.to_csv("syskill_dataset.csv",header=True,index=False)
 
 
