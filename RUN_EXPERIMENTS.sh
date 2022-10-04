@@ -1,28 +1,24 @@
 #!/bin/bash
 
-python malware/00_analysis.py
-python malware/01_baseline.py
-python malware/02_log_regression.py
-python malware/03_extra_trees.py
-python malware/04_lgbm.py
+python  experiments/recipes/01_NBayes.py syskill
+python  experiments/recipes/01_NBayes.py malware
+python  experiments/recipes/01_NBayes.py phishing
+python  experiments/recipes/01_NBayes.py webkb
 
-python phishing/00_analysis.py
-python phishing/01_baseline.py
-python phishing/02_log_regression.py
-python phishing/03_extra_trees.py
-python phishing/04_lgbm.py
+python  experiments/recipes/02_LogReg.py syskill
+python  experiments/recipes/02_LogReg.py malware
+python  experiments/recipes/02_LogReg.py phishing
+python  experiments/recipes/02_LogReg.py webkb
 
-python webkb/00_analysis.py
-python webkb/01_baseline.py
-python webkb/02_log_regression.py
-python webkb/03_extra_trees.py
-python webkb/04_lgbm.py
+python  experiments/recipes/03_ExtraTrees.py syskill
+python  experiments/recipes/03_ExtraTrees.py malware
+python  experiments/recipes/03_ExtraTrees.py phishing
+python  experiments/recipes/03_ExtraTrees.py webkb
 
-python sw/00_analysis.py
-python sw/01_baseline.py
-python sw/02_log_regression.py
-python sw/03_extra_trees.py
-python sw/04_lgbm.py
+python  experiments/recipes/04_LGBM.py syskill
+python  experiments/recipes/04_LGBM.py malware
+python  experiments/recipes/04_LGBM.py phishing
+python  experiments/recipes/04_LGBM.py webkb
 
-python tabulate_results.py
+#python tabulate_results.py
 
