@@ -27,6 +27,13 @@ def file_features(df, columns, add_prefix=True):
         rez = add_file_features(rez, col, add_prefix)
     return rez
 
+def remove_extension(file_name):
+    file_parts = file_name.split(".")
+    if len(file_parts) > 1:
+        return file_name[0:-(len(file_parts[-1])+1)]
+    else:
+        return file_name
+
 ########################################################################################
 def add_file_features(df, col, add_prefix):
     """
@@ -37,24 +44,39 @@ def add_file_features(df, col, add_prefix):
         ext = ""
         type = ""
         existance = 0
+        file_len = 0
+        file_wds = 0
+        file_wd_len = 0
         if x[col]==x[col]:
             url = add_protocol_if_missing(x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
-            sections = path.split(".")
-            if len(sections) > 1:
-                ext = sections[1]
+            sections = path.split("/")
+            final_file = sections[len(sections)-1]
+            file_len = len(final_file)
+            file_wds, file_wd_len = extract_word_stats( remove_extension(final_file) )
+            file_parts = final_file.split(".")
+            if len(file_parts) > 1:
+                ext = file_parts[len(file_parts)-1]
                 type = file_extension_lookup(ext)
                 existance = 1
-        return ext, type, existance
+        return file_len, file_wds, file_wd_len, ext, type, existance
 
     if add_prefix:
-        col_names = [ col+'_file_extn', col+'_file_extn_type', col+'_file_extn_exists', ] 
+        col_names = [ col+'_file_len', col+'_file_wds', col+'_file_wd_len', 
+                      col+'_file_extn', col+'_file_extn_type', col+'_file_extn_exists', ] 
     else:
-        col_names = [ 'file_extn', 'file_extn_type', 'file_extn_exists' ]
+        col_names = [ 'file_len', 'file_wds', 'file_wd_len', 'file_extn', 'file_extn_type', 'file_extn_exists' ]
 
     df[ col_names ] = df.apply(get_file_features, col=col, axis=1, result_type="expand")
 
     return df
+
+########################################################################################
+def extract_word_stats(path):
+   wds = re.split("[-_/~]+", path)
+   wd_len = np.mean([len(w) for w in wds])
+   return sum([1 for w in wds if len(w)>2]), wd_len
+
 
 ########################################################################################
 def file_extension_lookup(ext):

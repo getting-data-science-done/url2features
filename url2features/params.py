@@ -89,7 +89,7 @@ def add_params_features(df, col, add_prefix):
 
     if add_prefix:
         col_names = [ col+"_params_len", col+"_params_count", col+"_params_has_url", 
-                      col+"params_enc_url", col+"params_enc_char", col+"params_frag_len" ] 
+                      col+"_params_enc_url", col+"_params_enc_char", col+"_params_frag_len" ] 
     else:
         col_names = [ "params_len", "params_count", "params_has_url", 
                       "params_enc_url", "params_enc_char", "params_frag_len" ]
