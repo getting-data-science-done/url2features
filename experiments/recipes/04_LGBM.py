@@ -37,9 +37,9 @@ def main(dataset):
     drop_cols = ['URL', 'label', 'URL_domain_reg_year']
     X = train_df.drop(drop_cols, axis=1)
 
-    percent = 0.02
+    percent = 0.005
     while (percent * len(train_df))<50:
-        percent += 0.02
+        percent += 0.005
     print("Test Percent:", (percent*100))
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=percent, stratify=y, random_state=0)
 
