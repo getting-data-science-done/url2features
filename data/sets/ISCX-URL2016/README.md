@@ -13,6 +13,13 @@ Mohammad Saiful Islam Mamun, Mohammad Ahmad Rathore, Arash Habibi Lashkari, Nata
 
 Once you extract the archive it will contain a directory called [FinalDataset](FinalDataset/)
 
-Use the script [process.py](process.py) to create datasets for the Phishing and Malware problems
+The SPAM dataset is plagued by the carriage return problem.
+So runn the following to repalce those with new lines.
+
+```
+cat FinalDataset/URL/spam_dataset.csv | tr "^M" "\\n" > FinalDataset/URL/spam_dataset2.csv
+```
+
+Use the script [process.py](process.py) to create datasets for the Phishing, Malware and SPAM  problems
 
 
