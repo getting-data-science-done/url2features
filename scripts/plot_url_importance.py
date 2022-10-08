@@ -14,9 +14,9 @@ import sys
 import os
 
 def add_global(axes, ypos, alph):
-   myy = ypos-0.55
-   axes.add_patch(mpatches.FancyBboxPatch((3.15, myy), 16.1, 0.7,
-       boxstyle=mpatches.BoxStyle("Round", pad=0.2), alpha=alph, color='grey')
+   myy = ypos-0.25
+   axes.add_patch(mpatches.FancyBboxPatch((3.15, myy), 16.1, 0.2,
+       boxstyle=mpatches.BoxStyle("Round", pad=0.05), alpha=alph, color='grey')
    )
 
 
@@ -62,15 +62,27 @@ def add_params(axes, ypos, alph):
        boxstyle=mpatches.BoxStyle("Round", pad=0.2), alpha=alph, color='green')
    )
 
+def add_keys(axes, ypos, alph):
+   myy = ypos-0.4
+   axes.add_patch(mpatches.FancyBboxPatch((16, myy), 1.7, 0.4,
+       boxstyle=mpatches.BoxStyle("Round", pad=0.2), alpha=alph, color='green')
+   )
+
+def add_vals(axes, ypos, alph):
+   myy = ypos-0.4
+   axes.add_patch(mpatches.FancyBboxPatch((18, myy), 1.7, 0.4,
+       boxstyle=mpatches.BoxStyle("Round", pad=0.2), alpha=alph, color='green')
+   )
+
 ####################################################################
 def get_plotable_features(file, fnames, importance, prefix=""):
     df = pd.read_csv(file)
     max_val = df[importance].max()
-    df[importance] = df[importance]/(2*max_val)
+    df[importance] = df[importance]/(1.3*max_val)
     def map_to_group(x):
         x = x[len(prefix):]
         parts = x.split("_")
-        if parts[0] in ["protocol", "subdomain", "domain", "tld", "path", "file", "params"]:
+        if parts[0] in ["protocol", "subdomain", "domain", "tld", "path", "file", "params", "keys", "values"]:
             return parts[0]
         return "global" 
     df['fgroup'] = df[fnames].apply(map_to_group)
@@ -91,8 +103,8 @@ def main(files, prefix, fnames, imports):
         name_parts = fname.split(".")
         plt.text(0, ystart, name_parts[0], ha="left", family='sans-serif', size=11)
         plotables = get_plotable_features(f, fnames, imports, prefix)
-        #if plotables.__contains__("global"):
-        #    #add_global(ax, ystart, plotables["global"])
+        if plotables.__contains__("global"):
+            add_global(ax, ystart, plotables["global"])
         if plotables.__contains__("protocol"):
             add_protocol(ax, ystart, plotables["protocol"])
         if plotables.__contains__("path"):
