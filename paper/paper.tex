@@ -177,11 +177,14 @@ information available because the demands of the task require immediate analysis
 In applications like malicious wesite detection the URL needs to be processed with
 in a rapid and efficient manner to provide utility\cite{Ma2009b}.
 Common use cases for URL centered analysis include security analysis of potenital phishing 
-attacks\cite{Basnet2012,Basnet2014,Mamun2016,Vazhayil2018,Tupsamudre2019}, and identification of pages 
-that host malware or viruses \cite{Canali2011,Mamun2016}.
-There are also applications to online advertising
+attacks\cite{Garera2007,Basnet2012,Basnet2014,Mamun2016,Verma2017,Vazhayil2018,Tupsamudre2019,Li2020}, 
+and identification of pages that host malware or viruses \cite{Canali2011,Mamun2016}.
+There are also applications to online advertising,
 including anticipation of conversions \cite{Qiu2020}, contextual analysis of
-the content\cite{Kan2005,Baykan2009,Meshkizadeh2010} or language\cite{Baykan2013} of webpages. 
+the content\cite{Kan2004,Shih2004,Baykan2009,Meshkizadeh2010,Hernandez2012,Arya2016}, relevance \cite{Kan2005} 
+or language\cite{Baykan2013} of webpages. 
+Content categorisation has also been applied to spam web pages using URLs alone for the sake
+of search results filtering\cite{Chung2010}.
 
 The URL is made up of multiple elements, but at its core is the domain. The domain
 contains internal information about both its intended purpose, legitimacy and likely
@@ -209,36 +212,30 @@ for this approach is the potential for sensitivity to the sequential structure o
 Deep learning approaches include the use of convolutional layers to learn word and character 
 embedings \cite{Le2018},
 
-\cite{Ayes2019}
-\cite{Li2020}
-\cite{Baykan2009}
-\cite{Kan2005}
-\cite{Hernandez2012}
-\cite{Chung2010}
-\cite{Qiu2020}
-\cite{Xu2021}
-\cite{Rhea2022}
-\cite{Ma2009}
-\cite{Verma2017}
-\cite{Sountharrajan2020}
-\cite{Murthy2022}
 
 Classify Web pages based on URLs from the 4 Universities WebKB dataset. Comparing features derived from segmentation
 of the URL to features derived from either link anchor text or the web page document itself \cite{Kan2004}.
 
 Common approaches to feature engineering on URLs include string patterns and regular expressions to
-identify key sequences and lexical properties \cite{Kan2004,Mamun2016,Tupsamudre2019}, 
+identify key sequences and lexical properties \cite{Kan2004,Garera2007,Mamun2016,Tupsamudre2019}, 
 creation of lookup tables or likelihood scores based on key sequences
-\cite{Meshkizadeh2010}, n-gram or bag of words models \cite{Baykan2009}, 
+\cite{Meshkizadeh2010}, n-gram or bag of words models \cite{Baykan2009,Verma2017}, 
 the generation of task specific embedding vectors\cite{Le2018,Qiu2020} and the
-usage of domain name servers or registrars for ancillary information about the domain registration \cite{Canali2011}. 
+usage of domain name servers or registrars for ancillary information about the domain registration 
+and server configuration\cite{Canali2011,Li2020}. In many modern approaches to malicious URL detection
+multiple feature engineering approaches are typically combined\cite{Sayamber2014,Li2020}. Increasingly,
+sophisticated methods are used to combine, select or learn from combinations of features to adapt to
+changing requirements, particularly in internet security applications\cite{Sountharrajan2020,Li2020}.
+
 Some authors have 
 emphasized that URLs are sequences of characters and require feature extraction methods that respect 
 this sequential nature\cite{Le2018,Vazhayil2018}. They have naturally turned to developing neural network approaches
 based on convolutional or recurrent layers for learning these sequential structures.
 However, the ordering of key features within URLs is predominantly fixed as shown in Figure \ref{fig:url_structure}.
 The core elements of URL structure occur at fixed positions within the sequence, in contrast to human language
-sequences which are built from flexible grammars that allow variable positioning of most key elements. Furthermore,
+sequences which are built from flexible grammars that allow variable positioning of most key elements. The
+inherent structure of URLs has been shown to be a source of information that can be exploited in algorithm design \cite{Shih2004}.
+Furthermore,
 there are psychological and social elements to URL construction (such as the use of common brand names in subdomains
 for phishing attack URLS \cite{Tupsamudre2019}), which emphasize the utility of feature engineering techniques that
 respect the inherent structure of URLs.
@@ -282,17 +279,22 @@ Host          &host\_is\_ip           &Boolean     &Flag indicating if the host 
               &domain\_reg\_year      &Numeric     &Year in which the domain was initially registered    \\
               &subdomain\_type        &Category    &Categorisation of the purpose of the subdomain \\
               &subdomain\_freq        &Numeric     &Frequency of the subdomain in internet traffics    \\
+              &tld\_name              &Category    &Top Level Domain Name    \\
               &tld\_type              &Category    &Top Level Domain extension categorised by purpose    \\
-              &tld\_freq              &Boolean     &Top Level Domain extension frequency in internet traffic   \\
+              &tld\_freq              &Numeric     &Top Level Domain extension frequency in internet traffic   \\
 \midrule
 Path          &path\_depth            &Numeric     &The depth of the directory path between host and file   \\
-              &path\_words            &Numeric     &Count of distinct words in the path between host and file   \\
+              &path\_1st\_wd          &Category    &The first distinct word in the path longer than 2 chars  \\
+              &path\_1st\_wd\_prefix  &Category    &The first 3 chars of the first distinct word in the path > 2 chars   \\
+              &path\_wd\_count        &Numeric     &Count of distinct words in the path between host and file   \\
               &path\_wd\_len          &Numeric     &The mean length of the individual words in the path  \\
               &path\_has\_date        &Boolean     &Flag indicating if a date is detected in the path  \\
               &path\_is\_home         &Boolean     &Flag indicating if the path starts with a home directory    \\
 \midrule 
 File          &file\_len              &Numeric     &The character length of the target file    \\
-              &file\_wds              &Numeric     &The count of words longer than 2 chars in the file name   \\
+              &file\_1st\_wd          &Category    &The first distinct word in the file name  \\
+              &file\_1st\_wd\_prefix  &Category    &The first 3 chars of the first distinct word in the filename  \\
+              &file\_wd\_count        &Numeric     &The count of words longer than 2 chars in the file name   \\
               &file\_wd\_len          &Numeric     &The mean length of the individual words in the file name  \\
               &file\_ext              &Category    &The exact file extension e.g. "exe" or "php"    \\
               &file\_type             &Category    &File extension categorised by function \& purpose (e.g. Static or dynamic)   \\
@@ -300,10 +302,15 @@ File          &file\_len              &Numeric     &The character length of the 
 \midrule
 Params        &params\_len            &Numeric     &The character length of the parameter string    \\
               &params\_count          &Numeric     &The count of the key value pairs in the param string    \\
+              &params\_match          &Boolean     &Flag indicating if the count of keys and values in the param string match    \\
               &params\_has\_url       &Boolean     &Flag indicating presence of a raw URL within the parameter string   \\
               &params\_enc\_url       &Boolean     &Flag indicating presence of an encoded URL within the parameter string   \\
               &params\_enc\_char      &Boolean     &Flag indicating presence of an encoded character within the parameter string   \\
               &params\_frag\_len      &Numeric     &Length of a hash delineated fragement at the end of the parameter string   \\
+              &keys\_len              &Numeric     &The mean length of the individual keys in the params  \\
+              &keys\_numeric          &Numeric     &The proportion of numeric characters in the param keys \\
+              &values\_len            &Numeric     &The mean length of the individual values in the params  \\
+              &values\_numeric        &Numeric     &The proportion of numeric characters in the param values \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -337,6 +344,7 @@ Malware              &46,944          &2       &75\%        \\
 Phishing             &45,343          &2       &78\%        \\
 WebKb 4Uni           &8,284           &7       &45\%        \\
 Syskill \& Webert    &330             &3       &68\%        \\
+DMOZ                 &1,562,978       &15      &16\%        \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -347,13 +355,21 @@ techniques to build classifiers that can be analysed for key features for each t
 \subsection{Feature Importance}
 
 We use the SHAP\cite{Lundberg2017} package to calculate feature importance using a small holdout test set 
-of approximately 50 smaples per experiment. We aggregate the shapley values for these sample points to calculate the mean
-absolute contribution of each feature.
+of 80-100 smaples per experiment. We aggregate the shapley values for these sample points to calculate the mean
+absolute contribution of each feature, as is typically done in Shaplet fetaure importance plots.
 
-For our URL feature analysis, we then group these individual feature importance values by the URL segment
-that belong to. We sum the feature importance for all features from that segment to allow us to plot the
-segment contributions to model performance. These plots allow structural comparison features across the 
-four problems in this study.
+For our URL feature analysis, we then group these individual feature importance values by the specific URL segment
+that the feature was derive from, using Figure \ref{fig:url} as a guide to these segments. 
+We sum the feature importance for all features within a URL segment to allow us to plot the
+segment contributions to model performance. We provide a thin grey coloured line covering the entire segment
+which captures the importance of global features (like URL length). If the script is applied to a dataset with
+more than just URL features then all non-URL fetaures would be grouped into this global group. All segment specific
+URL features are plotted below their segment in a canonical example URL.
+
+These plots allow for structural understanding of how URL data
+controbutes to predictive performance of a model and permits the comparison of feature importance 
+across the five problems in this study. The script for generating these plots is provides as part of the
+`url2features` open source package.
 
 \section{Results}
 
@@ -374,12 +390,13 @@ Malware              &0.65   &0.93  &0.99  &1.00     \\
 Phishing             &0.89   &0.98  &0.99  &1.00     \\
 WebKb 4Uni           &0.30   &0.36  &0.58  &0.49     \\
 Syskill \& Webert    &0.39   &0.35  &0.37  &0.33     \\
+DMOZ                 &0.12   &0.17  &0.29  &0.25     \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 We take the best performing model for each problem and generate the SHAP values for the records in the test data.
-These records are then used to generate the URL Feature Importance Plot shown in Figure \ref{fig:importance}.
+These records are then used to generate the URL Structure Feature Importance Plot shown in Figure \ref{fig:importance}. 
 
 \begin{figure*}
 \centering
@@ -388,7 +405,8 @@ These records are then used to generate the URL Feature Importance Plot shown in
 \label{fig:importance}
 \end{figure*}
 
-
+We see that for all tasks in these experiments the `path` segment provides the most consistent contribution. The subdomain
+and global fetaures appear to be strong for all of the malicious URL detection problems.
 
 \section{Conclusion}
 
