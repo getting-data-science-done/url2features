@@ -47,25 +47,28 @@ def add_file_features(df, col, add_prefix):
         file_len = 0
         file_wds = 0
         file_wd_len = 0
+        file_1st_wd_prefix = ""
+        file_1st_wd = ""
         if x[col]==x[col]:
             url = add_protocol_if_missing(x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
             sections = path.split("/")
             final_file = sections[len(sections)-1]
             file_len = len(final_file)
-            file_wds, file_wd_len = extract_word_stats( remove_extension(final_file) )
+            file_1st_wd_prefix, file_1st_wd, file_wds, file_wd_len = extract_word_stats( remove_extension(final_file) )
             file_parts = final_file.split(".")
             if len(file_parts) > 1:
                 ext = file_parts[len(file_parts)-1]
                 type = file_extension_lookup(ext)
                 existance = 1
-        return file_len, file_wds, file_wd_len, ext, type, existance
+        return file_len, file_1st_wd_prefix, file_1st_wd, file_wds, file_wd_len, ext, type, existance
 
     if add_prefix:
-        col_names = [ col+'_file_len', col+'_file_wds', col+'_file_wd_len', 
+        col_names = [ col+'_file_len', col+"_file_1st_wd_prefix", col+"_file_1st_wd", col+'_file_wd_count', col+'_file_wd_len', 
                       col+'_file_extn', col+'_file_extn_type', col+'_file_extn_exists', ] 
     else:
-        col_names = [ 'file_len', 'file_wds', 'file_wd_len', 'file_extn', 'file_extn_type', 'file_extn_exists' ]
+        col_names = [ 'file_len', "file_1st_wd_prefix", "file_1st_wd", 'file_wd_count', 'file_wd_len', 
+                      'file_extn', 'file_extn_type', 'file_extn_exists' ]
 
     df[ col_names ] = df.apply(get_file_features, col=col, axis=1, result_type="expand")
 
@@ -75,7 +78,17 @@ def add_file_features(df, col, add_prefix):
 def extract_word_stats(path):
    wds = re.split("[-_/~]+", path)
    wd_len = np.mean([len(w) for w in wds])
-   return sum([1 for w in wds if len(w)>2]), wd_len
+   my_wds = [w for w in wds if len(w)>2]
+   if len(my_wds)>0:
+      fst_wd = my_wds[0]
+   else:
+      fst_wd = ""
+   if len(fst_wd)>3:
+      fst_wd_pre = fst_wd[0:3]
+   else:
+      fst_wd_pre = fst_wd
+
+   return fst_wd_pre, fst_wd, sum([1 for w in wds if len(w)>2]), wd_len
 
 
 ########################################################################################

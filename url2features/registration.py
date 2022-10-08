@@ -17,7 +17,10 @@ def get_registration_year(domain):
     #print("FUNCTION CALL: get_registration_year(", domain, ")")
     reg = get_domain_registration_date(domain)
     if reg:
+      try:
         return int(reg[0:4])
+      except:
+        return np.nan
     else:
         return np.nan
 

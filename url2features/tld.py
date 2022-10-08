@@ -43,6 +43,7 @@ def add_tld_features(df, col, add_prefix=True):
     def ext_features(x, col):
         freq = 0
         type = 0
+        tld = ""
         if x[col]!=x[col]:
             freq = 0
             type = 0
@@ -50,15 +51,15 @@ def add_tld_features(df, col, add_prefix=True):
             url = (x[col])
             exts = tld_re.findall(url)
             if len(exts) > 0:
-                temp = exts[0].replace('.', '').replace('/','')
-                freq, type = top_level_domain_lookup(temp)
-        return freq, type
+                tld = exts[0].replace('.', '').replace('/','')
+                freq, type = top_level_domain_lookup(tld)
+        return tld, freq, type
 
 
     if add_prefix:
-        col_names = [ col+'_tld_freq', col+'_tld_type' ]
+        col_names = [ col+'_tld_name', col+'_tld_freq', col+'_tld_type' ]
     else:
-        col_names = [ 'tld_freq', 'tld_type' ]
+        col_names = [  'tld_name', 'tld_freq', 'tld_type' ]
 
     df[ col_names ] = df.apply(ext_features, col=col, axis=1, result_type="expand")
 

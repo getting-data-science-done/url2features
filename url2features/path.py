@@ -29,7 +29,17 @@ def path_features(df, columns, add_prefix=True):
 def extract_word_stats(path):
    wds = re.split("[-_/~]+", path)
    wd_len = np.mean([len(w) for w in wds]) 
-   return sum([1 for w in wds if len(w)>2]), wd_len
+   my_wds = [w for w in wds if len(w)>2]
+   if len(my_wds)>0:
+      fst_wd = my_wds[0]
+   else:
+      fst_wd = ""
+   if len(fst_wd)>3:
+      fst_wd_pre = fst_wd[0:3]
+   else:
+      fst_wd_pre = fst_wd
+
+   return fst_wd_pre, fst_wd, sum([1 for w in wds if len(w)>2]), wd_len
 
 
 ########################################################################################
@@ -64,6 +74,8 @@ def add_path_features(df, col, add_prefix):
         p_depth = 0
         p_words = 0
         p_wd_len = 0
+        p_1st_wd = ""
+        p_1st_wd_pre = ""
         p_has_date = 0
         p_is_home = 0
         if x[col]==x[col]:
@@ -74,15 +86,17 @@ def add_path_features(df, col, add_prefix):
             if p_length>0:
                path_set = path.split("/")
                p_depth = len(path_set)
-               p_words, p_wd_len = extract_word_stats(path)
+               p_1st_wd_pre, p_1st_wd, p_words, p_wd_len = extract_word_stats(path)
                p_has_date = contains_date(path)
                p_is_home = int(path[0] == "~")
-        return p_length, p_depth, p_words, p_wd_len, p_has_date, p_is_home 
+        return p_length, p_depth, p_1st_wd_pre, p_1st_wd, p_words, p_wd_len, p_has_date, p_is_home 
 
     if add_prefix:
-        col_names = [ col+"_path_len", col+"_path_depth", col+"_path_words", col+"_path_wd_len", col+"_path_has_date", col+"_path_is_home" ] 
+        col_names = [ col+"_path_len", col+"_path_depth", col+"_path_1st_wd_prefix", col+"_path_1st_wd", 
+                      col+"_path_wd_count", col+"_path_wd_len", col+"_path_has_date", col+"_path_is_home" ] 
     else:
-        col_names = [ "path_len", "path_depth","path_words", "path_wd_len", "path_has_date", "path_is_home" ]
+        col_names = [ "path_len", "path_depth", "path_1st_wd_prefix", "path_1st_wd", "path_wd_count", "path_wd_len", 
+                      "path_has_date", "path_is_home" ]
 
     df[ col_names ] = df.apply(get_path_features, col=col, axis=1, result_type="expand")
 
