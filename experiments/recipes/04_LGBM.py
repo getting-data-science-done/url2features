@@ -11,6 +11,7 @@ from sklearn.model_selection import GridSearchCV
 from feature_engine.encoding import RareLabelEncoder
 from feature_engine.imputation import AddMissingIndicator
 from sklearn.metrics import balanced_accuracy_score
+from sklearn.metrics import f1_score
 import matplotlib.pyplot as plt
 import projit as pit
 import pandas as pd
@@ -38,7 +39,7 @@ def main(dataset):
     X = train_df.drop(drop_cols, axis=1)
 
     percent = 0.005
-    while (percent * len(train_df))<50:
+    while (percent * len(train_df))<80:
         percent += 0.005
     print("Test Percent:", (percent*100))
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=percent, stratify=y, random_state=0)
@@ -81,9 +82,14 @@ def main(dataset):
     temp = model.predict(X_test)
 
     ba = balanced_accuracy_score(y_test, temp)
+    f1 = f1_score(y_test, temp, average='weighted')
 
     project.add_result(experiment_name, "BAcc", ba, dataset)
+    project.add_result(experiment_name, "F1", f1, dataset)
+
     print("Finished [%s] - Bal Acc:"%dataset, ba)
+    print("                     F1:", ba)
+
     print("Explaining")
 
     feature_names = X.columns
@@ -93,8 +99,12 @@ def main(dataset):
 
     mydata = shap.sample(X_train, 200)
     shap_kernel_explainer = shap.KernelExplainer(model_predict, mydata)
-    shap_values = shap_kernel_explainer.shap_values(X_test)
-    shap.summary_plot(shap_values, X_test, plot_type="bar", show=False)
+    if len(X_test)>100:
+        mytest = shap.sample(X_test, 100)
+    else:
+        mytest = X_test
+    shap_values = shap_kernel_explainer.shap_values(mytest)
+    shap.summary_plot(shap_values, mytest, plot_type="bar", show=False)
     plot_name = "results/"+dataset+"_04_LGBM_SHAP.png"
     plt.savefig(plot_name)
     write_shap_values(shap_values,feature_names, "results/"+dataset+"_04_LGBM_SHAP.csv")
