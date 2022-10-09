@@ -242,7 +242,7 @@ respect the inherent structure of URLs.
 
 \begin{figure*}
 \centering
-\includegraphics[scale=0.3]{images/URL_parts.png}
+\includegraphics[scale=0.6]{images/URL_parts.png}
 \caption{Structural components of a URL requiring specific feature engineering treatment}
 \label{fig:url_structure}
 \end{figure*}
@@ -275,8 +275,10 @@ Protocol      &protocol\_name         &Category    &The exact internet protocol 
 \midrule
 Host          &host\_is\_ip           &Boolean     &Flag indicating if the host is an IP address    \\
               &host\_has\_port        &Boolean     &Flag indicating if a port number is explicitly specified    \\
+              &domain\_len            &Numeric     &Character length of the domain name (minus TLD and subdomain)     \\
+              &domain\_alpha          &Numeric     &Proportion of characters in the domain that are letters    \\
               &domain\_sections       &Numeric     &Count of period separated domain sections    \\
-              &domain\_reg\_year      &Numeric     &Year in which the domain was initially registered    \\
+              &subdomain              &Category    &The text value of the subdomain  \\
               &subdomain\_type        &Category    &Categorisation of the purpose of the subdomain \\
               &subdomain\_freq        &Numeric     &Frequency of the subdomain in internet traffics    \\
               &tld\_name              &Category    &Top Level Domain Name    \\
@@ -307,10 +309,15 @@ Params        &params\_len            &Numeric     &The character length of the 
               &params\_enc\_url       &Boolean     &Flag indicating presence of an encoded URL within the parameter string   \\
               &params\_enc\_char      &Boolean     &Flag indicating presence of an encoded character within the parameter string   \\
               &params\_frag\_len      &Numeric     &Length of a hash delineated fragement at the end of the parameter string   \\
+              &keys\_count            &Numeric     &Count of the distinct keys used in the parameter string  \\
               &keys\_len              &Numeric     &The mean length of the individual keys in the params  \\
               &keys\_numeric          &Numeric     &The proportion of numeric characters in the param keys \\
+              &values\_count          &Numeric     &Count of the distinct values used in the parameter string  \\
               &values\_len            &Numeric     &The mean length of the individual values in the params  \\
               &values\_numeric        &Numeric     &The proportion of numeric characters in the param values \\
+              &frag\_len              &Numeric     &The character length of the fragment string    \\
+              &frag\_secs             &Numeric     &Count of distinct sections in the fragment string delimited by [?\&=]  \\
+              &frag\_enc\_char        &Boolean     &Flag indicating presence of an encoded character within the fragment string    \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -323,15 +330,20 @@ features a user requests.
 
 \subsection{Data}
 
-The data used in this study was colated from a range of publications that 
-present internet classification problems containing URLs as the primary feature.
-The ISCX Malcious URL classification dataset contains both malware and phishing URLS 
-that need to be discriminated against benign URLS\cite{Mamun2016}.
+The data used in this study was colated from a range of sources to represent a varity of 
+Internet resource classification problems containing URLs as the primary feature.
+The ISCX Malcious URL classification dataset contains malware, spam and phishing URLS 
+that need to be discriminated against a set of benign URLS\cite{Mamun2016}.
 The world wide web knowledge base (WebKb) 4 Universities data set contains a wide
 range of university URLs categorised into multiple topic categories\cite{Craven1998}.
 The Syskill \& Webert webpage ratings dataset containing webepages across 4 categories
 with a human generated categorisation for determining personal preferences in webpage
-content\cite{Pazzani1996}. These 4 URL classification problems are summarised in Table \ref{tab:data}
+content\cite{Pazzani1996}. Finally, we utilise the Kaggle DMOZ dataset that contains 
+a large set of topic categorised URLs\cite{dmoz}.
+
+These 6 URL classification problems are summarised in Table \ref{tab:data}, where
+show the number of records, the cardinality of the target classes, and the proportion
+of the data that belongs to the most common class in the set.
 
 \begin{table}
 \caption{Datasets}
@@ -340,6 +352,7 @@ content\cite{Pazzani1996}. These 4 URL classification problems are summarised in
 \toprule
 Dataset              &Records        &Classes  &Majority    \\
 \midrule
+spam                 &47,378          &2       &75\%        \\
 Malware              &46,944          &2       &75\%        \\
 Phishing             &45,343          &2       &78\%        \\
 WebKb 4Uni           &8,284           &7       &45\%        \\
@@ -349,8 +362,8 @@ DMOZ                 &1,562,978       &15      &16\%        \\
 \end{tabular}
 \end{table}
 
-We generate all url features for each of these datasets and then apply a range of machine learning
-techniques to build classifiers that can be analysed for key features for each task.
+We generate all URL features for each of these datasets and then apply a range of machine learning
+techniques to build classifiers that can be analysed for key features for each task. 
 
 \subsection{Feature Importance}
 
@@ -377,7 +390,7 @@ A set of standard machine learning pipelines are applied to each of the four pro
 using default parameters, without any fine tuning. We use feature preprocessing modules appropriate for each class
 of model. All details are available in the source repository for the experiments. The performance of the models
 is tabulated in Table \ref{tab:results}, where we show Balanced Accuracy of each model on the holdout data, as this
-metric is appropriate and comparable across all four problems. 
+metric is appropriate and comparable across all six problems. 
 
 \begin{table}
 \caption{Machine Learning Results}
@@ -386,6 +399,7 @@ metric is appropriate and comparable across all four problems.
 \toprule
 Dataset              &NB     &LR    &XT    &LGBM     \\
 \midrule
+Spam                 &1.00   &1.00  &1.00  &1.00     \\
 Malware              &0.65   &0.93  &0.99  &1.00     \\
 Phishing             &0.89   &0.98  &0.99  &1.00     \\
 WebKb 4Uni           &0.30   &0.36  &0.58  &0.49     \\
@@ -394,6 +408,12 @@ DMOZ                 &0.12   &0.17  &0.29  &0.25     \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+It should be clear from this table that the internet security probelms are much more amenable to URL based 
+classification. All three of these problems result in high performing classifiers. In comparison the topic
+and user preference based tasks achieve far more modest performance. These problems are hindered by both higher 
+cardinality targets, and 2 or the 3 data sets being much smaller. However, the results suggest that in general
+URL based topic classification is likely to be difficult. 
 
 We take the best performing model for each problem and generate the SHAP values for the records in the test data.
 These records are then used to generate the URL Structure Feature Importance Plot shown in Figure \ref{fig:importance}. 
@@ -415,7 +435,6 @@ These feature ideas tend to be used indepednetly within different domains. In th
 collated them into an open source URL feature generation package and then compare their utility across a range
 of indepenent tasks. We have observed that the various structural regions play different roles across 
 these tasks, exhibiting varying levels of importance.  
-
 
 
 \section{Acknowledgments}

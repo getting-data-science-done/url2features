@@ -15,7 +15,7 @@ import os
 
 def add_global(axes, ypos, alph):
    myy = ypos-0.25
-   axes.add_patch(mpatches.FancyBboxPatch((3.15, myy), 16.1, 0.2,
+   axes.add_patch(mpatches.FancyBboxPatch((3.15, myy), 18.0, 0.2,
        boxstyle=mpatches.BoxStyle("Round", pad=0.05), alpha=alph, color='grey')
    )
 
@@ -73,15 +73,21 @@ def add_vals(axes, ypos, alph):
        boxstyle=mpatches.BoxStyle("Round", pad=0.2), alpha=alph, color='green')
    )
 
+def add_frag(axes, ypos, alph):
+   myy = ypos-0.4
+   axes.add_patch(mpatches.FancyBboxPatch((20.0, myy), 1.1, 0.4,
+       boxstyle=mpatches.BoxStyle("Round", pad=0.2), alpha=alph, color='green')
+   )
+
 ####################################################################
 def get_plotable_features(file, fnames, importance, prefix=""):
     df = pd.read_csv(file)
     max_val = df[importance].max()
-    df[importance] = df[importance]/(1.2*max_val)
+    df[importance] = df[importance]/(max_val)
     def map_to_group(x):
         x = x[len(prefix):]
         parts = x.split("_")
-        if parts[0] in ["protocol", "subdomain", "domain", "tld", "path", "file", "params", "keys", "values"]:
+        if parts[0] in ["protocol", "subdomain", "domain", "tld", "path", "file", "params", "keys", "values", "frag"]:
             return parts[0]
         return "global" 
     df['fgroup'] = df[fnames].apply(map_to_group)
@@ -93,7 +99,7 @@ def main(files, prefix, fnames, imports):
     fig, ax = plt.subplots( figsize=(8, 6))
     plt.gca().invert_yaxis()
     ax.plot([0, 20],[0, 20], alpha=0.0)
-    example_url = "protocol://sub.domain.tld/path/way/file.ext?query=done"
+    example_url = "protocol://sub.domain.tld/path/way/file.ext?query=done#frag"
     plt.text(3, 2, example_url, ha="left", family='sans-serif', size=11)
     ystart = 4
     for f in files:
@@ -122,6 +128,8 @@ def main(files, prefix, fnames, imports):
             add_keys(ax, ystart, plotables["keys"])
         if plotables.__contains__("values"):
             add_vals(ax, ystart, plotables["values"])
+        if plotables.__contains__("frag"):
+            add_frag(ax, ystart, plotables["values"])
         ystart += 2
 
     plt.axis('equal')
