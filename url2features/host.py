@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pkg_resources
 import pandas as pd 
+import string
 import numpy as np
 import math
 import sys
@@ -107,6 +108,7 @@ def add_host_features(df, col, add_prefix=True):
         Note: We use the value -1 to indicate that the subdomain is missing
               Where 0 is reserved for a subdomain that is present but unknown
     """
+    count = lambda l1,l2: sum([1 for x in l1 if x in l2])
 
     def dom_features(x, col):
         url = str(x[col]).strip()
@@ -114,6 +116,9 @@ def add_host_features(df, col, add_prefix=True):
             is_ip = np.nan
             has_port = np.nan
             secs = np.nan
+            dom_len = np.nan
+            dom_alpha = np.nan
+            subbie = np.nan
             sub_type = np.nan
             sub_freq = np.nan
             reg_year = np.nan
@@ -126,6 +131,9 @@ def add_host_features(df, col, add_prefix=True):
             parts = host.split(".")
             secs = len(parts)
             if is_ip:
+                subbie = ""
+                dom_len = np.nan
+                dom_alpha = np.nan
                 sub_type = np.nan
                 sub_freq = np.nan
                 reg_dom = host
@@ -133,11 +141,22 @@ def add_host_features(df, col, add_prefix=True):
                 prime, suffix = split_domain_and_suffix(host)
                 parts = prime.split(".")
                 if len(parts) > 1:
-                    subbie = ".".join(parts[0:-1])
+                    dom_len = len(parts[-1])
+                    if dom_len > 0:
+                        dom_alpha = count(parts[-1], string.ascii_lowercase)/dom_len
+                    else:
+                        dom_alpha = np.nan
+                    subbie = ".".join(parts[0:-1]).lower()
                     sub_type = get_subdomain_type(subbie)
                     sub_freq = get_subdomain_freq(subbie)
                     reg_dom = prime[len(subbie)+1:] + suffix
                 else:
+                    subbie = ""
+                    dom_len = len(prime)
+                    if dom_len > 0:
+                        dom_alpha = count(prime, string.ascii_lowercase)/dom_len
+                    else:
+                        dom_alpha = np.nan
                     sub_type = -1
                     sub_freq = -1
                     reg_dom = host
@@ -146,13 +165,13 @@ def add_host_features(df, col, add_prefix=True):
             else:
                 reg_year = get_registration_year(reg_dom)
 
-        return secs, is_ip, has_port, sub_type, sub_freq, reg_year
+        return secs, dom_len, dom_alpha, subbie, is_ip, has_port, sub_type, sub_freq, reg_year
 
     if add_prefix:
-        col_names = [ col+'_domain_sections', col+'_host_is_ip', col+'_host_has_port', 
+        col_names = [ col+'_domain_sections', col+'_domain_len', col+'_domain_alpha', col+'_subdomain', col+'_host_is_ip', col+'_host_has_port', 
                       col+'_subdomain_type', col+'_subdomain_freq', col+'_domain_reg_year'  ]
     else:
-        col_names = [ 'domain_sections', 'host_is_ip', 'host_has_port', 'subdomain_type', 'subdomain_freq', 'domain_reg_year'  ]
+        col_names = [ 'domain_sections', 'domain_len', 'subdomain', 'host_is_ip', 'host_has_port', 'subdomain_type', 'subdomain_freq', 'domain_reg_year'  ]
 
     df[ col_names ] = df.apply(dom_features, col=col, axis=1, result_type="expand")
 

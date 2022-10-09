@@ -19,7 +19,6 @@ def add_global(axes, ypos, alph):
        boxstyle=mpatches.BoxStyle("Round", pad=0.05), alpha=alph, color='grey')
    )
 
-
 def add_protocol(axes, ypos, alph):
    myy = ypos-0.4
    axes.add_patch(mpatches.FancyBboxPatch((3.3, myy), 2.0, 0.4,
@@ -64,13 +63,13 @@ def add_params(axes, ypos, alph):
 
 def add_keys(axes, ypos, alph):
    myy = ypos-0.4
-   axes.add_patch(mpatches.FancyBboxPatch((16, myy), 1.7, 0.4,
+   axes.add_patch(mpatches.FancyBboxPatch((16, myy), 1.1, 0.4,
        boxstyle=mpatches.BoxStyle("Round", pad=0.2), alpha=alph, color='green')
    )
 
 def add_vals(axes, ypos, alph):
    myy = ypos-0.4
-   axes.add_patch(mpatches.FancyBboxPatch((18, myy), 1.7, 0.4,
+   axes.add_patch(mpatches.FancyBboxPatch((18.0, myy), 1.1, 0.4,
        boxstyle=mpatches.BoxStyle("Round", pad=0.2), alpha=alph, color='green')
    )
 
@@ -78,7 +77,7 @@ def add_vals(axes, ypos, alph):
 def get_plotable_features(file, fnames, importance, prefix=""):
     df = pd.read_csv(file)
     max_val = df[importance].max()
-    df[importance] = df[importance]/(1.3*max_val)
+    df[importance] = df[importance]/(1.2*max_val)
     def map_to_group(x):
         x = x[len(prefix):]
         parts = x.split("_")
@@ -119,6 +118,10 @@ def main(files, prefix, fnames, imports):
             add_tld(ax, ystart, plotables["tld"])
         if plotables.__contains__("file"):
             add_file(ax, ystart, plotables["file"])
+        if plotables.__contains__("keys"):
+            add_keys(ax, ystart, plotables["keys"])
+        if plotables.__contains__("values"):
+            add_vals(ax, ystart, plotables["values"])
         ystart += 2
 
     plt.axis('equal')

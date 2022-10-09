@@ -58,7 +58,7 @@ def add_file_features(df, col, add_prefix):
             file_1st_wd_prefix, file_1st_wd, file_wds, file_wd_len = extract_word_stats( remove_extension(final_file) )
             file_parts = final_file.split(".")
             if len(file_parts) > 1:
-                ext = file_parts[len(file_parts)-1]
+                ext = file_parts[len(file_parts)-1].lower()
                 type = file_extension_lookup(ext)
                 existance = 1
         return file_len, file_1st_wd_prefix, file_1st_wd, file_wds, file_wd_len, ext, type, existance
@@ -88,7 +88,7 @@ def extract_word_stats(path):
    else:
       fst_wd_pre = fst_wd
 
-   return fst_wd_pre, fst_wd, sum([1 for w in wds if len(w)>2]), wd_len
+   return fst_wd_pre.lower(), fst_wd.lower(), sum([1 for w in wds if len(w)>2]), wd_len
 
 
 ########################################################################################

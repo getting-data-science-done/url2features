@@ -39,7 +39,7 @@ def extract_word_stats(path):
    else:
       fst_wd_pre = fst_wd
 
-   return fst_wd_pre, fst_wd, sum([1 for w in wds if len(w)>2]), wd_len
+   return fst_wd_pre.lower(), fst_wd.lower(), sum([1 for w in wds if len(w)>2]), wd_len
 
 
 ########################################################################################

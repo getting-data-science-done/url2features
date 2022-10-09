@@ -68,6 +68,8 @@ def add_params_features(df, col, add_prefix):
     """
     def get_params_features(x, col):
         f_length = 0
+        f_sections = 0
+        f_enc_char = 0
         p_length = 0
         p_count = 0
         p_match = np.nan
@@ -84,6 +86,10 @@ def add_params_features(df, col, add_prefix):
             url = add_protocol_if_missing(x[col])
             protocol, host, path, params, query, fragment = parse.urlparse(url.strip())
             f_length = len(fragment)
+            if f_length>0:
+               fparts = re.split(r'[?=&]', fragment)
+               f_sections = len(fparts)
+               f_enc_char = detect_encoded_chars(fragment)
             p_length = len(query)
             if p_length>0:
                param_set = query.split("&")
@@ -111,16 +117,18 @@ def add_params_features(df, col, add_prefix):
                  if len(all_vals)>0:
                     val_numeric = count(all_vals, string.digits)/len(all_vals)
             p_match = int( val_count == key_count )  
-        return p_length, p_count, p_match, p_has_url, p_enc_url, p_enc_char, f_length, key_count, key_len, key_numeric, val_count, val_len, val_numeric
+        return p_length, p_count, p_match, p_has_url, p_enc_url, p_enc_char, f_length, f_sections, f_enc_char, key_count, key_len, key_numeric, val_count, val_len, val_numeric
 
     if add_prefix:
         col_names = [ col+"_params_len", col+"_params_count", col+"_params_match", col+"_params_has_url", 
-                      col+"_params_enc_url", col+"_params_enc_char", col+"_params_frag_len",
+                      col+"_params_enc_url", col+"_params_enc_char", 
+                      col+"_frag_len", col+"_frag_secs",  col+"_frag_enc_char", 
                       col+"_keys_count", col+"_keys_len", col+"_keys_numeric", 
                       col+"_value_count", col+"_values_len", col+"_values_numeric"  ] 
     else:
         col_names = [ "params_len", "params_count", col+"_params_match", "params_has_url", 
-                      "params_enc_url", "params_enc_char", "params_frag_len", 
+                      "params_enc_url", "params_enc_char", 
+                      "frag_len", "frag_secs", "frag_enc_char", 
                       "keys_count", "keys_len", "keys_numeric", 
                       "values_count", "values_len", "values_numeric" ]
 
