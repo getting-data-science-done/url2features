@@ -191,6 +191,13 @@ contains internal information about both its intended purpose, legitimacy and li
 origin. It is also a source of additional information through requests to Domain Name
 Servers (DNS) to understand both its history and place within the network topology.
 
+\begin{figure*}
+\centering
+\includegraphics[scale=0.6]{images/URL_parts.png}
+\caption{Structural components of a URL requiring specific feature engineering treatment}
+\label{fig:url_structure}
+\end{figure*}
+
 Common feature engineering strategies exploit these potential sources of information
 in ways that are appropriate for a given task. However, while there are wide variety
 of approaches that inconsistently applied, there has not yet been a study that evaluates
@@ -240,27 +247,55 @@ there are psychological and social elements to URL construction (such as the use
 for phishing attack URLS \cite{Tupsamudre2019}), which emphasize the utility of feature engineering techniques that
 respect the inherent structure of URLs.
 
-\begin{figure*}
-\centering
-\includegraphics[scale=0.6]{images/URL_parts.png}
-\caption{Structural components of a URL requiring specific feature engineering treatment}
-\label{fig:url_structure}
-\end{figure*}
-
-
 
 \section{Methodology}
 
 We design a feature extraction library for URLs that is sensitive to the various sections of URL
-structure outlined above. We then apply this library to multiple machine learning tasks using only URLs
-as the input variable. We experiment with multiple standard machine learning techniques and evaluate
-the impact of the URL features using the SHAP package for feature importance.
+structure outlined above. Previous work has presented datasets for specific problems where the features
+are provided with a similar structural grouping\cite{Vrban2020}. However, we provide our feature extraction
+application designed so that any specific subset of these features can be extracted for a specific task.
 
-\subsection{Features}
+We apply this library to multiple machine learning tasks using only URLs as the input variable. We choose
+these tasks such that they span very different classes of problems an dataset sizes. 
+We experiment with multiple standard machine learning techniques and evaluate
+the impact of the URL features using the SHAP package for feature importance. We develop a process
+for analysing thess features within the logical structure of the URL.
 
-We generate URL features in groups that focus on distinct regions across the URL. We create a group
-of global features that contain general string properties of the entire URL, then create regions
-specific features as outlined in Table \ref{tab:features}.
+\subsection{Data}
+The data used in this study was colated from a range of sources to represent a varity of
+Internet resource classification problems containing URLs as the primary feature.
+The ISCX Malcious URL classification dataset contains malware, spam and phishing URLS
+that need to be discriminated against a set of benign URLS\cite{Mamun2016}.
+The world wide web knowledge base (WebKb) 4 Universities data set contains a wide
+range of university URLs categorised into multiple topic categories\cite{Craven1998}.
+The Syskill \& Webert webpage ratings dataset containing webepages across 4 categories
+with a human generated categorisation for determining personal preferences in webpage
+content\cite{Pazzani1996}. Finally, we utilise the Kaggle DMOZ dataset that contains
+a large set of topic categorised URLs\cite{dmoz}.
+
+These 6 URL classification problems are summarised in Table \ref{tab:data}, where
+show the number of records, the cardinality of the target classes, and the proportion
+of the data that belongs to the most common class in the set.
+
+\begin{table}
+\caption{Datasets}
+\label{tab:data}
+\begin{tabular}{|l|r|r|r|}
+\toprule
+Dataset              &Records        &Classes  &Majority    \\
+\midrule
+spam                 &47,378          &2       &75\%        \\
+Malware              &46,944          &2       &75\%        \\
+Phishing             &45,343          &2       &78\%        \\
+WebKb 4Uni           &8,284           &7       &45\%        \\
+Syskill \& Webert    &330             &3       &68\%        \\
+DMOZ                 &1,562,978       &15      &16\%        \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We generate all URL features for each of these datasets and then apply a range of machine learning
+techniques to build classifiers that can be analysed for key features for each task.
 
 \begin{table*}
 \caption{URL Features}
@@ -322,48 +357,16 @@ Params        &params\_len            &Numeric     &The character length of the 
 \end{tabular}
 \end{table*}
 
+\subsection{Features}
+
+We generate URL features in groups that focus on distinct regions across the URL. We create a group
+of global features that contain general string properties of the entire URL, then create regions
+specific features as outlined in Table \ref{tab:features}.
 
 These URL feature functions are available in our open source implmentation and python package \emph{url2features}. 
 The package is designed such that it can process large files in chunks and will only add the specific sub-groups of
-features a user requests.
-
-
-\subsection{Data}
-
-The data used in this study was colated from a range of sources to represent a varity of 
-Internet resource classification problems containing URLs as the primary feature.
-The ISCX Malcious URL classification dataset contains malware, spam and phishing URLS 
-that need to be discriminated against a set of benign URLS\cite{Mamun2016}.
-The world wide web knowledge base (WebKb) 4 Universities data set contains a wide
-range of university URLs categorised into multiple topic categories\cite{Craven1998}.
-The Syskill \& Webert webpage ratings dataset containing webepages across 4 categories
-with a human generated categorisation for determining personal preferences in webpage
-content\cite{Pazzani1996}. Finally, we utilise the Kaggle DMOZ dataset that contains 
-a large set of topic categorised URLs\cite{dmoz}.
-
-These 6 URL classification problems are summarised in Table \ref{tab:data}, where
-show the number of records, the cardinality of the target classes, and the proportion
-of the data that belongs to the most common class in the set.
-
-\begin{table}
-\caption{Datasets}
-\label{tab:data}
-\begin{tabular}{|l|r|r|r|}
-\toprule
-Dataset              &Records        &Classes  &Majority    \\
-\midrule
-spam                 &47,378          &2       &75\%        \\
-Malware              &46,944          &2       &75\%        \\
-Phishing             &45,343          &2       &78\%        \\
-WebKb 4Uni           &8,284           &7       &45\%        \\
-Syskill \& Webert    &330             &3       &68\%        \\
-DMOZ                 &1,562,978       &15      &16\%        \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-We generate all URL features for each of these datasets and then apply a range of machine learning
-techniques to build classifiers that can be analysed for key features for each task. 
+features a user requests. In addition, the naming convention is designed so that features relating to specific
+regions of the URL can be identified and analysed as a group.
 
 \subsection{Feature Importance}
 
@@ -409,15 +412,6 @@ DMOZ                 &0.12   &0.17  &0.29  &0.25     \\
 \end{tabular}
 \end{table}
 
-It should be clear from this table that the internet security probelms are much more amenable to URL based 
-classification. All three of these problems result in high performing classifiers. In comparison the topic
-and user preference based tasks achieve far more modest performance. These problems are hindered by both higher 
-cardinality targets, and 2 or the 3 data sets being much smaller. However, the results suggest that in general
-URL based topic classification is likely to be difficult. 
-
-We take the best performing model for each problem and generate the SHAP values for the records in the test data.
-These records are then used to generate the URL Structure Feature Importance Plot shown in Figure \ref{fig:importance}. 
-
 \begin{figure*}
 \centering
 \includegraphics[scale=0.8]{images/URL_importance.png}
@@ -425,8 +419,32 @@ These records are then used to generate the URL Structure Feature Importance Plo
 \label{fig:importance}
 \end{figure*}
 
-We see that for all tasks in these experiments the `path` segment provides the most consistent contribution. The subdomain
-and global fetaures appear to be strong for all of the malicious URL detection problems.
+The table of results indicates that internet security problems appear much more amenable to URL based 
+classification. All three of these problems result in high performing classifiers. In comparison the topic
+and user preference based tasks achieve far more modest performance. It is worth noting that these problems 
+are hindered by both higher cardinality targets and greater variability in dataset size, 2 of the 3 data 
+sets are much smaller than any of the security datasets. However, the performance on the very large DMOZ
+dataset strongly suggests that, in general, URL based topic classification is likely to remain a difficult
+problem. 
+
+We used the results from the best performing classification model for each individual problem and generated
+the SHAP values for the records in the test dataset. These records are then used to generate the URL Structure 
+Feature Importance Plot shown in Figure \ref{fig:importance}. This plot aggregates the importance of individual
+features into their region of origin within the URL structure. Allowing us to visualise the source of signal for
+each task and compare features across tasks.
+
+We see that there is substantial variability across all classification tasks in these experiments.
+The protocol and parameters sections remain mostly devoid of signal, with the exception of the Spam URL classifcation
+task, where we see some value in the URL parameter features. The domain, path and file regions are the predominant sources
+of signal across these tasks. Nevertheless, the emphasis changes between them. The subdomain appears particularly
+important for the phishing URL identfication, whereas the URL target file is the focus for the WebKb classifciation data.
+
+The internet security problems appear to derive less utility from the global features when compared to the three
+topic classification problems, as is indicated by the strength of the grey lines through the middle of the plot 
+for each task. The contributions of the domain name itself and the top level domain vary across the tasks and do
+not appear consistant across the top broad categories of secutity and topic classification. Suggesting that developers
+need to test these features on a task by task basis rather than relying on heuristics.
+
 
 \section{Conclusion}
 
