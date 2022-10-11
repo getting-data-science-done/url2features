@@ -2,7 +2,10 @@ import time
 import pandas as pd
 import urllib.request
 
-df = pd.read_csv("dmoz_dataset_head.csv")
+#dataset = "dmoz_dataset.csv"
+dataset = "dmoz_dataset_tail_01.csv"
+
+df = pd.read_csv(dataset)
 
 all_links = df["URL"].to_list()
 
@@ -20,9 +23,9 @@ for x in all_links:
     resp = et - st
     response_times.append(resp)
     active_links.append(active)
+    print(f"{x},{active},{resp}")
 
-total_data = pd.DataFrame({"URL":all_links, "active":active_links, "response":response_times})
-
-total_data.to_csv("DMOZ_active_response_test.csv", index=False, header=True)
+#total_data = pd.DataFrame({"URL":all_links, "active":active_links, "response":response_times})
+#total_data.to_csv("DMOZ_active_response_test.csv", index=False, header=True)
 
 
