@@ -3,7 +3,8 @@ import pandas as pd
 import urllib.request
 
 #dataset = "dmoz_dataset.csv"
-dataset = "dmoz_dataset_tail_01.csv"
+#dataset = "dmoz_dataset_tail_01.csv"
+dataset = "dmoz_dataset_tail_02.csv"
 
 df = pd.read_csv(dataset)
 
