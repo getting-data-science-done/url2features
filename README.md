@@ -49,8 +49,10 @@ python scripts/update_dom_reg_data.py data/top_50_domains.csv Domain
 python scripts/update_dom_reg_data.py data/top_50_domains_v2.csv site
 ```
 
-
 This is used to build a local cached library of domain registration dates. 
+Longer term we will need to update this cache to include a much larger database.
+If you need to use these features it is recommended that you rebuild this cache for
+you own data and use the library from source.
 
 ## Features
 
