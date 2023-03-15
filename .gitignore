@@ -1,1 +1,5 @@
 *.DS_Store
+/results/*
+/paper/refs/
+*/__pycache__/*
+url2features.egg-info/*
