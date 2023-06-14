@@ -152,4 +152,17 @@ Some features ideas taken and adapted from the following:
 * [URL Feature Extractor](https://github.com/lucasayres/url-feature-extractor)
 
 
+## How to cite
+
+If you use `url2features` in your research please cite the following article
+
+```bibtex
+@InProceedings{Hawkins2023,
+   author = {John Hawkins},
+   year = {2023},
+   title = {What's in a Domain? Anaylsis of URL Features},
+   booktitle = {},
+   month = {March.},
+}
+```
 
