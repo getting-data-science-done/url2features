@@ -11,6 +11,7 @@ import matplotlib.patches as mpatches
 from matplotlib.collections import PatchCollection
 import pandas as pd
 import sys
+import os
 
 def add_global(axes, ypos, alph):
    myy = ypos-0.55
