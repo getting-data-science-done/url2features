@@ -48,8 +48,9 @@
 Many data science problems require processing log data derived from web pages, APIs or other
 internet traffic sources. URLs are one of the few ubiquitous data fields that describe
 internet activity, hence they require effective processing for a wide variety of machine 
-learning applications. While URLs are structurally rich, the structure can be both domain specific
-and subject to change over time, making feature engineering for URLs an ongoing challenge.
+learning applications. While URLs are structurally rich, the structure can be both domain 
+specific and subject to change over time, making feature engineering for URLs an ongoing 
+challenge.
 
 In this research we outline the key structural components of URLs and discuss the information
 available within each. We describe methods for generating features on these URL components and 
@@ -72,13 +73,13 @@ and to interact with other people across a broad range of social applications. B
 surface many online services use URLs internally for communicating with other digital
 services, making the URL a fundamental data point for both users and machines.
 
-Processing URLs is key component of many tasks that involve
+Processing URLs is a key component of many tasks that involve
 analysing internet data. In many applications the URL is the central piece of 
 information available because the demands of the task require immediate analysis.
 In applications like malicious wesite detection the URL needs to be processed
 in a rapid and efficient manner to provide utility\cite{Ma2009b}.
-Common use cases for URL centered analysis include security analysis of potenital phishing 
-attacks\cite{Garera2007,Basnet2012,Basnet2014,Mamun2016,Verma2017,Vazhayil2018,Tupsamudre2019,Sirigineedi2020,Li2020}, 
+Common use cases for URL centered analysis include security analysis of potential 
+phishing attacks\cite{Garera2007,Basnet2012,Basnet2014,Mamun2016,Verma2017,Vazhayil2018,Tupsamudre2019,Sirigineedi2020,Li2020}, 
 and identification of pages that host malware or viruses \cite{Canali2011,Mamun2016}.
 There are also applications to online advertising,
 including anticipation of conversions \cite{Qiu2020}, contextual analysis of
@@ -93,7 +94,7 @@ and the likely country of origin. The domain is also a source of additional info
 through requests to Domain Name Servers (DNS) to understand both its history and the
 structure of its network topology and resources.
 
-Beyond the domain, the URL consists of a sequence of words, categories, identfiers, dates
+Beyond the domain, the URL consists of a sequence of words, categories, identifiers, dates
 or domain specific abreviations. This sequence can indicate the psychological elements of how
 information is categeoried, or the internal logic of an application that generates or presents
 content dynamically. 
@@ -107,53 +108,66 @@ content dynamically.
 \label{fig:url_structure}
 \end{figure*}
 
-Common approaches to feature engineering on URLs include string patterns and regular expressions to
-identify key sequences and lexical properties \cite{Kan2004,Garera2007,Mamun2016,Tupsamudre2019}, 
+Common approaches to feature engineering on URLs include string patterns and regular 
+expressions to identify key sequences and lexical properties 
+\cite{Kan2004,Garera2007,Mamun2016,Tupsamudre2019}, 
 creation of lookup tables or likelihood scores based on key sequences
 \cite{Meshkizadeh2010}, n-gram or bag of words models \cite{Baykan2009,Verma2017}, 
-the generation of task specific word embedding vectors based on a segmentation of the URL \cite{Le2018,Qiu2020} and the
-usage of domain name servers or registrars for ancillary information about the domain registration 
-and server configuration\cite{Canali2011,Li2020}. In many modern approaches to malicious URL detection
-multiple feature engineering approaches are typically combined\cite{Sayamber2014,Li2020}. Increasingly,
-sophisticated methods are used to combine, select or learn from combinations of features to adapt to
-changing requirements, particularly in internet security applications\cite{Sountharrajan2020,Li2020}.
+the generation of task specific word embedding vectors based on a segmentation of the 
+URL \cite{Le2018,Qiu2020} and the usage of domain name servers or registrars for 
+ancillary information about the domain registration 
+and server configuration\cite{Canali2011,Li2020}. 
+In many modern approaches to malicious URL detection
+multiple feature engineering approaches are typically combined\cite{Sayamber2014,Li2020}.
+Increasingly, sophisticated methods are used to combine, select or learn from 
+combinations of features to adapt to changing requirements, particularly in 
+internet security applications\cite{Sountharrajan2020,Li2020}.
 
-Some authors have 
-emphasized that URLs are sequences of characters and require feature extraction methods that respect 
-this sequential nature\cite{Le2018,Vazhayil2018}. They have naturally turned to developing neural network approaches
+Some authors have emphasized that URLs are sequences of characters and require 
+feature extraction methods that respect 
+this sequential nature\cite{Le2018,Vazhayil2018}. 
+They have turned to developing neural network approaches
 based on convolutional or recurrent layers for learning these sequential structures.
-However, the ordering of key features within URLs is predominantly fixed as shown in Figure \ref{fig:url_structure}.
-The core elements of URL structure occur at fixed positions within the sequence, in contrast to human language
-sequences which are built from flexible grammars that allow variable positioning of most key elements. The
-inherent structure of URLs has been demonstrated to be a source of information that can be exploited in 
-algorithm design \cite{Shih2004}. Furthermore,
-there are psychological and social elements to URL construction (such as the use of common brand names in subdomains
-for phishing attack URLS \cite{Tupsamudre2019}), which emphasize the utility of feature engineering techniques that
+However, the ordering of key features within URLs is predominantly fixed as shown 
+in Figure \ref{fig:url_structure}. The core elements of URL structure occur at 
+fixed positions within the sequence, in contrast to human language
+sequences which are built from flexible grammars that allow variable positioning of 
+most key elements. The inherent structure of URLs has been demonstrated to be a source 
+of information that can be exploited in algorithm design \cite{Shih2004}. Furthermore,
+there are psychological and social elements to URL construction (such as the use of 
+common brand names in subdomains for phishing attack URLS \cite{Tupsamudre2019}), 
+which emphasize the utility of feature engineering techniques that
 respect the inherent structure of URLs.
 
-Typically, researchers employ feature engineering strategies to exploit these potential sources of information
+Typically, researchers employ feature engineering strategies to exploit these 
+potential sources of information
 in ways that are appropriate for a given task. However, while there are wide variety
 of approaches that are inconsistently applied, there have been limited studies into
 the overall effectiveness of different strategies across a range of applications.
 
-In this work we develop a feature engineering library that maintains an ontology of URL features
-related to underlying structure of the URL. In addition we provide a method for visualising the importance of features
-across the URL structure. These techniques can prove useful for analysing features for problems that
-consist of moving targets and require broad sets of potential features and efficient feature selection \cite{Basnet2012}.
-We then present an open source package for generating features within these
+In this work we develop a feature engineering library that maintains an ontology of 
+URL features related to underlying structure of the URL. In addition we provide a 
+method for visualising the importance of features across the URL structure. 
+These techniques can prove useful for analysing features for problems that
+consist of moving targets and require broad sets of potential features and 
+efficient feature selection \cite{Basnet2012}.
+We present an open source package for generating features within these
 ontologocal classes and apply them to a variety of tasks. We present our results as a
-cross-task evaluation of URL features. The strength of our approach lies in the ability to both understand how
-machine learning models use URLs in decision making, this is opposed to the black-box problem with neural network
-models that treat the URL as a text sequence. In addition, the cross-task evaluation we perform provides insight into
-what works within different domains. This is critical as many machine learning problems that rely on URLS require
-models built on relatively small datasets, so that new patterns of fraud and behaviour can be reacted to in a timely
-fashion.
+cross-task evaluation of URL features. The strength of our approach lies in the 
+ability to both understand how machine learning models use URLs in decision making, 
+as opposed to the black-box problem with neural network
+models that treat the URL as a text sequence. In addition, the cross-task evaluation 
+we perform provides insight into what works within different domains. 
+This is critical as many machine learning problems that rely on URLS require
+models built on relatively small datasets, so that new patterns of fraud and 
+behaviour can be detected rapidly.
 
 \section{Methodology}
 
-The structural components of a URL (as illustrated in Figure \ref{fig:url_structure}) are listed in Table \ref{tab:components}.
-We include an overview the information source in each of those components and highlight how these components relate to
-functional machine learning features.
+The structural components of a URL (as illustrated in Figure \ref{fig:url_structure}) 
+are listed in Table \ref{tab:components}.
+We include an overview of the information source in each of those components and 
+highlight how these components relate to machine learning features.
 
 \begin{table*}
 \caption{URL Components and Feature Information}
@@ -182,17 +196,19 @@ Parameters   &                  &Substructure of content, personalization, secur
 }
 \end{table*}
 
-We design a feature extraction library for URLs that generates features specific to each component of the
-URL independently using a naming convention that permits sepearation and grouping for analysis.
+We design a feature extraction library for URLs that generates features specific 
+to each component of the URL independently using a naming convention that permits 
+separation and grouping for analysis.
 Previous work has presented datasets for specific problems where the features
-are provided with a similar structural grouping\cite{Vrban2020}. However, we provide our feature extraction
-application designed so that any specific subset of these features can be extracted and analysed 
-for a specific task.
+are provided with a similar structural grouping\cite{Vrban2020}. However, we provide 
+our feature extraction application designed so that any specific subset of these 
+features can be extracted and analysed for a specific task.
 
-We apply this library to multiple machine learning tasks using only URLs as the input variable. We choose
-these tasks such that they span very different classes of problems and dataset sizes. 
-We experiment with multiple standard machine learning techniques and evaluate
-the impact of the URL features using the SHAP package for feature importance. We develop a process
+We apply this library to multiple machine learning tasks using only URLs as the 
+input variable. We choose these tasks such that they span very different classes 
+of problems and dataset sizes. We experiment with multiple standard machine 
+learning techniques and evaluate the impact of the URL features using the SHAP 
+package for feature importance. We develop a process
 for analysing these features within the logical structure of the URL.
 
 \subsection{Data}
