@@ -134,7 +134,7 @@ sequences which are built from flexible grammars that allow variable positioning
 most key elements. The inherent structure of URLs has been demonstrated to be a source 
 of information that can be exploited in algorithm design \cite{Shih2004}. Furthermore,
 there are psychological and social elements to URL construction (such as the use of 
-common brand names in subdomains for phishing attack URLS \cite{Tupsamudre2019}), 
+common brand names in subdomains for phishing attack URLs \cite{Tupsamudre2019}), 
 which emphasize the utility of feature engineering techniques that
 respect the inherent structure of URLs.
 
@@ -157,7 +157,7 @@ ability to both understand how machine learning models use URLs in decision maki
 as opposed to the black-box problem with neural network
 models that treat the URL as a text sequence. In addition, the cross-task evaluation 
 we perform provides insight into what works within different domains. 
-This is critical as many machine learning problems that rely on URLS require
+This is critical as many machine learning problems that rely on URLs require
 models built on relatively small datasets, so that new patterns of fraud and 
 behaviour can be detected rapidly.
 
@@ -211,10 +211,10 @@ package for feature importance. We develop a process
 for analysing these features within the logical structure of the URL.
 
 \subsection{Data}
-The data used in this study was colated from a range of sources to represent a varity of
+The data used in this study was colated from a range of sources to represent a variety of
 Internet resource classification problems containing URLs as the primary feature.
-The ISCX Malcious URL classification dataset contains malware, spam and phishing URLS
-that need to be discriminated against a set of benign URLS\cite{Mamun2016}.
+The ISCX Malicious URL classification dataset contains malware, spam and phishing URLS
+that need to be discriminated against a set of benign URLs\cite{Mamun2016}.
 The world wide web knowledge base (WebKb) 4 Universities data set contains a wide
 range of university URLs categorised into multiple topic categories\cite{Craven1998}.
 The Syskill \& Webert webpage ratings dataset containing webepages across 4 categories
@@ -222,7 +222,7 @@ with a human generated categorisation for determining personal preferences in we
 content\cite{Pazzani1996}. Finally, we utilise the Kaggle DMOZ dataset that contains
 a large set of topic categorised URLs\cite{dmoz}.
 
-These 6 URL classification problems are summarised in Table \ref{tab:data}, where
+These 6 URL classification problems are summarised in Table \ref{tab:data}, where we
 show the number of records, the cardinality of the target classes, and the proportion
 of the data that belongs to the most common class in the set.
 
@@ -246,8 +246,9 @@ DMOZ                 &1,562,978       &15      &16\%        \\
 }
 \end{table}
 
-We generate all URL features for each of these datasets and then apply a range of machine learning
-techniques to build classifiers that can be analysed for key features for each task.
+We generate all URL features for each of these datasets and then apply a range of 
+machine learning
+techniques to build classifiers that can be analysed for key features on each task.
 
 \begin{table*}
 \caption{URL Features}
@@ -313,15 +314,20 @@ Params        &params\_len            &Numeric     &The character length of the 
 
 \subsection{Feature Generation}
 
-We generate URL features using a set of functions that focus on distinct types of features applied to specific 
-regions across the URL. This permits users to apply subsets of functions that define only the features they
-require. In addition we create a group of global features that contain general string properties of the entire 
-URL, rather than specific regions. The complete set of features, along with their categorisation and definition
+We generate URL features using a set of functions that focus on distinct types of 
+features applied to specific regions across the URL. 
+This permits users to apply subsets of functions that define only the features they
+require. In addition we create a group of global features that contain general string 
+properties of the entire URL, rather than specific regions. 
+The complete set of features, along with their categorisation and definition
 are outlined in Table \ref{tab:features}.
 
-These URL feature functions are available in our open source implmentation and python package \emph{url2features}. 
-The package is designed such that it can process large files in chunks and will only add the specific sub-groups of
-features a user requests. In addition, the naming convention is designed so that features relating to specific
+These URL feature functions are available in our open source implmentation and 
+python package \emph{url2features}. 
+The package is designed such that it can process large files in chunks and will 
+only add the specific sub-groups of
+features a user requests. In addition, the naming convention is designed so that 
+features relating to specific
 regions of the URL can be identified and analysed as a group.
 
 \begin{lstlisting}[language=Bash,label={code:cli}, caption=Install and invoke the url2features package from CLI]
@@ -329,12 +335,16 @@ pip install url2features
 url2features -columns=URLCOL -host -tld input.csv > output.csv
 \end{lstlisting}
 
-The commands for installing and invoking the \emph{url2features} package from the command line are shown
-in Listing \ref{code:cli}. 
-When execting this code it will take the tabular data inside the file \emph{input.csv} and then apply feature 
-engineering on the column named \emph{URLCOL}. The features to be created are defined by the switches 
-$-host$ and $-tld$ for the host and top level domain features. By default the application outputs to
-STDOUT, so in this example we are redirecting the output of the program to create a new file \emph{output.csv}. 
+The commands for installing and invoking the \emph{url2features} package from the 
+command line are shown in Listing \ref{code:cli}. 
+When executing this code it will take the tabular data inside the file 
+\emph{input.csv} and then apply feature 
+engineering on the column named \emph{URLCOL}. 
+The features to be created are defined by the switches 
+$-host$ and $-tld$ for the host and top level domain features. 
+By default the application outputs to
+STDOUT, so in this example we are redirecting the output of the program to 
+create a new file \emph{output.csv}. 
 
 \begin{lstlisting}[language=Python,label={code:skl}, caption=Usage of url2features with scikit-learn pipelines ]
 from url2features.pipeline import URLTransform
@@ -347,37 +357,49 @@ pipeline = Pipeline([
 ])
 \end{lstlisting}
 
-The package can also be invoked programmatically and included inside a machine learning framework like 
-scikit-learn pipelines\cite{pedregosa2011scikit}. This is shown in Listing \ref{code:skl}, where the
-same two feature engineering functions (host and tld) are included as feature transformers in a machine 
-learning pipeline. The advantage of this approach is that these transformations can be built into a single
+The package can also be invoked programmatically and included inside a machine 
+learning framework like 
+scikit-learn pipelines\cite{pedregosa2011scikit}. 
+This is shown in Listing \ref{code:skl}, where the
+same two feature engineering functions (host and tld) are included 
+as feature transformers in a machine learning pipeline. 
+The advantage of this approach is that these transformations can be built into a single
 serialised model for deployment.
 
 \subsection{Feature Importance}
 
-We use the SHAP\cite{Lundberg2017} package to calculate feature importance using a small holdout test set 
-of 80-100 samples per experiment. We aggregate the Shapley values for these sample points to calculate the mean
-absolute contribution of each feature, as is typically done in Shapley feature importance plots.
+We use the SHAP\cite{Lundberg2017} package to calculate feature importance using a 
+small holdout test set of 80-100 samples per experiment. 
+We aggregate the Shapley values for these sample points to calculate the mean
+absolute contribution of each feature, as is typically done in Shapley feature 
+importance plots.
 
-For our URL feature analysis, we then group these individual feature importance values by the specific URL segment
-that the feature was derived from, using Figure \ref{fig:url_structure} as a guide to these segments. 
+For our URL feature analysis, we then group these individual feature importance 
+values by the specific URL segment that the feature was derived from, 
+using Figure \ref{fig:url_structure} as a guide to these segments. 
 We sum the feature importance for all features within a URL segment to allow us to plot the
-segment contributions to model performance. We provide a thin grey coloured line covering the entire segment
-which captures the importance of global features (like URL length). If the script is applied to a dataset with
+segment contributions to model performance. We provide a thin grey coloured line 
+covering the entire segment
+which captures the importance of global features (like URL length). 
+If the script is applied to a dataset with
 more than just URL features then all non-URL fetaures would be grouped into this global group. All segment specific
 URL features are plotted below their segment in a canonical example URL.
 
 These plots allow for a structural understanding of how URL data
-contributes to predictive performance of a model and permits the comparison of feature importance 
-across the six problems in this study. The script for generating these plots is provided as part 
+contributes to predictive performance of a model and permits the comparison of 
+feature importance 
+across the six problems in this study. 
+The script for generating these plots is provided as part 
 of the source code for the `url2features` package.
 
 \section{Results}
 
-A set of standard machine learning pipelines are applied to each of the six problems. Each approach is applied
-using default parameters, without any fine tuning. We use feature preprocessing modules appropriate for each class
-of model. All details are available in the source repository for the experiments. The performance of the models
-is shown in Table \ref{tab:results}, where we show Balanced Accuracy of each model on the holdout data, as this
+A set of standard machine learning pipelines are applied to each of the six 
+problems. Each approach is applied using default parameters, without any fine tuning. 
+We use feature preprocessing modules appropriate for each class
+of model. All details are available in the source repository for the experiments. 
+The performance of the models is shown in Table \ref{tab:results}, where we show 
+Balanced Accuracy of each model on the holdout data, as this
 metric is appropriate and comparable across all six problems. 
 
 \begin{table}
@@ -409,52 +431,70 @@ DMOZ                 &0.12   &0.17  &0.29  &0.25     \\
 \label{fig:importance}
 \end{figure*}
 
-The table of results indicates that internet security problems appear much more amenable to URL based 
-classification. All three of these problems result in high performing classifiers. In comparison the topic
-and user preference based tasks achieve far more modest performance. It is worth noting that these problems 
-are hindered by both higher cardinality in the classification targets and greater variability in dataset size,
- 2 of the 3 data sets are much smaller than any of the security datasets. However, the performance on the very large DMOZ
-dataset strongly suggests that, in general, URL based topic classification is likely to remain a difficult
-problem. 
+The table of results indicates that internet security problems appear much more 
+amenable to URL based classification. All three of these problems result in high 
+performing classifiers. By comparison the topic and user preference classification
+tasks achieve far more modest performance. It is worth noting that these problems 
+are hindered by both higher cardinality in the classification targets and greater 
+variability in dataset size, 2 of the 3 data sets are much smaller than any of the 
+security datasets. However, the performance on the very large DMOZ
+dataset strongly suggests that, in general, URL based topic classification is 
+likely to remain a difficult problem. 
 
-We used the results from the best performing classification model for each individual problem and generated
-the SHAP values for the records in the test dataset. These records are then used to generate the URL Structure 
-Feature Importance Plot shown in Figure \ref{fig:importance}. This plot aggregates the importance of individual
-features into their region of origin within the URL structure. Allowing us to visualise the source of signal for
+We used the results from the best performing classification model for each 
+individual problem and generated the SHAP values for the records in the test dataset. 
+These records are then used to generate the URL Structure Feature Importance Plot 
+shown in Figure \ref{fig:importance}. This plot aggregates the importance of individual
+features into their region of origin within the URL structure. 
+Allowing us to visualise the source of signal for
 each task and compare features across tasks.
 
-We see that there is substantial variability across all classification tasks in these experiments.
-The protocol and parameters sections remain mostly devoid of signal, with the exception of the Spam URL classification
-task, where we see value in the URL parameter features. The domain, path and file regions are the predominant sources
-of signal across these tasks. Nevertheless, the emphasis changes between them. The subdomain appears particularly
-important for the phishing URL identfication, whereas the URL target file is the focus for the WebKb classification data.
+We see that there is substantial variability across all classification tasks in 
+these experiments.
+The protocol and parameters sections remain mostly devoid of signal, with the 
+exception of the Spam URL classification task, where we see value in the URL 
+parameter features. The domain, path and file regions are the predominant sources
+of signal across these tasks. Nevertheless, the emphasis changes between them. 
+The subdomain appears particularly
+important for the phishing URL identfication, whereas the URL from domain to filename 
+is important for the WebKb classification data.
 
-The internet security problems appear to derive less utility from the global features when compared to the three
-topic classification problems, as is indicated by the strength of the grey lines through the middle of the plot 
-for each task. This suggests that these problems rely more heavily on the information from specific components
-of the URL structure.
+The internet security problems appear to derive less utility from the global 
+features when compared to the three topic classification problems, as is 
+indicated by the strength of the grey lines through the middle of the plot 
+for each task. This suggests that these problems rely more heavily on the 
+information from specific components of the URL structure.
 
-The contributions of the domain remain high across all problems evaluated. However, whether the key elements is the
-domain name itself, the subdomain or the top level domain varies considerably across the tasks and does
-not appear consistant across the top broad categories of security and topic classification problems. 
+The contributions of the domain remain high across all problems evaluated. 
+However, whether the key elements is the
+domain name itself, the subdomain or the top level domain varies considerably 
+across the tasks and does not appear consistant across the top broad categories 
+of security and topic classification problems. 
 This suggests that data scientists and machine learning engineers
 need to test these features on a task by task basis rather than relying on heuristics.
 
 
 \section{Conclusion}
 
-We have described the structural elements of a URL from which context specific features can be extracted.
-These features tend to be used indepedently within different problem types and tuned for specific purposes. 
-In this paper we have described an open source URL feature generation package that is both sensitive to the 
-source of information within each component and sufficiently flexible for general use. We conducted experiments
+We have described the structural elements of a URL from which context specific 
+features can be extracted.
+These features tend to be used indepedently within different problem types and 
+tuned for specific purposes. 
+In this paper we have described an open source URL feature generation package 
+that is both sensitive to the 
+source of information within each component and sufficiently flexible for general use. 
+We conducted experiments
 using the features across a range of indepenent URL classification tasks. 
 
-Our experiments demonstrated that the various structural regions play different roles across 
-these tasks, exhibiting varying levels of importance. Some patterns (like the strength of global URL features)
+Our experiments demonstrated that the various structural regions play different 
+roles across these tasks, exhibiting varying levels of importance. 
+Some patterns (like the strength of global URL features)
 could be attributed to broader categories of the task, while others appear task specific.
-We have observed that the domain name, with its subcomponents, is a strong and consistent contributor to the
-performance of models across tasks. The source of information from within the domain varies, but it remains
-a rich source of information for machine learning tasks that rely on the URL as acentral feature.
+We have observed that the domain name, with its subcomponents, is a strong and 
+consistent contributor to the performance of models across tasks. The source of 
+information from within the domain varies, but it remains
+a rich source of information for machine learning tasks that rely on the URL as a 
+central feature.
 
 
 \bibliographystyle{ieeetr}
