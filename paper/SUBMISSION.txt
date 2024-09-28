@@ -1,0 +1,21 @@
+What’s in a Domain? Anaylsis of URL Features
+
+Many data science problems require processing log data derived
+from web pages, APIs or other Internet traffic sources. URLs are
+one of the few ubiquitous data fields that describe internet activity,
+hence they require effective processing for a wide variety of
+machine learning applications. While URLs are structurally rich,
+they are not subject to universal principles of construction making
+feature engineering for internet data an ongoing challenge.
+
+In this research we outline the key categories of information
+structure in domains and URLs. We share an open source implementation
+of these ideas and demonstrate their utility across a range of
+Internet traffic machine learning problems. Python package available
+at https://pypi.org/project/url2features
+
+feature engineering
+interpretable artificial intelligence
+web page classification
+
+
