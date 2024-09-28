@@ -157,12 +157,13 @@ Some features ideas taken and adapted from the following:
 If you use `url2features` in your research please cite the following article
 
 ```bibtex
-@InProceedings{Hawkins2023,
+@inproceedings{Hawkins:2023,
    author = {John Hawkins},
    year = {2023},
    title = {What's in a Domain? Anaylsis of URL Features},
-   booktitle = {},
-   month = {March.},
+   booktitle = {4th International Conference on Data Science and Cloud Computing (DSCC 2023)},
+   month = {March},
+   pages = {85-93}
 }
 ```
 
